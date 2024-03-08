@@ -23,9 +23,9 @@ let $token = ''
   
   } catch (err) {
  
-    let message =err || "Ocurrio un error";
+    let message = err || "Ocurrio un error";
    
-  alert(`Error: ${message}`);
+  alert('Error: Uusario o clave incorrecta');
   }
 }
 
@@ -46,11 +46,10 @@ let $token = ''
     console.log(res.data.data)
   if(res.data.data == 'Administrador' ||res.data.data == 'administrador' ){
     location.href = "admin/index"
-  }else if(res.data.data == 'Usuario' || res.data.data == 'usuario'){
+  }else if(res.data.data == 'Usuario' ||  res.data.data == 'usuario'){
     location.href = "user/index"
   }
     
-  
   } catch (err) {
  
     let message =err || "Ocurrio un error";
