@@ -17,7 +17,7 @@ let $token = ''
       }),
     };
 
-    let res = await axios("http://localhost:3200/login", options);
+    let res = await axios("https://aerodatos-v10-production.up.railway.app/login", options);
     sessionStorage.setItem('tok',res.data.data.token)
     openModal('pop-up','hidden')
   
@@ -43,7 +43,7 @@ let $token = ''
         "Content-type": "application/json;charset=utf-8",
        },
     };
-    let res = await axios("http://localhost:3200/token", options);
+    let res = await axios("https://aerodatos-v10-production.up.railway.app/token", options);
 
   if(res.data.data === 'Administrador'){
     location.href = "admin/index"
