@@ -225,6 +225,9 @@ main .banner img{
     flex-direction: column;
   }
   /*************** HEADER ***********/
+  header{
+    width: 100%;
+  }
   header img{
     width: 100px;
   }
