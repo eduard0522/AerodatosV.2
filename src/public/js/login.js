@@ -46,7 +46,7 @@ let $token = ''
     console.log(res.data.data)
   if(res.data.data == 'Administrador' ||res.data.data == 'administrador' ){
     location.href = "admin/index"
-  }else if(res.data.data == 'Usuario' || res.data.data == 'Usuario'){
+  }else if(res.data.data == 'Usuario' || res.data.data == 'usuario'){
     location.href = "user/index"
   }
     
