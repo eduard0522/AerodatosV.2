@@ -23,7 +23,7 @@ async function validateToken() {
       },
     };
 
-    let res = await axios("http://localhost:3200/validateToken", options);
+    let res = await axios("https://aerodatos-v10-production.up.railway.app/validateToken", options);
     $rol.textContent =res.data.rol
 
      if (!sessionStorage.tok ) {
@@ -61,7 +61,7 @@ export async function createNotification(e) {
       }),
     };
     console.log(options.data)
-    let res = await axios("http://localhost:3200/notificaciones",options)
+    let res = await axios("https://aerodatos-v10-production.up.railway.app/notificaciones",options)
     alert(`${res.data.message}`);
     clearForm();
     location.reload()
@@ -90,7 +90,7 @@ async function createSolicitud(e) {
       }),
     };
     console.log(options.data)
-    let res = await axios("http://localhost:3200/solicitudes",options)
+    let res = await axios("https://aerodatos-v10-production.up.railway.app/solicitudes",options)
     alert(`${res.data.message}`);
     createNotification(e)
     location.reload()

@@ -18,7 +18,7 @@ async function validateToken() {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios("https://aerodatos-v10-production.up.railway.app:3200/validateToken", options);
+    let res = await axios("https://aerodatos-v10-production.up.railway.app/validateToken", options);
     $rol.textContent =res.data.rol
 
      if (!sessionStorage.tok || res.data.rol === "Usuario") {
