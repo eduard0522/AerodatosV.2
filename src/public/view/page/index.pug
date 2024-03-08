@@ -1,0 +1,28 @@
+extends ../layout/layout
+
+block header 
+   include ../components/header
+block content 
+
+  article.banner 
+    img(src="../assets/img/banner.jpg", alt="Banner Aerocivil")
+
+  h2 Opciones 
+  
+  section.options-container 
+    article(class="option option-search")
+      span  
+        i(class="fa-solid fa-magnifying-glass")
+      div 
+        h3 Buscar un archivo: 
+        p Aquí podrás buscar la ubicación topográfica de cualquier archivo que este en la base de datos con tan solo ingresar la referencia.
+    article(class="option option-base")
+      span  
+        i(class="fa-solid fa-database")
+      div 
+        h3 Gestionar base de datos 
+        p Aquí podrás gestionar los archivos existentes o registrar uno nuevo para la base de datos.
+
+
+block link-js 
+  script(src="../js/script.js", type="module")

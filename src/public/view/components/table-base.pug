@@ -1,0 +1,68 @@
+link(rel="stylesheet", href="../css/table-base.css")
+section.table-container
+  section.BD
+    div.register
+      input(type="search", class="filter-data", placeholder="Palabra clave...")
+      button(type="button" ,class="button button-active-form register")
+        span.button__text Registrar
+        span(class="button__icon button-active-form register") 
+          svg(xmlns="http://www.w3.org/2000/svg", width="24" viewBox="0 0 24 24",
+              stroke-width="2", stroke-linejoin="round", stroke-linecap="round", stroke="currentColor" ,height="24",
+              fill="none", class="svg button-active-form")
+              line(y2="19", y1="5", x2="12", x1="12")
+              line(y2="12", y1="12" ,x2="19", x1="5")
+
+    table.table
+      thead
+        tr
+          th.icon-table 
+            img(src="../assets/img/bookmark-solid.svg" alt="")
+          th Expediente
+          th Referencia 
+          th Dependencia
+          th Serie
+          th Pasillo
+          th Cuerpo
+          th Estante
+          th Entrepaño
+          th Caja 
+          th Carpeta
+          th Opciones
+
+        -var expedientes=expedientes;
+        -var contador = 1;
+        
+      tbody#tbody
+        each expediente in expedientes
+          tr 
+            td=contador ++
+            td=expediente.expediente
+            td=expediente.nombre_referencia
+            td=expediente.nombre_dependencia 
+            td=expediente.nombre_serie
+            td=expediente.pasillo
+            td=expediente.cuerpo
+            td=expediente.estante
+            td=expediente.entrepanio
+            td=expediente.caja
+            td=expediente.carpeta
+            td.button-container
+              button
+                img(src="../../assets/img/edit.svg", alt="icon edit", class="edit icon-edit"
+                  data-id=expediente.expediente_id, 
+                  data-expediente=expediente.expediente
+                  data-referencia=expediente.referencia
+                  data-dependencia=expediente.dependencia 
+                  data-serie=expediente.nombre_serie
+                  data-subserie=expediente.subserie
+                  data-pasillo=expediente.pasillo
+                  data-cuerpo=expediente.cuerpo
+                  data-estante=expediente.estante
+                  data-entrepanio=expediente.entrepanio
+                  data-caja=expediente.caja
+                  data-carpeta=expediente.carpeta)
+
+              button(data-id=expediente.expediente_id , td=expediente.expediente)
+                img(src="../../assets/img/delete.svg", alt="icon delete", class="delete icon-delete" , data-id=expediente.expediente_id)
+              
+                  

@@ -1,0 +1,147 @@
+.graficas{
+  width: 90%;
+  margin: auto;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px ,1fr));
+  gap: 3rem;
+}
+
+.graficas .box{
+  display: flex;
+  height: 180px;
+  border-radius: 1rem;
+  box-shadow: 4px 4px 15px #0B60B0;
+  padding: .5rem .5rem;
+  text-align: center;
+}
+
+.graficas .box #container{
+  width: 70%;
+  height: 100%;
+}
+.graficas .box #container2{  
+  width: 70%;
+  height: 100%;
+}
+
+.graficas .box #container3{
+  width: 60%;
+  height: 100%;
+}
+
+
+.graficas .box:nth-child(2), .leyenda .muestras p{
+  padding: 0 .2rem;
+  margin: 0;
+  font-size: 12px;
+}
+
+.leyenda{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+}
+
+.graficas .box:nth-child(2) .leyenda{
+  justify-content: center;
+  align-items: flex-start;
+
+}
+.muestras{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.graficas .box:nth-child(2) .leyenda .muestras{
+  justify-content: center;
+  align-items: center;
+}
+
+.leyenda .muestrasRef p{
+  padding: 0;
+}
+
+.muestras .icono{
+  width: 20px;
+  height: 10px;
+  border-radius: .2rem;
+  background-color: #4abc5d;
+}
+.muestras .icono2{
+  width: 20px;
+  height: 10px;
+  border-radius: .2rem;
+  background-color: #2e52bcd6;
+}
+.muestras .icono3{
+  width: 20px;
+  height: 10px;
+  border-radius: .2rem;
+  background-color: #e1655ef0;
+}
+.muestras .icono4{
+  width: 20px;
+  height: 10px;
+  border-radius: .2rem;
+  background-color: #ffd05a;
+}
+.muestras .icono5{
+  width: 20px;
+  height: 10px;
+  border-radius: .2rem;
+  background-color: #0cb1c7eb;
+}
+.muestras .icono6{
+  width: 20px;
+  height: 10px;
+  border-radius: .2rem;
+  background-color: #2a66a2;
+}
+
+
+.muestras  p{
+  margin: 0;
+  padding: .2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.leyenda .img-grafica{
+  background-color: #4abc5d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.leyenda .spans{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.leyenda .spans span:first-child{
+text-align: center;
+font-size: .8rem;
+}
+.leyenda .spans span:last-child{
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  color:#4abc5d;
+  }
+
+.leyenda .spans  span.efecty{
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color:#4abc5d;
+}
+ .img-grafica img{
+  width: 60%;
+}

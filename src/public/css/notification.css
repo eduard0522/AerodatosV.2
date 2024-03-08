@@ -1,0 +1,76 @@
+.notification{
+  position: relative;
+  width: 25vw;
+  position: fixed;
+  height: 50vh;
+  overflow-y: auto;
+  left:0;
+  margin-left: 2.5rem;
+  top: 25vh;
+  background-color:#01305f;
+  padding:0 1rem;
+  border-radius: .5rem;
+  box-shadow: 2px 2px rgb(34, 92, 184);
+  z-index: 999;
+ 
+}
+.closed-notifications{
+  font-size: 1.5rem;
+  position: absolute;
+  right: 0;
+  top: .2rem;
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.header{
+  border-bottom: 1px dashed #7c8db8;
+  position: sticky;
+  top: 0;
+  background-color: #01305f;
+  z-index: 1000;
+}
+.hidden-notification{
+  transform: rotate(360deg) scale(0) translateX(-200px);
+  transition: ease-in-out all 1s;
+}
+
+.notification h3{
+  padding: .2rem;
+  margin: 0;
+  color:#fff;
+ 
+}
+.dates{
+  position: relative;
+  width: 90%;
+  height: 120px;
+  margin: 1rem auto;
+  border: 1px dashed #7c8db8;
+}
+.dates p:first-child{
+  border-bottom: 1px dashed #7c8db8;
+}
+
+.dates p{
+  padding: .2rem;
+  margin: 0;
+  font-weight: bold;
+  color: #fff;
+}
+
+.closed{
+  position: absolute;
+  right: 0;
+  top: 0rem;
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  color:rgb(254, 254, 254);
+  font-size:1.2rem;
+}
+
+

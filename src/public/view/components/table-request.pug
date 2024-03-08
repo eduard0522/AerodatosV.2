@@ -1,0 +1,51 @@
+link(rel="stylesheet", href="../css/table-request.css")
+
+section.table
+  div.filterInput
+    input(type="search" class="filter-data" placeholder="Palabra clave...")
+        
+  table
+    thead
+      tr
+        th NUMERO
+        th EXPEDIENTE
+        th REFERENCIA
+        th SOLICITANTE 
+        th CORREO 
+        th F/SOLICITUD 
+        th F/CIERRE
+        th OPCIONES
+    -var solicitudes=solicitudes;
+    -var total = 0
+    -var cerradas = 0
+    -var abiertas = 0
+    tbody 
+      each solicitud in solicitudes
+       -total++
+        tr 
+          td=total
+          td=solicitud.expediente 
+          td.referencia=solicitud.referencia 
+          td=solicitud.solicitante
+          td
+            a(href=`mailto:${solicitud.correo}`)=solicitud.correo 
+          td.fechaS=solicitud.fecha_solicitud
+          td.fechaC=solicitud.fecha_cierre
+          -var estado = solicitud.estado
+          case estado 
+            when 0
+               -cerradas++ 
+            when 1
+              -abiertas++
+          td.container-btns 
+            button.btn-delete
+              img(src="../../assets/img/delete.svg", alt="icon delete", class="delete icon-delete" data-id=solicitud.id_solicitud)
+              case estado 
+                when 0
+                  button(class="edit btn-abrir" data-id=solicitud.id_solicitud) Abrir
+                when 1
+                  button(class="edit btn-cerrar" data-id=solicitud.id_solicitud) Cerrar       
+
+span(class="span-total hidden")=total   
+span(class="span-abiertas hidden")=cerradas
+span(class="span-cerradas hidden")=abiertas     

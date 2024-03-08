@@ -1,0 +1,10 @@
+extends ../layout/layout
+block header 
+   include ../components/header
+
+block content 
+   include ../components/table-users
+   include ../components/form-request
+
+block link-js 
+  script(src="../js/usuario.js" , type="module")

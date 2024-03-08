@@ -1,0 +1,28 @@
+link(rel="stylesheet", href="../css/header.css")
+header 
+  div 
+    h2 Aeronaútica civil 
+    nav
+      ul 
+        li.active
+          i(class="fa-solid fa-house") 
+          a(href="/index").hidden-responsive Home
+        li 
+          i(class="fa-solid fa-database") 
+          a(href="/base").hidden-responsive Base de datos
+        li 
+          i(class="fa-solid fa-users-gear") 
+          a(href="/solicitudes").hidden-responsive Solicitudes
+        li 
+          i(class="fa-solid fa-eye") 
+          a(href="/usuario").hidden-responsive Vista Usuario
+        li 
+         div.container-notification
+           i(class="fa-solid fa-bell") 
+           a(href="#" class="hidden-responsive show-notifications") Notificaciones 
+           span.notificationNunmber (0)
+        li.logout 
+          i(class="fa-solid fa-right-from-bracket logout") 
+          a(href="").hidden-responsive Cerrar Sesión
+  
+  img(src="../assets/img/potenciaVida.svg", alt="Logo colombia potencia de vida").hidden-responsive

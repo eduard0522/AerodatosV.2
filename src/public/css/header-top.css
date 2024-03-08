@@ -1,0 +1,31 @@
+.top-information{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  
+}
+
+.date-container{
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.date-container span{
+  display: block;
+}
+
+.profile-container{
+  display: flex;
+  align-items: center;
+}
+
+.profile-container img{
+  margin-right: .5rem;
+  width: 60px;
+}
+.profile-container span{
+  font-weight: bold;
+  font-size: 1.2rem;
+}

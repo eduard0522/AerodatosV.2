@@ -1,0 +1,166 @@
+/*************** TABLE-CONTAINER ********************/
+
+.table-container{
+  margin-top: 3rem;
+  background-color: #ffffff;
+  box-shadow: 3px 3px 5px  #6470e4;
+  border-radius: 1rem;
+  height:50vh;
+  overflow: auto;
+}
+.BD{
+  width: inherit;
+  height: auto;
+}
+.BD .register{
+  display:flex;
+  justify-content: space-between;
+  padding: .5rem;
+}
+.BD  input{
+  display: inline-block;
+  width: 70%;
+  padding: .5rem;
+  border: solid 1px #d8d5d5;
+  border-radius: .2rem;
+  font-size: .8rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+.button {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #34974d;
+  background-color: #ffffff;
+  margin-right: 1rem;
+}
+
+.button, .button__icon, .button__text {
+  transition: all 0.3s;
+}
+
+.button .button__text {
+  transform: translateX(30px);
+  color: #0d8218;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.button .button__icon {
+  position: absolute;
+  transform: translateX(109px);
+  height: 100%;
+  width: 39px;
+  background-color: #34974d;
+  border: 1px solid #34974d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button .svg {
+  width: 30px;
+  stroke: #fff;
+}
+
+.button:hover {
+  background: #34974d;
+  border-radius: .5rem;
+}
+
+.button:hover .button__text {
+  color: transparent;
+}
+
+.button:hover .button__icon {
+  width: 148px;
+  transform: translateX(0);
+  border-radius: .5rem;
+}
+
+.button:active .button__icon {
+  background-color: #2e8644;
+}
+
+.button:active {
+  border: 1px solid #2e8644;
+}
+
+/************************* Table ***********************/
+.table{
+  display: table;
+  width: 100%;
+  height: auto;
+  margin: auto;
+  padding: .5rem 1rem;
+  border-spacing: 0;
+  border-radius: .5rem;
+}
+table{
+  border-radius: .5rem;
+}
+.table thead{
+  background-color:var(--primary-color);
+  color:var(--second-color) ;
+  padding: .5rem .2rem;
+}
+.table thead th{
+  padding: .8rem 0.1rem;
+  text-align:left;
+  font-weight: bold;
+  text-align: center;
+}
+table thead th:first-child{
+  border-top-left-radius: .5rem;
+  border-bottom-left-radius: .5rem;
+  padding-left: .2rem;
+}
+.table thead th:last-child{
+  border-top-right-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+}
+
+.table tbody{
+  padding: .3rem 0;
+}
+
+.table tbody td{
+  padding: .3rem 0.1rem;
+  color: #000;
+  font-weight: bold;
+  background-color: #ffffff60;
+  text-align: center;
+}
+.icon-table img{
+  width: 30px;
+  height: 25px;
+  margin-right: .2rem;
+  padding: 0;
+}
+.button-container{
+  display: flex;
+  justify-content: space-evenly;
+}
+.button-container button{
+  background-color: #fff;
+  border: 0;
+  padding: 0;
+  cursor:pointer;
+}
+.edit, .delete{
+  width: 25px;
+  height: 25px;
+}
+
+.filter{
+   visibility: hidden;
+   opacity: 0;
+   transition: all .3s ease-in-out;
+ }
+ .filter2{
+    display: none; 
+  }

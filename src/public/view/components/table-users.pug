@@ -1,0 +1,32 @@
+link(rel="stylesheet", href="../css/table-users.css")
+
+section.table-container
+  section.BD
+    div.register
+      input(type="search", class="filter-data", placeholder="Palabra clave...")
+      
+    table.table
+      thead
+        tr
+          th.icon-table 
+            img(src="../assets/img/bookmark-solid.svg" alt="")
+          th Expediente
+          th Referencia 
+          th Dependencia
+          th Caja
+          th Carpeta
+          th Opciones
+
+      -var expedientes=expedientes;
+      -var contador = 1
+      tbody#tbody
+        each expediente in expedientes
+          tr 
+            td=contador++
+            td=expediente.expediente
+            td=expediente.nombre_referencia 
+            td=expediente.nombre_dependencia 
+            td=expediente.caja
+            td=expediente.carpeta
+            td
+               button(type="button", class="send-appli" data-expediente=expediente.expediente,data-dependencia=expediente.nombre_dependencia,data-referencia=expediente.nombre_referencia) Solicitar 

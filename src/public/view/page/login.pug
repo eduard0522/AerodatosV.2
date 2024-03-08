@@ -1,0 +1,50 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+    link(rel="stylesheet", href="../css/login.css")
+
+  body 
+    main
+       section.container
+          article.header
+             div.logos
+                 div.logoColombia
+                 img(src="../assets/img/potenciavida.svg" alt="Logo colombia potencia de vida")
+         
+                 div.logoAerocivil
+                   img(src="../assets/img/Logo.svg" alt="Logo Aerocivil")
+         
+             div.image
+                 img(src="../assets/img/img.svg" alt="Logo SGDA")
+       
+
+          article.form
+            form.form-user
+               h2 Hola, ¡Bienvenido de vuelta!
+               div
+                 h1 Iniciar Sesión
+                 h3 Ingrese sus datos para empezar a usar la app
+
+               input(type="text" placeholder="Usuario" name="userName")
+               input(type="password" placeholder="Contraseña" name="password")
+               a(href="#" class="forgot-password">Olvide mi contraseña)
+               button(type="submit") Acceder 
+         
+            div.copyright
+              p V1.0 Versión Alpha
+              p Lorem, ipsum dolor sit amet consectetu
+
+    
+    
+    section(id="pop-up" class="pop-up hidden")
+       div.pop-upContiner
+        h3 Bienvenido!! 
+        p ¡¡Estamos felices de tenerte de vuelta, recuerda reportar cualquier anomalía en nuestro aplicativo!!
+        button(type="button" class="login") OK
+        
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script(src='../js/login.js', type='module')
+        
