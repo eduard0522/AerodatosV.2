@@ -1,3 +1,4 @@
+import { secret_pass } from "../src/config.js"
 import { validateUserModel, validateTokenModel } from "../models/login.js";
 import  jwt  from "jsonwebtoken";
 
@@ -14,7 +15,7 @@ export const validateUser = async (req, res) => {
       rol:user.rol,
     };
 
-    const token = jwt.sign({ data: userForToken }, process.env.SECRET_PASS, {
+    const token = jwt.sign({ data: userForToken },secret_pass, {
       expiresIn: "5h",
     });
     res.json({
@@ -40,7 +41,7 @@ export const validateToken = async (req,res) => {
   }
 
   try {
-    const decriptToken = jwt.verify(autorizathion, process.env.SECRET_PASS);
+    const decriptToken = jwt.verify(autorizathion, secret_pass);
 
     const validation = await validateTokenModel(decriptToken.data.id);
 
