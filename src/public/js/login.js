@@ -33,7 +33,6 @@ let $token = ''
  
  async function validateToken(e) {
   $token = sessionStorage.getItem('tok');
-  console.log($token)
   try {
     console.log('ingreso');
     let options = {
@@ -44,10 +43,10 @@ let $token = ''
        },
     };
     let res = await axios("https://aerodatos-v10-production.up.railway.app/token", options);
-
-  if(res.data.data === 'Administrador'){
+    console.log(res.data.data)
+  if(res.data.data == 'Administrador'){
     location.href = "admin/index"
-  }else if(res.data.data === 'Usuario'){
+  }else if(res.data.data == 'Usuario'){
     location.href = "user/index"
   }
     
@@ -65,12 +64,13 @@ d.addEventListener("submit", async  (e) => {
  
  if(e.target === $form )
   e.preventDefault();
-  createFile(e);
+   createFile(e);
 });
+
 
  d.addEventListener("click", (e) => {
 
   if(e.target.matches('.login')){
     validateToken()
  }
-});
+}); 
