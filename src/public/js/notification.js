@@ -7,7 +7,7 @@ let total = 0;
 
 const getNotification = async () => {
     try {
-      let res = await axios.get(`http://localhost:3200/notificaciones`),
+      let res = await axios.get(`https://aerodatos-v10-production.up.railway.app//notificaciones`),
         json = await res.data.data;
 
         json.forEach(element => {
@@ -59,7 +59,7 @@ async function deleteNotification(id) {
           method: "DELETE",
           headers: {"Content-type": "application/json; charset=utf-8" },
         }
-        let res = await axios(`http://localhost:3200/notificaciones/${id}`, options),
+        let res = await axios(`https://aerodatos-v10-production.up.railway.app/notificaciones/${id}`, options),
           json = await res.data;
           alert(res.data.message)
           console.log(res.data)

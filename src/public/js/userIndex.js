@@ -20,7 +20,7 @@ async function validateToken(req, res) {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios(`http://localhost:3200/validateToken`, options);
+    let res = await axios(`https://aerodatos-v10-production.up.railway.app/validateToken`, options);
 
     $rol.textContent = res.data.rol;
      

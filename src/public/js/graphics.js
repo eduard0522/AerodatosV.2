@@ -32,7 +32,7 @@ async function validateToken() {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios(`http://localhost:3200/validateToken`, options);
+    let res = await axios(`https://aerodatos-v10-production.up.railway.app/validateToken`, options);
 
     console.log(res.data.rol)
     $rol.textContent = res.data.rol
@@ -72,7 +72,7 @@ export async function updateSolicitud(id, estado,fecha_cierre) {
       
       }),
     };
-    let res = await axios(`http://localhost:3200/solicitudes/${id}`, options),
+    let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/${id}`, options),
       json = await res.data;
       alert("Actualización exitosa!!");
       location.reload();
@@ -93,7 +93,7 @@ export async function deleteSolicitud(id) {
         method: "DELETE",
         headers: { "Content-type": "application/json; charset=utf-8" },
       };
-      let res = await axios(`http://localhost:3200/solicitudes/${id}`,options),
+      let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/${id}`,options),
         json = await res.data;
         alert("Solicitud eliminada con éxito");
         location.reload();
