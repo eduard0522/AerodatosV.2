@@ -145,3 +145,11 @@ font-size: .8rem;
  .img-grafica img{
   width: 60%;
 }
+
+@media(max-width:700px){
+  .graficas{
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+ 
+}
