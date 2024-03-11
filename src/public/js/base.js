@@ -1,5 +1,7 @@
+
 import { createExpedient, editExpedient, insertDateForm,clearDateForm, deleteFile } from "./expedientsRequest.js";
 import { ClosedModal, openModal } from "./modals.js";
+import searchFilter from "./filters.js";
 
 const d = document;
 const $rol = d.querySelector(".rol-header");
@@ -18,7 +20,7 @@ async function validateToken() {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios("https://aerodatos-v10-production.up.railway.app/validateToken", options);
+    let res = await axios(`http://localhost:3200/validateToken`, options);
     $rol.textContent =res.data.rol
 
      if (!sessionStorage.tok || res.data.rol === "Usuario") {
@@ -62,9 +64,14 @@ d.addEventListener('click',(e) => {
   if (e.target.matches(".closed-notifications")) {
     document.querySelector('.notification').classList.add('hidden-notification');
   }
-  if (e.target.matches(".show-notifications")) {
-    document.querySelector('.notification').classList.remove('hidden-notification');
+  if (e.target.matches(".show-notifications") || e.target.matches(".container-notification")) {
+    document.querySelector('.notification').classList.toggle('hidden-notification');
   }
+  if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
+    document.querySelector('header').classList.toggle('menu-resposive');
+  }
+
+  searchFilter(".filter-data",".tr-filter");
   });
 
 

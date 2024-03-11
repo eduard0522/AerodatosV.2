@@ -12,7 +12,6 @@
   border-radius: .5rem;
   box-shadow: 2px 2px rgb(34, 92, 184);
   z-index: 999;
- 
 }
 .closed-notifications{
   font-size: 1.5rem;
@@ -74,3 +73,17 @@
 }
 
 
+@media(max-width:600px){
+  .notification{
+    width: 100vw;
+    height: 35vh;
+    overflow-y: auto;
+    left:0;
+    margin: 0;
+    top: 30vh;
+    background-color:#01305f;
+    padding:0 1rem;
+    border-radius: .5rem;
+    z-index: 999;
+  }
+}

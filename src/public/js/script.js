@@ -1,4 +1,5 @@
 import { openModal } from "./modals.js";
+
 const d = document;
 const $rol = d.querySelector(".rol-header");
 let $token;
@@ -21,7 +22,7 @@ async function validateToken(req, res) {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios("https://aerodatos-v10-production.up.railway.app/validateToken", options);
+    let res = await axios(`http://localhost:3200/validateToken`, options);
 
     $rol.textContent = res.data.rol;
      
@@ -39,8 +40,12 @@ async function validateToken(req, res) {
         if (e.target.matches(".closed-notifications")) {
           document.querySelector('.notification').classList.add('hidden-notification');
         }
-        if (e.target.matches(".show-notifications")) {
-          document.querySelector('.notification').classList.remove('hidden-notification');
+        if (e.target.matches(".show-notifications") || e.target.matches(".container-notification")) {
+          document.querySelector('.notification').classList.toggle('hidden-notification');
+        }
+        
+        if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
+          document.querySelector('header').classList.toggle('menu-resposive');
         }
     });
     

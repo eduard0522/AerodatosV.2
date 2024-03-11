@@ -1,6 +1,7 @@
 
 import { openModal } from "./modals.js";
 import {getRutas} from '../js/getRutas.js'
+import searchFilter from "./filters.js";
 
 const d = document;
 const $rol = d.querySelector(".rol-header");
@@ -17,6 +18,7 @@ d.querySelector('.efecty').textContent = `${parseFloat(abiertas*100/total).toFix
 d.addEventListener("DOMContentLoaded", (e) => {
   validateToken();
   getRutas(parseInt(total), parseInt(abiertas),parseInt(cerradas));
+  searchFilter(".filter-data",".tr-filter");
 });
 
 async function validateToken() {
@@ -30,7 +32,7 @@ async function validateToken() {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios("https://aerodatos-v10-production.up.railway.app/validateToken", options);
+    let res = await axios(`http://localhost:3200/validateToken`, options);
 
     console.log(res.data.rol)
     $rol.textContent = res.data.rol
@@ -45,12 +47,7 @@ async function validateToken() {
        } else if (res.data.rol === "Usuario") {
         window.location = "user/expedientes";
        }}
-       if (e.target.matches(".closed-notifications")) {
-        document.querySelector('.notification').classList.add('hidden-notification');
-      }
-      if (e.target.matches(".show-notifications")) {
-        document.querySelector('.notification').classList.remove('hidden-notification');
-      }
+  
      });
   } catch (error) {
     res.status(error?.status || 500);
@@ -75,7 +72,7 @@ export async function updateSolicitud(id, estado,fecha_cierre) {
       
       }),
     };
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/${id}`, options),
+    let res = await axios(`http://localhost:3200/solicitudes/${id}`, options),
       json = await res.data;
       alert("Actualización exitosa!!");
       location.reload();
@@ -96,10 +93,7 @@ export async function deleteSolicitud(id) {
         method: "DELETE",
         headers: { "Content-type": "application/json; charset=utf-8" },
       };
-      let res = await axios(
-          `https://aerodatos-v10-production.up.railway.app/solicitudes/${id}`,
-          options
-        ),
+      let res = await axios(`http://localhost:3200/solicitudes/${id}`,options),
         json = await res.data;
         alert("Solicitud eliminada con éxito");
         location.reload();
@@ -148,4 +142,14 @@ d.addEventListener('click', (e)=>{
   if(e.target.matches('.delete')){
     deleteSolicitud(e.target.dataset.id)
   }
+  if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
+    document.querySelector('header').classList.toggle('menu-resposive');
+  }
+  if (e.target.matches(".show-notifications") || e.target.matches(".container-notification")) {
+    document.querySelector('.notification').classList.toggle('hidden-notification');
+  }
+  if (e.target.matches(".closed-notifications")) {
+    document.querySelector('.notification').classList.add('hidden-notification');
+  }
+
 })

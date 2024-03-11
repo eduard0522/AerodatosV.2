@@ -7,6 +7,31 @@
   
 }
 
+.btn-menu {
+padding: 1rem 1rem 0 1rem;
+background-color: var(--second-color);
+position: sticky;
+text-align: end;
+top:0px;
+left: 0;
+z-index: 998;
+color:var(--primary-color);
+font-size: 1.5rem;
+font-weight: bold;
+}
+
+.hidden-btn{
+  display: none;
+  visibility: hidden;
+}
+
+.btn-menu i{
+  font-size: 1.8rem;
+  z-index: 999;
+  color: var(--primary-color);
+  margin-right: .5rem;
+}
+
 .date-container{
   color: var(--primary-color);
   font-weight: bold;
@@ -28,4 +53,19 @@
 .profile-container span{
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+
+@media(max-width:900px){
+  .hidden-responsive{
+    display: none;
+    visibility: hidden;
+  }
+}
+
+@media(max-width:600px){
+  .hidden-btn{
+    display: block;
+    visibility: visible;
+  }
 }

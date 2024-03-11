@@ -1,15 +1,13 @@
 
 import { ClosedModal, openModal } from "./modals.js";
+import searchFilter from "./filters.js";
+
 
 const d = document;
 const $rol = d.querySelector(".rol-header"),
 $form = d.querySelector('.form-file')
 let $token;
 
-
-d.addEventListener("DOMContentLoaded", (e) => {
-  validateToken();
-});
 
 async function validateToken() {
   $token = sessionStorage.getItem("tok");
@@ -23,7 +21,7 @@ async function validateToken() {
       },
     };
 
-    let res = await axios("https://aerodatos-v10-production.up.railway.app/validateToken", options);
+    let res = await axios(`http://localhost:3200/validateToken`, options);
     $rol.textContent =res.data.rol
 
      if (!sessionStorage.tok ) {
@@ -61,7 +59,7 @@ export async function createNotification(e) {
       }),
     };
     console.log(options.data)
-    let res = await axios("https://aerodatos-v10-production.up.railway.app/notificaciones",options)
+    let res = await axios(`http://localhost:3200/notificaciones`,options)
     alert(`${res.data.message}`);
     clearForm();
     location.reload()
@@ -90,7 +88,7 @@ async function createSolicitud(e) {
       }),
     };
     console.log(options.data)
-    let res = await axios("https://aerodatos-v10-production.up.railway.app/solicitudes",options)
+    let res = await axios(`http://localhost:3200/solicitudes`,options)
     alert(`${res.data.message}`);
     createNotification(e)
     location.reload()
@@ -100,6 +98,10 @@ async function createSolicitud(e) {
   }  
 }
 
+d.addEventListener("DOMContentLoaded", (e) => {
+  validateToken();
+  searchFilter(".filter-data",".tr-filter");
+});
 
 d.addEventListener('click', (e) =>{
   if(e.target.matches('.send-appli')){
@@ -112,8 +114,12 @@ d.addEventListener('click', (e) =>{
   if (e.target.matches(".closed-notifications")) {
     document.querySelector('.notification').classList.add('hidden-notification');
   }
-  if (e.target.matches(".show-notifications")) {
-    document.querySelector('.notification').classList.remove('hidden-notification');
+  if (e.target.matches(".show-notifications") || e.target.matches(".container-notification")) {
+    document.querySelector('.notification').classList.toggle('hidden-notification');
+  }
+    
+  if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
+    document.querySelector('header').classList.toggle('menu-resposive');
   }
 })
 

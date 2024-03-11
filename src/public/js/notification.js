@@ -7,7 +7,7 @@ let total = 0;
 
 const getNotification = async () => {
     try {
-      let res = await axios.get("https://aerodatos-v10-production.up.railway.app/notificaciones"),
+      let res = await axios.get(`http://localhost:3200/notificaciones`),
         json = await res.data.data;
 
         json.forEach(element => {
@@ -59,11 +59,13 @@ async function deleteNotification(id) {
           method: "DELETE",
           headers: {"Content-type": "application/json; charset=utf-8" },
         }
-        let res = await axios(`https://aerodatos-v10-production.up.railway.app/${id}`, options),
+        let res = await axios(`http://localhost:3200/notificaciones/${id}`, options),
           json = await res.data;
           alert(res.data.message)
-          location.reload(); 
+          console.log(res.data)
+          
       }catch (err) {
+        console.log(err)
         let message = err.statusText || "Ocurrio un error";
         alert(` Error ${err.status}: ${message}`)
     }
@@ -73,6 +75,7 @@ async function deleteNotification(id) {
 document.addEventListener('click',(e) =>{
   if(e.target.matches('.closed')){
   deleteNotification(e.target.dataset.id)
+  console.log(e.target.dataset.id)
   }
 })
 
@@ -82,7 +85,4 @@ const addClassNotification = () =>{
   if(localStorage.notificaciones >= 1){
     document.querySelector('.fa-bell').classList.add('active-notification');
   }
-
-  
-  
 }

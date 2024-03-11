@@ -18,6 +18,7 @@ export async function validateExpedient(data){
     return true;
   }
 
+  console.log(result)
   return false
 
   } catch (error) {

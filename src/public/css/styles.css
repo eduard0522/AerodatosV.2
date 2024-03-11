@@ -37,12 +37,12 @@ body{
 }
 /********************* BANNER *******************/
 main .banner{
-  position: relative;
   width: 100%;
-  padding: 1rem;
 }
 main .banner img{
   width: 100%;
+  border-radius: 1rem;
+  aspect-ratio: 1280px/210px;
 }
 /**************** OPTIONS **********************/
 .options-container{
@@ -76,197 +76,79 @@ main .banner img{
   font-weight: bold;
 }
 
-/*********************** PopUp ******************/
-.pop-up{
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #00000027;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.pop-upContiner{
-  width: 400px;
-  height: 250px;
-  background-color: #0f1012ad;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  padding: 1rem;
-  border-radius: .5rem;
-  box-shadow: 2px 2px 2px var(--primary-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-
-.pop-upContiner h3{
-  display: block;
-  width: 100%;
-  text-align: center;
-  margin: 0;
-  padding: 1rem .5rem;
-  border-bottom: 1px dashed var(--primary-color);
-}
-
-.pop-upContiner p{
-  padding: 0 .5rem 0 .5rem;
-  text-align: center;
-}
-.pop-upContiner button{
-  width: 30%;
-  border-radius: .3rem;
-  border: none;
-  background-color: var(--primary-color);
-  color: var(--second-color);
-  font-weight: bold;
-  padding: .2rem;
-  cursor: pointer;
-  align-self: flex-end;
-}
-
-.pop-upContiner button:hover{
-  background-color: #0d4982;
-}
 
 .hidden{
   visibility: hidden;
   display: none;
 }
-/********************* FOOTER ******************/
 
 /*************************** MEDIA SCREEN ****************/
-@media(max-width:1200px){
-  html,body,header,.general-form-container{
-    padding: 1rem;
-  }
-  header,.general-container{
-    width: auto;
-  }
-  .box{
-    width: 90%;
-  }
-}
+
 
 @media (max-width:900px) {
-  html,body,header,.general-container{
+  html{
+    padding: 0rem;
+  }
+  
+  body{
+    padding: .5rem .5rem .5rem 0;
+  }
+
+  /**************** OPTIONS **********************/
+
+  .options-container .option{
+    padding: .5rem;
+  }
+  .options-container .option span {
+    padding:1rem 1rem 1rem 0;
+  }
+  .options-container .option span i{
+    font-size: 3rem;;
+  }
+ 
+}
+@media (max-width:600px) {
+  html{
+    padding: 0rem;
+    border-radius: 0;
+    background-color: var(--primary-color);
+  }
+  body{
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    padding:0rem ;
+    border-radius: .5rem;
+  }
+  main .banner img{
+    height: 120px;
+    border-radius: 1rem;
+    aspect-ratio: 1280px/210px;
+  }
+  
+  /*********************** GENERAL CONTAINNER ***************************/
+  .general-container{
+    width: 100%;
+    border-radius: .5rem;
     padding: 1rem;
   }
-   /*************** HEADER ***********/
-  header{
-    padding: 1rem 1rem 1rem 0;
-
-  }
-  header,.general-container{
-    width: auto;
-  }
-  header img{
-    width: 130px;
-  }
-  header h2{
-    font-size: 1.2rem;
-  }
-  header a{
-    font-size: 1.1rem;
-  }
-   /********** MAIN TOP **********/
-
-  .top-information .date-container{
-    display: none;
-    visibility: hidden;
-  }
+  /**************** OPTIONS **********************/
   .options-container{
     flex-direction: column;
-    padding: .5rem;
+    justify-content: center;
+    align-items: center;
   }
   
   .options-container .option{
     width: 100%;
-    margin-bottom: 2rem;
-    border-radius: 1.5rem;
     padding: .5rem;
+    margin-bottom: 1rem;
   }
-  /****** Footer *****/
-  footer div:nth-child(3){
-    display: none;
-    visibility: none;
-  }
- .logos-container h3,.info h3,f{
-  font-size:1rem;
-  margin: 0;
-  padding: .2rem;
- }
- .logos-container p{
-  margin: 0 0 .5rem 0;
-  padding: .2rem;
-  font-size: .8rem;
- } 
- footer .info ul li{
-  margin: 0;
-  padding: .2rem;
-  font-size: .8rem;
- }
-}
-
-@media (max-width:600px) {
-  .hidden-responsive{
-    display: none;
-    visibility: none;
-  }
-  html, body, header,.general-container{
-    padding: .5rem;
-  }
-  body{
-    flex-direction: column;
-  }
-  /*************** HEADER ***********/
-  header{
-    width: 100%;
-  }
-  header img{
-    width: 100px;
-  }
-  header h2{
-    font-size: 1.5rem;
-  }
-  header a{
-    font-size: 1rem;
-  }
-  header nav ul{
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-    margin: .5rem;
-    font-size: 1.5rem;
-  }
-  /********** MAIN TOP **********/
-  .top-information h2{
-    display: block;
-    
-  }
-  .top-information h2{
-    display: block;
-    visibility:visible;
-  }
-/**************** OPTIONS **********************/
-
-.options-container .option img{
-  padding: .5rem;
-}
   
- 
-  /****** Footer *****/
-  .logos-container img{
-    margin: 0;
-    padding: 0;
-    width: 80px;
+  .options-container .option span {
+    padding: 1rem ;
   }
-  footer{
-    flex-direction: column;
+  .options-container .option span i{
+    font-size: 2rem;;
   }
 }

@@ -24,7 +24,24 @@ export const getExpedientsModel = async () => {
 };
 
 
-
+export const getExpedientByIdModel = async (id) => {
+  try {
+    const [expedient] = await connectionDB.query(
+      "SELECT * FROM expedientes WHERE expediente_id = ? ; ",[id] );
+    if (!expedient) {
+      throw {
+        status: 500,
+        message: "¡¡ No se logro obtener los expedientes, intente mas tarde !!",
+      };
+    }
+    return expedient;
+  } catch (error) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
 
 
 export const createExpedientModel = async ({input}) => {
@@ -154,14 +171,6 @@ export const  editExpedientModel = async (data,id) => {
       }  
     }
 
-      const ifexistExpedient = await validateExpedient(expediente);
-        if(!ifexistExpedient){
-          throw{
-            status: 500,
-            message: "¡ ¡No se logro obtener los expedientes, intente mas tarde !!"}
-        }
-
-
       const ifexistSerie = await validateFilds('series','nombre_serie',serie);
 
         if(!ifexistSerie){
@@ -244,6 +253,7 @@ export const  editExpedientModel = async (data,id) => {
             message:'Ocurrio un error en la inserción de los datos, intente nuevamente.'
           }  
         }
+        
         return editExpedient; 
 
     }catch (error) {

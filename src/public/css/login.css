@@ -9,24 +9,18 @@
 *{
     font-family: 'Baloo 2', sans-serif;
 }
-*
-*::after
+*,
+*::after,
 *::before{
     box-sizing: border-box;
+}
 
-}
-.logos{
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 60px;
-    padding: 2rem;
-}
 
 html{
     background-color: var(--primary-color);
     padding: 3rem;
 }
+
 body{
    background-color: var(--second-color);
    max-width: 1200px;
@@ -50,11 +44,13 @@ form h3{
     justify-content:space-between;
     align-items: center;
     width: 80%;
-
+    margin: auto;
 }
+
 .logoColombia{
-    width: 256px;
-    height: 100px;
+    width: 200px;
+    height: 76px;
+    aspect-ratio: 200px/76px;
 }
 
 .logoColombia img{
@@ -62,8 +58,9 @@ form h3{
 }
 
 .logoAerocivil{
-    height: 100px;
-    width: 100px; 
+    height: 76px;
+    width: 76px; 
+    aspect-ratio: 76px/76px;
 }
 .logoAerocivil img{
     width: 100%;
@@ -86,6 +83,7 @@ form h3{
     width: 100%;
     height: auto;
     margin-top: 3rem;
+    aspect-ratio: 482px/490px;
 }
 
 .form{
@@ -98,11 +96,11 @@ form h3{
 }
 
 .form form{
+    height: 100%;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content:space-around;
-    width: 70%;
-    height: 80%;
     text-align: center;
     padding: 1rem;
 }
@@ -123,6 +121,7 @@ form h3{
     padding: .5rem 1rem;
     border: 1px solid #bdb8b8;
 }
+
 .forgot-password{
     text-decoration: none;
     font-weight: bold;
@@ -159,6 +158,9 @@ form h3{
   }
   
   .pop-upContiner{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     width: 400px;
     height: 250px;
     background-color: #ffffff;
@@ -166,9 +168,7 @@ form h3{
     border-radius: .5rem;
     box-shadow: 2px 2px 2px var(--primary-color);
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    
   }
   
   .pop-upContiner h3{
@@ -207,73 +207,71 @@ form h3{
 
 @media (max-width:700px){
     html{
+        background-color: var(--primary-color);
         padding: 0rem;
     }
-   body{
-    background-color: var(--primary-color);
-    font-size: 14px;
-   }
-   body{
-    margin: 0;
-    padding: 1rem;
-    border-color: var(--primary-color);
-    }
-    .container{
-        background-color: var(--second-color);
-        margin-top: 20%;
-        flex-direction: column;
-        border-radius: .5rem;
-    }
-
-    .header{
-        margin: auto;
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-        justify-content: space-around;
-        align-items: center;
-        
-        height: 6rem;
-        padding: .3rem;
-
-    }
-    .logos{
-        padding:.2rem;
+    
+    body{
         width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin:auto;
     }
-    .logoColombia{
-        width: 180px;
-        height: 60px;
+    main{
+        width: 100%;
+        height: 70%;
     }
-    .logoAerocivil{
-        width: 60px;
-        height: 60px;
+    form h1{
+        margin:1rem 0;
     }
-    .image img{
-        visibility: hidden;
+    
+    form h3{
+        margin:1rem 0;
     }
-    .image{
-        visibility: hidden;
+    
+   
+    .container{
+        width: 100%;
+        height: 100%;
+    }
+    
+    .header{
         display: none;
+        visibility: hidden;
     }
     
     .form{
-
         width: 100%;
-        padding: .5rem;
-        height: 100%;
+        padding: 0rem;
     }
-    form{
-        margin-top: 1rem;
-        width: 100%;
+    
+    .form form{
         height: 100%;
+        padding: 0rem;
     
     }
-    form input{
-        margin-bottom: 1rem;
-        padding: 0.2rem;
-    }
-    .header{
+
+    .form form input[type = "text"]{
         width: 100%;
+        margin: 1rem 0;
+       
+    }
+    
+    .form form input[type = "password"]{
+        margin: 1rem 0;
+    }
+    
+    .forgot-password{
+        margin: 1rem 0;
+    }
+
+    .form form button{
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    .copyright p{
+        margin: 1rem 0;
     }
 }

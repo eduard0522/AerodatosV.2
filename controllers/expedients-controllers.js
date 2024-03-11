@@ -1,4 +1,4 @@
-import { createExpedientModel, editExpedientModel, getExpedientsModel,deleteExpedientModel } from "../models/expedients-model.js";
+import { createExpedientModel, editExpedientModel, getExpedientsModel,deleteExpedientModel,getExpedientByIdModel } from "../models/expedients-model.js";
 import { validateExpedient,validatePartialExpedient } from "../schemas/expedients.js";
 import { connectionDB } from "../db/index.js"
 
@@ -17,6 +17,32 @@ export async function getExpedients(req, res) {
 
     // Renderiza la vista con los expedientes
     res.render('page/base', { expedientes: expedients });
+  } catch (error) {
+    // Maneja los errores y envía una respuesta JSON en caso de error
+    res.status(error?.status || 500).json({
+      status: error?.status || 500,
+      message: error?.message || 'Error interno del servidor.'
+    });
+  }
+}
+
+export async function getExpedientById(req, res) {
+  try {
+
+   const {id} = req.query 
+    // Llama a la función para obtener expedientes desde el modelo
+    const expedient = await getExpedientByIdModel(id);
+
+    // Verifica si se obtuvieron expedientes
+    if (!expedient || expedient.length === 0) {
+      throw {
+        status: 500,
+        message: 'No se logró obtener el expediente, inténtelo más tarde.'
+      };
+    }
+
+    res.json({status:200, message:'Expediente encontrado', data:expedient})
+    
   } catch (error) {
     // Maneja los errores y envía una respuesta JSON en caso de error
     res.status(error?.status || 500).json({
@@ -117,6 +143,7 @@ export async function editExpedient(req,res) {
     }
 
     return res.json({status:'OK',message:' ¡¡ Actualización Exitosa !!'})
+    
   } catch (error) {
     console.log(error)
     res.json({error: error.status || 500, message: error.message || 'Internal Server Error'})

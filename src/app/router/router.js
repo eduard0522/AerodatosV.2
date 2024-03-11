@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { createExpedient, editExpedient, getExpedients, getExpedientsUser,deleteExpedient,getExpedientsUserE } from '../../../controllers/expedients-controllers.js';
+import { createExpedient, editExpedient, getExpedients, getExpedientsUser,deleteExpedient,getExpedientsUserE,getExpedientById } from '../../../controllers/expedients-controllers.js';
 import { getRequest, updateRequest,getNotifications, createNotification, createSolicitud,deleteNotification, deleteRequest } from '../../../controllers/request-controller.js';
 import { validateUser,validateToken } from '../../../controllers/login.js';
 import { validateTokens } from '../../../middleware/validateToken.js';
@@ -18,10 +18,6 @@ router.get('/token',validateToken);
 
 router.get('/validateToken',validateTokens);
 
-router.get('/admin/index', (req,res,next) => {
-  res.render('page/index');
-  next();
-});
 
 router.get('/user/index', (req,res,next) => {
   res.render('page/indexUser');
@@ -38,6 +34,13 @@ router.get('/user/expedientes' , getExpedientsUserE);
 
 router.get('/base',getExpedients);
 
+
+router.get('/admin/index', (req,res,next) => {
+  res.render('page/index');
+  next();
+});
+
+router.get('admin/index/:id', getExpedientById) 
 
 
 router.post('/expedientes',createExpedient);

@@ -9,7 +9,7 @@ import { config } from "dotenv";
   export const password =  process.env.DB_PASSWORD ;
   export const port = process.env.PORT;
   export const secret_pass = process.env.SECRET_PASS;
-
+  export const path = process.env.rute;
  
 console.log(port)
 

@@ -48,5 +48,103 @@ header img{
   color: rgb(234, 57, 54);
 }
 
+@media(max-width:1200px){
+  header{
+    border-radius: 1rem;
+    padding: .8rem;
+  }
+  header h2{
+    font-size: 1.1rem;
+  }
+  
+  header nav ul li a,header nav ul li{
+    font-size: 1.1rem;
+  }
+  .show-notifications{
+    display: none;
+    visibility: hidden;
+  }
+  .notificationNunmber{
+    margin-left: 1rem;
+    font-size: 1.2rem;
+  }
+  .container-notification i{
+    font-size: 1.2rem;
+  }
+  
+  header img{
+    width: 100px;
+    margin: 0;
+    padding: 0;
+  }
+
+}
 
 
+@media(max-width:900px){
+  header{
+    border-radius: 1rem;
+    padding: .5rem;
+  }
+  header h2{
+    font-size: 1rem;
+  }
+  
+  header nav ul li a,header nav ul li{
+    font-size: 1rem;
+  }
+  .show-notifications{
+    display: none;
+    visibility: hidden;
+  }
+  .notificationNunmber{
+    margin-left: 1rem;
+    font-size: 1.2rem;
+  }
+  .container-notification i{
+    font-size: 1.2rem;
+  }
+  
+  header img{
+    width: 100px;
+    margin: 0;
+    padding: 0;
+  }
+
+}
+
+@media(max-width:600px){
+  .menu-resposive{
+    display: none;
+    visibility: hidden;
+  }
+  header{
+    margin: 0;
+    background-color:var(--primary-color);
+    position: fixed;
+    width: 50%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    border-radius: 0 1rem 1rem 0;
+  }
+  header img{
+    margin: 0 auto;
+    width: 125px;
+  }
+  header h2{
+    font-size: 1.5rem;
+  }
+  header nav ul li a,header nav ul li{
+    font-size: 1.1rem;
+  }
+  .show-notifications{
+    display: inline-block;
+    visibility: visible;
+  }
+  .notificationNunmber{
+    margin-left: 0rem;
+    font-size: 1rem;
+  }
+}

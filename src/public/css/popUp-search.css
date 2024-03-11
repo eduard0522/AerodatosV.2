@@ -1,0 +1,88 @@
+.pop-upSearch{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #0f1012ad;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden-popup{
+  visibility: hidden;
+  display: none;
+}
+.search-continer{
+  width: 400px;
+  height: 300px;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: .5rem;
+  box-shadow: 2px 2px 2px var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-continer h2{
+  display: block;
+  font-size: 1.1rem;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding:.5rem;
+  border-bottom: 1px dashed var(--primary-color);
+}
+
+.pop-upContiner p{
+  padding: 0 .5rem 0 .5rem;
+  text-align: center;
+}
+
+.pop-upSearch input[type="search"]{
+  width: 100%;
+  margin: auto;
+  border: 2px solid var(--primary-color);
+  border-radius: .2rem;
+  margin-bottom: 1rem;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.buttons button{
+  width: 40%;
+  border-radius: .3rem;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--second-color);
+  font-weight: bold;
+  padding: .5rem .2rem;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.buttons button:first-child {
+  background-color: rgb(244, 79, 79);
+  color: var(--second-color);
+}
+
+.buttons button:first-child:hover{
+  background-color: rgb(166, 54, 54);
+}
+.buttons button:last-child:hover{
+  background-color: #0b3358;
+}
+
+.hidden-popup{
+  visibility: hidden;
+  display: none;
+}
