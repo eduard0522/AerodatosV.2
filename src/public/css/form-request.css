@@ -120,16 +120,22 @@ form button:last-child:hover{
   visibility: none;
   display: none;
 }
+.img-form-container{
+
+  border-radius: 1rem;
+
+}
 .form-container{
  flex-direction: column;
-  width:90%;
+  width:95%;
   top: 20vh;
-  left: 5%;
+  left: 2.5%;
 }
 /************************** FORM *********************************/
-.form{
+.general-form-container .form{
   padding: 2rem;
   width: 100%;
+  border-radius: 1remrem;
 }
 /****************************** BUTTONS ************************/
 form button{
