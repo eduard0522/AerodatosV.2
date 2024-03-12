@@ -11,8 +11,8 @@ export const validateUserModel = async (userName,pass) => {
         message: ' Usuario o clave incorrectos'
       };
     }
+    console.log(result , 'resultado validacion usuario')
     return result 
-
   } catch (error) {
     return error
   }

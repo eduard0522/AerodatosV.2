@@ -9,7 +9,7 @@ export const validateUser = async (req, res) => {
   try {
     const { userName, password } = req.body;
     const [user] = await validateUserModel(userName, password);
-    if (!expedients || expedients.length === 0) {
+    if (!user || user.length === 0) {
       res.json({ status: 401, message: "Usuario o clave incorrecta" });
     }
     const userForToken = {
