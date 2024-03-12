@@ -62,6 +62,7 @@ async function deleteNotification(id) {
         let res = await axios(`https://aerodatos-v10-production.up.railway.app/notificaciones/${id}`, options),
           json = await res.data;
           alert(res.data.message)
+          location.reload()
           
       }catch (err) {
         console.log(err)

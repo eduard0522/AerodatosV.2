@@ -89,7 +89,6 @@ async function createSolicitud(e) {
     };
     console.log(options.data)
     let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes`,options)
-    alert(`${res.data.message}`);
     createNotification(e)
     location.reload()
 
