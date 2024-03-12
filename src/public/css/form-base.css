@@ -138,33 +138,19 @@ form button:last-child:hover{
 }
 
 .form{
-  background-color:var(--primary-color);
   border-radius: 1rem;
   padding: 1rem;
   width: 100%;
-  color: var(--second-color);
-  font-weight: bold;
+
 }
 
   .img-form-container{
     display: none;
     visibility: hidden;
   }
-  .img-form-container img{
-    width: 80px;
-    height: 80px;
-  }
-  .img-form-container h2,.img-form-container p{
-    font-size: 1.2rem;  
-   }
-  
-  /************************** FORM *********************************/
-  .form{
 
-    border-radius: .5rem;
-    padding: .5rem;
-  }
-  
+  /************************** FORM *********************************/
+ 
   form h2{
     font-size: 1.5rem;
   }
