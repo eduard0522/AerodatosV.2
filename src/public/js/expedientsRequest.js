@@ -1,3 +1,6 @@
+import { ClosedModal } from "./modals.js";
+import { agregarToast } from "./toast.js";
+
 
 const d = document;
 const $form = d.querySelector('.form-file');
@@ -25,14 +28,21 @@ export async function createExpedient(e) {
       }),
     };
     console.log(options.data)
-    let res = await axios(`http://localhost:3200/expedientes`,options)
-    alert(`${res.data.message}`);
-    location.reload()
-
+    let res = await axios(`https://aerodatos-v10-production.up.railway.app/expedientes`,options)
+    ClosedModal('form','hidden')
+    agregarToast({tipo:'exito',titulo:'Excelente!', descripcion:`${res.data.message}`, autocierre:true})
+    setTimeout(() => {
+      location.reload()
+    }, 5000);
+   
   }catch(error){
-    alert(`Error: ${error.status} , ${error.message}`);
+    agregarToast({tipo:'error',titulo:'Error!', descripcion:`${error.response.data.message}`, autocierre:true})
+    setTimeout(() => {
+      location.reload()
+    }, 5000);
   }
 }
+
 
 export async function editExpedient(e) {
 
@@ -58,9 +68,12 @@ export async function editExpedient(e) {
     console.log(options.data)
     console.log(e.target.idHidden.value)
     let res = await axios(`https://aerodatos-v10-production.up.railway.app/expedientes/${e.target.idHidden.value}`,options)
-    alert(`${res.data.message}`);
-   
-
+    
+    ClosedModal('form','hidden')
+    agregarToast({tipo:'exito',titulo:'Excelente!', descripcion:`${res.data.message}`, autocierre:true})
+    setTimeout(() => {
+      location.reload()
+    }, 5000);
 
   }catch(error){
     alert(`Error: ${error.status} , ${error.message}`);
@@ -123,11 +136,14 @@ export async function deleteFile(e) {
         }
         let res = await axios(`https://aerodatos-v10-production.up.railway.app/expedientes/${e.target.dataset.id}`, options),
           json = await res.data;
-          alert(res.data.message)
-          location.reload(); 
+          agregarToast({tipo:'info',titulo:'Muy bien!', descripcion:`${res.data.message}`, autocierre:true})
+          setTimeout(() => {
+            location.reload()
+          }, 5000);
       }catch (err) {
         let message = err.statusText || "Ocurrio un error";
-        alert(` Error ${err.status}: ${message}`)
+        agregarToast({tipo:'error',titulo:'Ocurrio un problema', descripcion:` Error ${err.status}: ${message}`, autocierre:true})
+     
       }
    }
 }

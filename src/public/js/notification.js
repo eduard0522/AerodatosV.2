@@ -1,3 +1,4 @@
+import { agregarToast } from "./toast.js";
 
 const $template = document.querySelector('.notificationTemplate').content;
 const $contenedor = document.querySelector('.notification'),
@@ -61,13 +62,15 @@ async function deleteNotification(id) {
         }
         let res = await axios(`https://aerodatos-v10-production.up.railway.app/notificaciones/${id}`, options),
           json = await res.data;
-          alert(res.data.message)
-          location.reload()
-          
+          agregarToast({tipo:'exito',titulo:'Muy bien!', descripcion: res.data.message, autocierre:true})
+          setTimeout(() => {
+            location.reload()
+          }, 5000);
+      
       }catch (err) {
         console.log(err)
         let message = err.statusText || "Ocurrio un error";
-        alert(` Error ${err.status}: ${message}`)
+        agregarToast({tipo:'error',titulo:'Error!', descripcion: message, autocierre:true})
     }
 }
 }

@@ -3,9 +3,10 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Document
+    title Iniciar Sesión
     link(rel="stylesheet", href="../css/login.css")
-
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css")
+    link(rel="shortcut icon", href="../assets/img/Logo SGDEA Azul.png", type="image/x-icon")
   body 
     main
        section.container
@@ -44,6 +45,9 @@ html(lang="en")
         h3 Bienvenido!! 
         p ¡¡Estamos felices de tenerte de vuelta, recuerda reportar cualquier anomalía en nuestro aplicativo!!
         button(type="button" class="login") OK
+    
+
+    div(class="contenedor-toast" id="contenedor-toast")
         
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     script(type= "module"   src='../js/login.js'  )

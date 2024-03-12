@@ -2,6 +2,8 @@
 import { openModal } from "./modals.js";
 import {getRutas} from '../js/getRutas.js'
 import searchFilter from "./filters.js";
+import { agregarToast } from "./toast.js";
+
 
 const d = document;
 const $rol = d.querySelector(".rol-header");
@@ -69,16 +71,18 @@ export async function updateSolicitud(id, estado,fecha_cierre) {
       data: JSON.stringify({
         fecha_cierre,
         estado,
-      
       }),
     };
     let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/${id}`, options),
       json = await res.data;
-      alert("Actualización exitosa!!");
-      location.reload();
+
+      agregarToast({tipo:'exito', titulo:'Excelente', descripcion:"Acualización exitosa", autocierre:false})
+         setTimeout(() => {
+            location.reload()
+          },3000);
+
   } catch (err) {
-    let message = err.statusText || "Ocurrio un error";
-    alert(message);
+    agregarToast({tipo:'error',titulo:'Error!', descripcion:"Ah ocurrido algun error ", autocierre:true})
   }
 }
 
@@ -95,11 +99,13 @@ export async function deleteSolicitud(id) {
       };
       let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/${id}`,options),
         json = await res.data;
-        alert("Solicitud eliminada con éxito");
-        location.reload();
+        agregarToast({tipo:'info',titulo:'Muy bien!', descripcion:"Solicitud eliminada con exito", autocierre:true})
+          setTimeout(() => {
+            location.reload()
+          }, 5000);
     } catch (err) {
       let message = err.statusText || "Ocurrio un error";
-      alert(` Error ${err.status}: ${message}`);
+      agregarToast({tipo:'warning',titulo:'Algo ah salido mal!', descripcion:`Error ${err.status}: ${message}`, autocierre:true})
     }
   }
 }

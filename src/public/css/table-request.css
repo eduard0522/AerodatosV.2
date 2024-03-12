@@ -21,7 +21,7 @@
 }
 
 .table{
-  width: 90%;
+  width: 100%;
   height: 40vh;
   margin: auto;
   padding: 1rem 1rem;
@@ -72,7 +72,7 @@ background-color: #5470C6;
   justify-content: center;
   align-content: center;
 }
-.btn-abrir{
+.container-btns .btn-abrir{
   width: 100px;
   background-color: #9bd47e;
   border: 0;
@@ -83,10 +83,10 @@ background-color: #5470C6;
   font-weight: bold;
 }
 
-.btn-abrir:hover{
+.container-btns .btn-abrir:hover{
   background-color: #67bd3c;
 }
-.btn-cerrar{
+.container-btns .btn-cerrar{
   width: 100px;
   background-color: #5470C6;
   color:var(--second-color) ;
@@ -96,16 +96,16 @@ background-color: #5470C6;
   cursor: pointer;
   font-weight: bold;
 }
-.btn-cerrar:hover{
+.container-btns .btn-cerrar:hover{
   background-color: rgb(18, 58, 215);
 }
-.btn-delete{
+.container-btns .btn-delete{
   background-color: var(--second-color);
   border: 0;
   cursor: pointer;
   margin-left: 1rem;
 }
-.delete{
+.container-btns .delete{
     width: 25px;
     height: 25px;
   }

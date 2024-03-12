@@ -1,6 +1,7 @@
 
 import { ClosedModal, openModal } from "./modals.js";
 import searchFilter from "./filters.js";
+import { agregarToast } from "./toast.js";
 
 
 const d = document;
@@ -60,11 +61,15 @@ export async function createNotification(e) {
     };
     console.log(options.data)
     let res = await axios(`https://aerodatos-v10-production.up.railway.app/notificaciones`,options)
-    alert(`${res.data.message}`);
+   
+    agregarToast({tipo:'info',titulo:'Muy bien!', descripcion:`${res.data.message}`, autocierre:true})
+    setTimeout(() => {
+      location.reload()
+    }, 5000);
+   
     clearForm();
-    location.reload()
   }catch(error){
-    alert(`Error: ${error.status} , ${error.message}`);
+    agregarToast({tipo:'error',titulo:'Error', descripcion:`${error.message}}`, autocierre:true})
   } 
 }
 
@@ -90,8 +95,6 @@ async function createSolicitud(e) {
     console.log(options.data)
     let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes`,options)
     createNotification(e)
-    location.reload()
-
   }catch(error){
     alert(`Error: ${error.status} , ${error.message}`);
   }  

@@ -2,12 +2,14 @@ import { secret_pass } from "../src/config.js"
 import { validateUserModel, validateTokenModel } from "../models/login.js";
 import  jwt  from "jsonwebtoken";
 
+
+
 export const validateUser = async (req, res) => {
   console.log('----------------------------------controller-----------------------------')
   try {
     const { userName, password } = req.body;
     const [user] = await validateUserModel(userName, password);
-    if (!user) {
+    if (!expedients || expedients.length === 0) {
       res.json({ status: 401, message: "Usuario o clave incorrecta" });
     }
     const userForToken = {

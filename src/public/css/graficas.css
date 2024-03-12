@@ -1,5 +1,5 @@
 .graficas{
-  width: 90%;
+  width: 100%;
   margin: auto;
   height: auto;
   display: grid;
@@ -146,9 +146,15 @@ font-size: .8rem;
   width: 60%;
 }
 
+@media(max-width:1300px){
+  .graficas{
+    grid-template-columns: repeat(auto-fit, minmax(270px ,1fr));
+    gap: 1rem;
+  }
+}
+
 @media(max-width:700px){
   .graficas{
-    width: 100%;
     margin-bottom: 1rem;
   }
  

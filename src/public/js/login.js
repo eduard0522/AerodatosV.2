@@ -1,4 +1,5 @@
 import { openModal } from "./modals.js";
+import {agregarToast} from "./toast.js"
 
 const d = document;
 const $form = document.querySelector(".form-user");
@@ -19,18 +20,16 @@ let $token = ''
 
     let res = await axios(`https://aerodatos-v10-production.up.railway.app/login`, options);
     sessionStorage.setItem('tok',res.data.data.token)
+    agregarToast({tipo:'exito',titulo:'Exelente!!', descripcion:'Bienvenido de vuelta', autocierre:true})
     openModal('pop-up','hidden')
-  
+    
   } catch (err) {
- 
+    console.log(err.response.data.data)
     let message = err || "Ocurrio un error";
-   
-  alert('Error: Uusario o clave incorrecta');
+    agregarToast({tipo:'error',titulo:'Error!', descripcion:'Usuario o clave incorrecta', autocierre:true})
   }
 }
 
-
- 
  async function validateToken(e) {
   $token = sessionStorage.getItem('tok');
   try {
@@ -52,7 +51,7 @@ let $token = ''
     
   } catch (err) {
  
-    let message =err || "Ocurrio un error";
+    let message = err || "Ocurrio un error";
    
   alert(`Error: ${message}`);
   }

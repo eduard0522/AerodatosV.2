@@ -6,10 +6,13 @@ html(lang="en")
     title=myTitle
     link(rel="stylesheet", href="/css/styles.css")
     link(rel="shortcut icon", href="../assets/img/Logo SGDEA Azul.png", type="image/x-icon")
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css")
     script(src="https://kit.fontawesome.com/db59255a97.js", crossorigin="anonymous")
+
   body 
     block header
     section.general-container
+     div(class="contenedor-toast" id="contenedor-toast")
      include ../components/notification
      main 
       include ../components/header-top

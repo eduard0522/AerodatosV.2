@@ -14,7 +14,7 @@ export const validateUserModel = async (userName,pass) => {
     return result 
 
   } catch (error) {
-    throw {status: error?.status || 400, message:error?.message || error}
+    return error
   }
 }
 
