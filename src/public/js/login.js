@@ -22,6 +22,7 @@ async function createFile(e) {
       `https://aerodatos-v10-production.up.railway.app/login`,
       options
     );
+    console.log(res)
     sessionStorage.setItem("tok", res.data.data.token);
     openModal("pop-up", "hidden");
     agregarToast({
@@ -31,7 +32,8 @@ async function createFile(e) {
       autocierre: true,
     });
   } catch (err) {
-    console.log(err.response.data.data);
+    console.log(err);
+
     let message = err || "Ocurrio un error";
     agregarToast({
       tipo: "error",
@@ -58,6 +60,7 @@ async function validateToken(e) {
       options
     );
     console.log(res.data.data);
+    console.log(res)
     if (res.data.data == "Administrador" || res.data.data == "administrador") {
       location.href = "admin/index";
     } else if (res.data.data == "Usuario" || res.data.data == "usuario") {
@@ -65,7 +68,7 @@ async function validateToken(e) {
     }
   } catch (err) {
     let message = err || "Ocurrio un error";
-
+    console.log(err);
     alert(`Error: ${message}`);
   }
 }

@@ -14,6 +14,7 @@ export const validateUserModel = async (userName,pass) => {
     console.log(result , 'resultado validacion usuario')
     return result 
   } catch (error) {
+    console.log(error)
     return error
   }
 }
@@ -33,6 +34,7 @@ export const validateTokenModel = async(id)=>{
     }
     return true 
   } catch (error) {
+    console.log(error)
     throw {status: error?.status || 500, message:error?.message || error}
   }
  

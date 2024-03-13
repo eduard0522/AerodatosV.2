@@ -27,6 +27,7 @@ export const validateUser = async (req, res) => {
     });
 
   } catch (error) {
+    console.log(error)
     res
       .status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } });
