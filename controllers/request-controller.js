@@ -33,7 +33,7 @@ export async function updateRequest(req,res){
     const data = {fecha_cierre,estado};
     const result = await updateRequestModel(data,id);
     if(!result){
-      console.log(result)
+   
       throw{
         status:500,
         message:'Internal Server Error'
@@ -49,15 +49,11 @@ export async function updateRequest(req,res){
 export async function getNotifications(req,res) {
   try {
     const request = await getNotificacionestModel();
-
-  
     if(!request){
       throw{
         status:404,
         message:'Not Found'
       }}
-    
-    console.log(request);
     res.json({status: 200 , message:'Petición exitosa', data:request});
   } catch (error) {
     return res.json({status: error.status || 500 , message: error.message || 'INTERNAL SERVER ERROR'})
@@ -75,7 +71,6 @@ export async function createNotification(req,res) {
 
   res.json({status:200,message:'Solicitud enviada correctamente'})
   } catch (error) {
-    
     console.log(error)
     res.json({
       status: error.status || 500,

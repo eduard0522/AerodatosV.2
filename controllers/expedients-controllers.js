@@ -118,8 +118,6 @@ export async function editExpedient(req,res) {
   console.log('<<<<<<<<<<<<< Controlador de Editar >>>>>>>>>><')
   try {
     const {id} =  req.params;
-    console.log(id);
-
     if(!id){
       throw{
         status:404,

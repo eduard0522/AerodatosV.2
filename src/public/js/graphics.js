@@ -34,23 +34,14 @@ async function validateToken() {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/validateToken`, options);
 
+    let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/veryfy`, options);
     console.log(res.data.rol)
     $rol.textContent = res.data.rol
-
-    if (!sessionStorage.tok || res.data.rol === "Usuario") {
-      openModal("pop-up", "hidden");
-   }
-     d.addEventListener("click", (e) => {
-       if (e.target.matches(".login")) {
-
-         if (!sessionStorage.tok) { window.location = "/";
-       } else if (res.data.rol === "Usuario") {
-        window.location = "user/expedientes";
-       }}
-  
-     });
+    if (res.data.status === 403) {
+      location.href = '/403'
+     }
+     
   } catch (error) {
     res.status(error?.status || 500);
     res.send({ status: "FAILED", data: { error: error?.message || error } });

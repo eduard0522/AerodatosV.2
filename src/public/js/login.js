@@ -5,9 +5,8 @@ const d = document;
 const $form = document.querySelector(".form-user");
 let $token = "";
 
-async function createFile(e) {
+async function Validatelogin(e) {
   try {
-    console.log("ingreso");
     let options = {
       method: "POST",
       headers: { "Content-type": "application/json; charset=utf-8" },
@@ -22,19 +21,33 @@ async function createFile(e) {
       `https://aerodatos-v10-production.up.railway.app/login`,
       options
     );
-    console.log(res)
+
+    console.log(res , 'Respuesta desde login')
+
     sessionStorage.setItem("tok", res.data.data.token);
+
     openModal("pop-up", "hidden");
+
     agregarToast({
       tipo: "exito",
       titulo: "Exelente!!",
       descripcion: "Bienvenido de vuelta",
       autocierre: true,
     });
+
+    d.addEventListener("click", (e) => {
+      if (e.target.matches(".login")) {
+        if (res.data.data.rol == "Administrador" || res.data.data == "administrador") {
+          location.href = "admin/index";
+        } else if (res.data.data.rol == "Usuario" || res.data.data == "usuario") {
+          location.href = "user/index";
+        }
+      }
+    })
+
+
   } catch (err) {
     console.log(err);
-
-    let message = err || "Ocurrio un error";
     agregarToast({
       tipo: "error",
       titulo: "Error!",
@@ -43,43 +56,11 @@ async function createFile(e) {
     });
   }
 }
-
-async function validateToken(e) {
-  $token = sessionStorage.getItem("tok");
-  try {
-    console.log("ingreso");
-    let options = {
-      method: "GET",
-      headers: {
-        Autorizathion: $token,
-        "Content-type": "application/json;charset=utf-8",
-      },
-    };
-    let res = await axios(
-      `https://aerodatos-v10-production.up.railway.app/token`,
-      options
-    );
-    console.log(res.data.data);
-    console.log(res)
-    if (res.data.data == "Administrador" || res.data.data == "administrador") {
-      location.href = "admin/index";
-    } else if (res.data.data == "Usuario" || res.data.data == "usuario") {
-      location.href = "user/index";
-    }
-  } catch (err) {
-    let message = err || "Ocurrio un error";
-    console.log(err);
-    alert(`Error: ${message}`);
-  }
-}
-
+  
 d.addEventListener("submit", async (e) => {
   if (e.target === $form) e.preventDefault();
-  createFile(e);
+  Validatelogin(e);
 });
 
-d.addEventListener("click", (e) => {
-  if (e.target.matches(".login")) {
-    validateToken();
-  }
-});
+
+

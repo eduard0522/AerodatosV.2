@@ -36,7 +36,6 @@ export async function updateRequestModel(data,id){
   }
 }
 
-
 export async function getNotificacionestModel(){
   try {
     const [request] = await connectionDB.query('SELECT * FROM notificaciones ORDER BY fecha_solicitud desc')
@@ -50,8 +49,6 @@ export async function getNotificacionestModel(){
   } catch (error) {
     return error
   }}
-
-
 
 
   export async function createNotificationModel(data){
@@ -74,7 +71,6 @@ export async function getNotificacionestModel(){
         }}
       return createNotification
     } catch (error) {
-
       console.log(error)
      return error
     }
@@ -117,7 +113,7 @@ export async function getNotificacionestModel(){
         }
       }
       const deleteExpedient = await connectionDB.query('DELETE notificaciones FROM notificaciones WHERE id_notificacion= ? ' ,[id]);
-      console.log(deleteExpedient);
+
       if(!deleteExpedient){
         throw{
           status:500,

@@ -26,9 +26,6 @@ export async function validateExpedient(data){
   }
 }
 
-
-
-
 export async function validateFilds(table,field,data){
   try {
     console.log(`<<<<<<<<<<<<< Validando si existe ${field}>>>>>>>>>>><<<<<`)

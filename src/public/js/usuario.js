@@ -1,4 +1,3 @@
-
 import { ClosedModal, openModal } from "./modals.js";
 import searchFilter from "./filters.js";
 import { agregarToast } from "./toast.js";
@@ -22,29 +21,33 @@ async function validateToken() {
       },
     };
 
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/validateToken`, options);
+    
+    let res = await axios(`https://aerodatos-v10-production.up.railway.app/usuario/verify`, options);
     $rol.textContent =res.data.rol
 
-     if (!sessionStorage.tok ) {
-       openModal("pop-up", "hidden");
-    }
-      d.addEventListener("click", (e) => {
-        if (e.target.matches(".login")) {
+/*     if (res.data.status === 403) {
+      location.href = '/403'
+     } */
+     
 
-          if (!sessionStorage.tok)  window.location = "/";
-        }
-      });
   } catch (error) {
-    res.status(error?.status || 500);
-    res.send({ status: "FAILED", data: { error: error?.message || error } });
+    agregarToast({
+      tipo: "error",
+      titulo: "Error!!",
+      descripcion: "Ocurrio un error inesperado",
+      autocierre: true,
+    });
   }
 }
 
 
-const date =  new Date();
-const dateTime = `${date.getFullYear()}-${ date.getMonth()}-${date.getDay()}`
+
+
+
 
 export async function createNotification(e) {
+  const date =  new Date();
+  const dateTime = `${date.getFullYear()}-${ date.getMonth()}-${date.getDay()}`
   console.log(e.target)
   console.log( e.target.expediente.value , e.target.referencia.value,e.target.nombre.value,e.target.correo.value,e.target.fecha.value)
   try{
@@ -74,7 +77,7 @@ export async function createNotification(e) {
 }
 
 
-async function createSolicitud(e) {
+export async function createSolicitud(e) {
 
   const date =  new Date();
   const dateTime = `${date.getFullYear()}-${ date.getMonth()}-${date.getDay()}`
@@ -96,7 +99,12 @@ async function createSolicitud(e) {
     let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes`,options)
     createNotification(e)
   }catch(error){
-    alert(`Error: ${error.status} , ${error.message}`);
+    agregarToast({
+      tipo: "error",
+      titulo: "Error!!",
+      descripcion: "Ocurrio un error inesperado",
+      autocierre: true,
+    });
   }  
 }
 
@@ -125,6 +133,7 @@ d.addEventListener('click', (e) =>{
   }
 })
 
+
 d.addEventListener('submit',(e)=>{
   if(e.target.matches('.form-file')){
     e.preventDefault()
@@ -132,8 +141,8 @@ d.addEventListener('submit',(e)=>{
   }
 })
 
-export async function insertDateForm(e){
 
+ export async function insertDateForm(e){
   $form.expediente.value = e.target.dataset.expediente;
   $form.referencia.value = e.target.dataset.referencia;
   $form.fecha.value = dateTime;
@@ -150,4 +159,3 @@ export async function clearForm(){
   $form.dependencia.value = "";
   ClosedModal('form-appli','hidden');
 }
-

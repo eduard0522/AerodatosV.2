@@ -1,10 +1,6 @@
 const d = document
 
 const contenedorToast = d.getElementById('contenedor-toast');
-
-  
-  
-
 // eventlistener detectar click en los toast 
 
 contenedorToast.addEventListener('click',(e) =>{
@@ -17,7 +13,6 @@ contenedorToast.addEventListener('click',(e) =>{
 const CerrarToast = (id) =>{
   d.getElementById(id)?.classList.add('cerrando');
 }
-
 export const agregarToast = ({tipo,titulo,descripcion,autocierre}) =>{
   console.log(tipo,titulo,descripcion,autocierre)
   const nuevoToast = d.createElement('div');
@@ -25,22 +20,18 @@ export const agregarToast = ({tipo,titulo,descripcion,autocierre}) =>{
   nuevoToast.classList.add(tipo)
 
   if(autocierre) nuevoToast.classList.add('autoCierre');
-
-
   const numeroAzar = Math.floor(Math.random()*100);
   const fecha = Date.now()
   const toastId = fecha + numeroAzar;
   nuevoToast.id=toastId;
 
   // agregar icono
-
   const iconos = {
     exito :`<i class="bi bi-check-circle-fill"></i>`,
     error :`<i class="bi bi-bug"></i>`,
     info :` <i class="bi bi-info-circle-fill"></i>`,
     warning :`<i class="bi bi-exclamation-octagon"></i>`,
   }
-
 
   // plantilla
 

@@ -1,16 +1,16 @@
-import { openModal } from "./modals.js";
-
+import { agregarToast } from "./toast.js";
 const d = document;
 const $rol = d.querySelector(".rol-header");
 let $token;
 
+console.log('ingreso al index')
 d.addEventListener("DOMContentLoaded", (e) => {
   validateToken();
 });
 
 async function validateToken(req, res) {
   $token = sessionStorage.getItem("tok");
-
+  console.log('validar token')
   try {
     console.log("ingreso");
     let options = {
@@ -20,30 +20,29 @@ async function validateToken(req, res) {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/validateToken`, options);
 
+    let res = await axios(`https://aerodatos-v10-production.up.railway.app/user/index/verify`, options);
     $rol.textContent = res.data.rol;
-     
-    if (!sessionStorage.tok) {
-       openModal("pop-up", "hidden");
-    }
+   if (res.data.status === 403) {
+    location.href = '/403'
+   }
 
-     d.addEventListener("click", (e) => {
-      if (e.target.matches(".login")) {
-          if (!sessionStorage.tok) { window.location = "/";
-        }}
-
-        if (e.target.matches(".closed-notifications")) {
-          document.querySelector('.notification').classList.add('hidden-notification');
-        }
-        if (e.target.matches(".show-notifications")) {
-          document.querySelector('.notification').classList.remove('hidden-notification');
-        }
-    });
-    
   } catch (error) {
-    
-     res.status(error?.status || 500)
-     res.send({ status: "FAILED", data: { error: error?.message || error } }); 
+    agregarToast({
+      tipo: "error",
+      titulo: "Error!!",
+      descripcion: "Ocurrio un error inesperado",
+      autocierre: true,
+    });
   }
 }
+
+
+d.addEventListener("click", (e) => {
+  if (e.target.matches(".closed-notifications")) {
+    document.querySelector('.notification').classList.add('hidden-notification');
+  }
+  if (e.target.matches(".show-notifications")) {
+    document.querySelector('.notification').classList.remove('hidden-notification');
+  }
+});
