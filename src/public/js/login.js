@@ -35,16 +35,15 @@ async function Validatelogin(e) {
       autocierre: true,
     });
 
+
     d.addEventListener("click", (e) => {
       if (e.target.matches(".login")) {
-        if (res.data.data.rol == "Administrador" || res.data.data == "administrador") {
+        if (res.data.data.rol == "Administrador" || res.data.data.rol == "administrador") {
           location.href = "admin/index";
-        } else if (res.data.data.rol == "Usuario" || res.data.data == "usuario") {
-          location.href = "user/index";
-        }
+        } else if (res.data.data.rol == "Usuario" || res.data.data.rol == "usuario") {
+          location.href = "user/index";}
       }
     })
-
 
   } catch (err) {
     console.log(err);
