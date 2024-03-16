@@ -3,6 +3,7 @@ import express from 'express'
 import { router } from './router.js';
 import {resolve} from 'path';
 import { port } from '../../config.js';
+import fileUpload from 'express-fileupload';
 
 
 export const app = express();
@@ -12,6 +13,8 @@ app.set("port",port|| 3100);
 app.set("views", "./src/public/view");
 app.set("view engine" , "pug");
 
+
+app.use(fileUpload());
 app.use(express.json())
 /* app.use(morgan("dev")); */
 app.use(express.static(statics));

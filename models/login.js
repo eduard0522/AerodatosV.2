@@ -3,7 +3,6 @@ import {connectionDB} from '../db/index.js'
 
 export const validateUserModel = async (userName,pass) => {
   try {
-    console.log('model')
     const [result] = await connectionDB.query('SELECT * FROM usuarios WHERE (nombre_usuario = ?) AND (clave = ?)',[userName,pass]);
     if(!result){
       throw{
@@ -11,7 +10,6 @@ export const validateUserModel = async (userName,pass) => {
         message: ' Usuario o clave incorrectos'
       };
     }
-    console.log(result , 'resultado validacion usuario')
     return result 
   } catch (error) {
     console.log(error)

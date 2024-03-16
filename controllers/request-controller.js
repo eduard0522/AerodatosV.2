@@ -11,7 +11,6 @@ try {
       message:'No existe este expediente'
     }}
 
-  console.log(request);
   res.render('page/solicitudes',{solicitudes:request});
 } catch (error) {
   return res.json({status: error.status || 500 , message: error.message || 'INTERNAL SERVER ERROR'})

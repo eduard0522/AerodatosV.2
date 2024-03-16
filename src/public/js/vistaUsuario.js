@@ -17,7 +17,7 @@ async function validateToken() {
           "Content-type": "application/json;charset=utf-8",
         },
       };
-      let res = await axios(`https://aerodatos-v10-production.up.railway.app/user/expedientes/verify`, options);
+      let res = await axios(`/user/expedientes/verify`, options);
       if (res.data.status === 403) {
             console.log(res.data)
         /* location.href = '/403' */

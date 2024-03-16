@@ -38,9 +38,11 @@ body{
 /********************* BANNER *******************/
 main .banner{
   width: 100%;
+  max-height: 350px;
 }
 main .banner img{
   width: 100%;
+  max-height: 350px;
   border-radius: 1rem;
   aspect-ratio: 1280px/210px;
 }

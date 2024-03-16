@@ -35,7 +35,7 @@ async function validateToken() {
       },
     };
 
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/veryfy`, options);
+    let res = await axios(`/solicitudes/veryfy`, options);
     console.log(res.data.rol)
     $rol.textContent = res.data.rol
     if (res.data.status === 403) {
@@ -64,7 +64,7 @@ export async function updateSolicitud(id, estado,fecha_cierre) {
         estado,
       }),
     };
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/${id}`, options),
+    let res = await axios(`/solicitudes/${id}`, options),
       json = await res.data;
 
       agregarToast({tipo:'exito', titulo:'Excelente', descripcion:"Acualización exitosa", autocierre:false})
@@ -88,7 +88,7 @@ export async function deleteSolicitud(id) {
         method: "DELETE",
         headers: { "Content-type": "application/json; charset=utf-8" },
       };
-      let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes/${id}`,options),
+      let res = await axios(`/solicitudes/${id}`,options),
         json = await res.data;
         agregarToast({tipo:'info',titulo:'Muy bien!', descripcion:"Solicitud eliminada con exito", autocierre:true})
           setTimeout(() => {

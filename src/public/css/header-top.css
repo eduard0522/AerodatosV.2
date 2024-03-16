@@ -30,6 +30,10 @@ font-weight: bold;
   z-index: 999;
   color: var(--primary-color);
   margin-right: .5rem;
+  cursor: pointer;
+}
+.btn-menu i:hover{
+  transform: scale(1.1);
 }
 
 .date-container{

@@ -22,7 +22,7 @@ async function validateToken() {
     };
 
     
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/usuario/verify`, options);
+    let res = await axios(`/usuario/verify`, options);
     $rol.textContent =res.data.rol
 
 /*     if (res.data.status === 403) {
@@ -63,7 +63,7 @@ export async function createNotification(e) {
       }),
     };
     console.log(options.data)
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/notificaciones`,options)
+    let res = await axios(`/notificaciones`,options)
    
     agregarToast({tipo:'info',titulo:'Muy bien!', descripcion:`${res.data.message}`, autocierre:true})
     setTimeout(() => {
@@ -96,7 +96,7 @@ export async function createSolicitud(e) {
       }),
     };
     console.log(options.data)
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/solicitudes`,options)
+    let res = await axios(`/solicitudes`,options)
     createNotification(e)
   }catch(error){
     agregarToast({

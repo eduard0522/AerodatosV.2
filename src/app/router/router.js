@@ -1,8 +1,10 @@
 import {Router} from 'express';
+import {resolve,join,extname} from 'path';
 import { createExpedient, editExpedient, getExpedients, getExpedientsUser,deleteExpedient,getExpedientsUserE,getExpedientById } from '../../../controllers/expedients-controllers.js';
 import { getRequest, updateRequest,getNotifications, createNotification, createSolicitud,deleteNotification, deleteRequest } from '../../../controllers/request-controller.js';
 import { validateUser} from '../../../controllers/login.js';
 import { validarTokenUser, validateTokens } from '../../../middleware/validateToken.js';
+
 
 
 export const router  = Router();
@@ -68,6 +70,46 @@ router.delete('/notificaciones/:id',deleteNotification);
 /******************* RUTAS DE REDIRECCION  **************/
 
 
+
+router.post('/updateBanner', async (req,res) =>{
+  try {
+    const { banner }=  req.files
+
+    console.log(banner.name)
+      if(!banner){
+        return res.json({status:400,message:' no viene ningun archivo'})
+      }
+    /* console.log(req.files) */
+    const ext = extname(banner.name);
+  
+    const ext_permitidas = ['.webp','.png','.jpg','.jepg']
+  
+    if(!ext_permitidas.includes(ext)){
+      return res.status(400).json({message:`Solo se permiten archivos Excel  tu formato es : ${extname(banner.name)}`})
+    }
+  
+    const ruta = join(resolve(),'./src/public/assets/banner','banner.webp');
+
+    banner.mv(ruta , (error) =>{
+      if(error){
+        console.log(error)
+        return res.status(400).json({message:"ocurrio un error"})
+      }else{
+        console.log(ruta)
+       return res.send('ok') 
+      }
+    })
+
+  } catch (error) {
+    console.log(error)
+    return error
+    
+  }
+  })
+
+
+
+
 router.get('/403',(req,res)=>{
   return res.render('page/403')
 });
@@ -75,3 +117,6 @@ router.get('/403',(req,res)=>{
 router.use('',(req,res,) =>{
   return res.render('page/404')
 })
+
+
+

@@ -28,7 +28,7 @@ export async function createExpedient(e) {
       }),
     };
     console.log(options.data)
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/expedientes`,options)
+    let res = await axios(`/expedientes`,options)
     ClosedModal('form','hidden')
     agregarToast({tipo:'exito',titulo:'Excelente!', descripcion:`${res.data.message}`, autocierre:true})
     setTimeout(() => {
@@ -67,7 +67,7 @@ export async function editExpedient(e) {
     };
     console.log(options.data)
     console.log(e.target.idHidden.value)
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/expedientes/${e.target.idHidden.value}`,options)
+    let res = await axios(`/expedientes/${e.target.idHidden.value}`,options)
     
     ClosedModal('form','hidden')
     agregarToast({tipo:'exito',titulo:'Excelente!', descripcion:`${res.data.message}`, autocierre:true})
@@ -134,7 +134,7 @@ export async function deleteFile(e) {
           method: "DELETE",
           headers: {"Content-type": "application/json; charset=utf-8" },
         }
-        let res = await axios(`https://aerodatos-v10-production.up.railway.app/expedientes/${e.target.dataset.id}`, options),
+        let res = await axios(`/expedientes/${e.target.dataset.id}`, options),
           json = await res.data;
           agregarToast({tipo:'info',titulo:'Muy bien!', descripcion:`${res.data.message}`, autocierre:true})
           setTimeout(() => {

@@ -18,7 +18,7 @@ async function Validatelogin(e) {
     };
 
     let res = await axios(
-      `https://aerodatos-v10-production.up.railway.app/login`,
+      `/login`,
       options
     );
 

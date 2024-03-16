@@ -1,0 +1,73 @@
+.changeBanner{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  background-color: rgba(7, 7, 7, 0.045)
+}
+
+
+.updateBanner{
+  width: 350px;
+  height: 250px;
+  position: relative;
+  background-image: url('../assets/img/fondo.jpg');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--primary-color);
+  border-radius: .8rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+form{
+  width: 90%;
+  height: 100%;
+  display: flex;
+  margin-inline: auto;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.updateBanner h2{
+  color: var(--primary-color);
+  text-align: center;
+  font-weight: bold;
+}
+
+.updateBanner{
+  font-weight: 600;
+}
+
+.updateBanner button{
+  padding:  .5rem 1rem;
+  background-color: var(--primary-color);
+  color: var(--second-color);
+  border: none;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+.updateBanner button:hover{
+  background-color: #0b275f;
+}
+
+
+.buttons-form-banner{
+  width: 100%;
+  display: flex;
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.updateBanner .closedForm{
+  position: absolute;
+  padding: .1rem .5rem ;
+  top: .5rem;
+  right: .5rem;
+}

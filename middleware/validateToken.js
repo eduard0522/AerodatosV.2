@@ -24,12 +24,8 @@ export const validarTokenUser = (roles) => async (req,res,next)=>{
   try {
      const {autorizathion} = req.headers;
      const decriptToken = jwt.verify(autorizathion, process.env.SECRET_PASS);
-
      const rol = decriptToken.data.rol
-    console.log(roles)
-     console.log(rol)
      const validateUser = roles.find((user) => user === rol); 
-    console.log(validateUser)
      if(validateUser){
   
       return next()

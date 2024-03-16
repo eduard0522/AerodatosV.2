@@ -1,0 +1,14 @@
+link(rel="stylesheet", href="../css/updateBanner.css")
+
+section(class="changeBanner hidden" id="updateBanner")
+  div.updateBanner
+    form(action="/updateBanner" method="post" enctype="multipart/form-data" id="form")
+      h2 Inserta la imagen
+      p Medidas recomendadas 1280 * 250
+
+      input(type="file" id='inputBanner'  name="banner"  placeholder="Seleccionar Bannner" hidden)
+      div.buttons-form-banner
+        button(type="button" id='activeInput') Selecionar Imagen
+        button(type="button"  id='boton')  Actualizar Banner
+
+      button.closedForm x

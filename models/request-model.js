@@ -138,7 +138,6 @@ export async function getNotificacionestModel(){
         }
       }
       const deleteExpedient = await connectionDB.query('DELETE solicitudes FROM solicitudes WHERE id_solicitud= ? ' ,[id]);
-      console.log(deleteExpedient);
       if(!deleteExpedient){
         throw{
           status:500,

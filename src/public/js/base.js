@@ -22,7 +22,7 @@ async function validateToken() {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/base/veryfy`, options);
+    let res = await axios(`/base/veryfy`, options);
     $rol.textContent =res.data.rol
     if (res.data.status === 403) {
       location.href = '/403'

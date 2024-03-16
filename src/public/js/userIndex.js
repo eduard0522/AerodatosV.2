@@ -21,7 +21,7 @@ async function validateToken(req, res) {
       },
     };
 
-    let res = await axios(`https://aerodatos-v10-production.up.railway.app/user/index/verify`, options);
+    let res = await axios(`/user/index/verify`, options);
     $rol.textContent = res.data.rol;
    if (res.data.status === 403) {
     location.href = '/403'
@@ -44,5 +44,8 @@ d.addEventListener("click", (e) => {
   }
   if (e.target.matches(".show-notifications")) {
     document.querySelector('.notification').classList.remove('hidden-notification');
+  }
+  if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
+    document.querySelector('header').classList.toggle('menu-resposive');
   }
 });
