@@ -8,8 +8,10 @@ export const validateUser = async (req, res) => {
   console.log('----------------------------------controller-----------------------------')
   try {
       const { userName, password } = req.body;
+      console.log(userName,password)
       const [user] = await validateUserModel(userName, password);
-      if (!user || user.length === 0) {
+      console.log(user , 'Respuesta del modelo ')
+      if (!user) {
       return res.json({ status: 401, message: "Usuario o clave incorrecta" });
       }
       const userForToken = {
@@ -17,12 +19,13 @@ export const validateUser = async (req, res) => {
         rol:user.rol,
       };
 
-      const token = jwt.sign({ data: userForToken },secret_pass, {
+      const token = jwt.sign({ data: userForToken },secret_pass,{
         expiresIn: "5h",
       });
+
       return res.json({
         status: "OK",
-        data: { rol: user.rol, token },
+        data: { rol:user.rol, token },
         message: "Bienvenido al sistema",
       });
 
