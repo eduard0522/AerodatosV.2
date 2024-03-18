@@ -65,7 +65,7 @@ form{
   justify-content: space-between;
 }
 
-.updateBanner .closedForm{
+.updateBanner .closedFormBanner{
   position: absolute;
   padding: .1rem .5rem ;
   top: .5rem;

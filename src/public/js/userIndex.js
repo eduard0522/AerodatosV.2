@@ -48,4 +48,15 @@ d.addEventListener("click", (e) => {
   if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
     document.querySelector('header').classList.toggle('menu-resposive');
   }
+  if (e.target.matches(".search")) {
+   window.location.href = '/user/expedientes'
+  }
+  if (e.target.matches(".bug")) {
+    agregarToast({
+      tipo: "warning",
+      titulo: "Upps!!",
+      descripcion: "Función en desarrollo",
+      autocierre: true,
+    });
+  }
 });

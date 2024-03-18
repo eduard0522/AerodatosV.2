@@ -4,6 +4,31 @@ block header
    include ../components/header
 block content 
 
+  section.config#config 
+    div.config-container
+      i(class="fa-solid fa-gear")
+
+    article.config-options.hidden    
+      div.update-banner.box
+        i(class="fa-regular fa-image update-banner")
+        h3 Actualizar Banner
+        i(class="fa-solid fa-arrow-up-from-bracket arrow update-banner")
+
+      div.update-link.box
+        h3 Actualizar link
+        input(type="text" placeholder="Ingresa el link")
+        i(class="fa-solid fa-arrow-up-from-bracket arrow update-link-icon")
+
+      div.box.download
+        i(class="fa-regular fa-file-excel  download")
+        h3 Descargar plantilla
+        i(class="fa-solid fa-download download")
+      div.box.updateUser
+        i(class="fa-solid fa-users  updateUser")
+        h3 Editar usuarios
+        i(class="fa-solid fa-pen-to-square updateUser")
+        
+
   article.banner 
    a.link-banner(href="https://www.aerocivil.gov.co/" target="_blank")  
      img(src="../assets/banner/banner.webp", alt="Banner Aerocivil" id="banner")
@@ -11,27 +36,22 @@ block content
   h2 Opciones 
   
   section.options-container 
-    article(class="option option-search")
-      span  
-        i(class="fa-solid fa-gears")
-      div.glas-div 
-        h3 Opciones
-        
+    article(class="option option-graphic graphic")
+      span.graphic 
+        i(class="fa-solid fa-chart-line graphic")
+      div.glas-div.graphic
+        h3.graphic Solicitudes
+        p.graphic Aca podras ver las solicitudes de los usuarios y el reporte de los mismos.
 
-    article(class="option option-base")
-        div.update-banner.box
-          i(class="fa-regular fa-image update-banner")
-          h3 Actualizar Banner
-          i(class="fa-solid fa-arrow-up-from-bracket arrow update-banner")
 
-        div.update-link.box
-          h3 Actualizar link
-          input(type="text" placeholder="Ingresa el link")
-          i(class="fa-solid fa-arrow-up-from-bracket arrow update-link-icon")
-        div.box.download
-          i(class="fa-regular fa-file-excel  download")
-          h3 Descargar plantilla
-          i(class="fa-solid fa-download download")
+    article(class="option option-base base")
+      span.base 
+        i(class="fa-solid fa-database base")
+      div.glas-div.base
+        h3.base Expedientes
+        p.base Aca podras ver la base de datos y gestionarla (agregar, editar o eliminar los expedientes)
+
+
 
   include ../components/pop-upSearch
   include ../components/formUpdateBanner
