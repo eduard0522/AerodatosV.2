@@ -20,16 +20,11 @@ async function validateToken() {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-
-    
     let res = await axios(`/usuario/verify`, options);
     $rol.textContent =res.data.rol
-
-/*     if (res.data.status === 403) {
+    if (res.data.status === 403) {
       location.href = '/403'
-     } */
-     
-
+     } 
   } catch (error) {
     agregarToast({
       tipo: "error",

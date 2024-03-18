@@ -3,7 +3,11 @@ import { agregarToast } from "./toast.js";
 
 const d = document;
 const $form = document.querySelector(".form-user");
-let $token = "";
+
+
+d.addEventListener('DOMContentLoaded' , (e) => {
+  sessionStorage.setItem("tok",'');
+})
 
 async function Validatelogin(e) {
   try {

@@ -3,7 +3,7 @@ const d = document;
 const $rol = d.querySelector(".rol-header");
 let $token;
 
-console.log('ingreso al index')
+
 d.addEventListener("DOMContentLoaded", (e) => {
   validateToken();
 });

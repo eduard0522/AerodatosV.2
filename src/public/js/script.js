@@ -52,6 +52,9 @@ async function  sendFile() {
     };
 
   const res = await axios("/updateBanner",options)
+
+  console.log(res)
+
     agregarToast({
       tipo: "exito",
       titulo: "Exelente!!",
@@ -70,9 +73,9 @@ async function  sendFile() {
         descripcion: "Ocurrio un error, intenta de nuevo",
         autocierre: true,
       });
-      setTimeout(() => {
+     /*  setTimeout(() => {
         location.reload()
-      },5000)
+      },5000) */
   }
 } 
 
