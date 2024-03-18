@@ -38,21 +38,43 @@
   padding: 0 .5rem 0 .5rem;
   text-align: center;
 }
-.pop-upContiner button{
+.pop-upContiner button , .pop-upContiner a{
   width: 30%;
   border-radius: .3rem;
   border: none;
-  background-color: var(--primary-color);
+  background-color: #c74242;
   color: var(--second-color);
   font-weight: bold;
   padding: .2rem;
   cursor: pointer;
-  align-self: flex-end;
 }
 
 .pop-upContiner button:hover{
-  background-color: #0d4982;
+  background-color:  #952727;
 }
+
+.container-buttons{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%
+}
+
+.container-buttons a{
+ display: inline-block;
+ background-color: var(--primary-color);
+ text-align: center;
+ text-decoration: none;
+ margin: 0;
+ padding: .5rem;
+}
+
+.container-buttons a:hover{
+  background-color: #0d4172
+}
+.container-buttons button{
+ padding: .5rem 1rem;
+}
+
 
 .hidden-popup{
   visibility: hidden;

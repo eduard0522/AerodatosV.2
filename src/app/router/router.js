@@ -4,6 +4,7 @@ import { createExpedient, editExpedient, getExpedients, getExpedientsUser,delete
 import { getRequest, updateRequest,getNotifications, createNotification, createSolicitud,deleteNotification, deleteRequest } from '../../../controllers/request-controller.js';
 import { validateUser} from '../../../controllers/login.js';
 import { validarTokenUser, validateTokens } from '../../../middleware/validateToken.js';
+import { error } from 'console';
 
 
 
@@ -107,7 +108,12 @@ router.post('/updateBanner', async (req,res) =>{
   }
   })
 
-
+router.get('/download', (req,res) =>{
+  const ruta = join(resolve(),'./src/public/assets/plantilla','pruebasExcel.xlsx');
+  res.download(ruta, function (error) {
+    console.log("Error : ", error)
+});
+})
 
 
 router.get('/403',(req,res)=>{

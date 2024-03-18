@@ -3,13 +3,15 @@ import { configBD } from './config.js'
 
 
 
-
-   export const connectionDB = await mysql.createConnection(configBD);
-    if(!connectionDB){
-      console.log('Error en la conexión')
-    }else{
-      console.log('Conexión exitosa')
+  export async function connectionDatabase() {
+      try {
+        const connectionDB = await mysql.createConnection(configBD);
+        console.log('Conexión exitosa');
+        return connectionDB;
+      } catch (error) {
+        console.error('Error en la conexión:', error);
+        throw error;
+      }
     }
-
 
 

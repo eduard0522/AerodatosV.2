@@ -1,8 +1,9 @@
-import {connectionDB} from '../db/index.js'
+import { connectionDatabase} from '../db/index.js'
 
 
 export const validateUserModel = async (userName,pass) => {
   try {
+    const connectionDB = await connectionDatabase()
     const [result] = await connectionDB.query('SELECT * FROM usuarios WHERE (nombre_usuario = ?) AND (clave = ?)',[userName,pass]);
     if(!result){
       throw{

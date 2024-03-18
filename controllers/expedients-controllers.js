@@ -1,6 +1,6 @@
 import { createExpedientModel, editExpedientModel, getExpedientsModel,deleteExpedientModel,getExpedientByIdModel } from "../models/expedients-model.js";
 import { validateExpedient,validatePartialExpedient } from "../schemas/expedients.js";
-import { connectionDB } from "../db/index.js"
+import { connectionDatabase} from "../db/index.js"
 
 export async function getExpedients(req, res) {
   try {
@@ -57,6 +57,7 @@ export async function getExpedientById(req, res) {
 export async function getExpedientsUser(req, res) {
   try {
     // Realiza la consulta a la base de datos para obtener los expedientes
+    const connectionDB = await connectionDatabase()
     const [expedients] = await connectionDB.query('SELECT * FROM ubicacion_expediente');
 
     // Renderiza la vista con los expedientes obtenidos
@@ -73,8 +74,18 @@ export async function getExpedientsUser(req, res) {
 
 
 export async function getExpedientsUserE(req,res){
-  const [expedients] =  await connectionDB.query('SELECT * FROM ubicacion_expediente')
-  res.render('page/expedientUser',{expedientes:expedients})
+  try {
+    const connectionDB = await connectionDatabase()
+    const [expedients] =  await connectionDB.query('SELECT * FROM ubicacion_expediente')
+    return res.render('page/expedientUser',{expedientes:expedients})
+  } catch (error) {
+    console.error(error);
+    return res.status(error?.status || 500).json({
+      status: error?.status || 500,
+      message: error?.message || "Error interno del servidor"
+    });
+  }
+ 
 }
 
 

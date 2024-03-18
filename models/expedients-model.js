@@ -1,10 +1,11 @@
 
-import { connectionDB } from "../db/index.js";
+import { connectionDatabase } from "../db/index.js";
 import { createCuerpo, createField, validateExpedient, validateFilds } from "./validationExpedient.js";
 
 export const getExpedientsModel = async () => {
   try {
-    const [expedients] = await connectionDB.query(
+    const connectioDB = await connectionDatabase()
+    const [expedients] = await connectioDB.query(
       "SELECT * FROM ubicacion_expediente"
     );
     if (!expedients) {
@@ -26,7 +27,8 @@ export const getExpedientsModel = async () => {
 
 export const getExpedientByIdModel = async (id) => {
   try {
-    const [expedient] = await connectionDB.query(
+    const connectioDB = await connectionDatabase()
+    const [expedient] = await connectioDB.query(
       "SELECT * FROM expedientes WHERE expediente_id = ? ; ",[id] );
     if (!expedient) {
       throw {
@@ -51,6 +53,7 @@ export const createExpedientModel = async ({input}) => {
     expediente,referencia,dependencia,serie,subserie,pasillo,cuerpo,estante,entrepanio,caja, carpeta,} = input;
 
   try {
+     const connectioDB = await connectionDatabase()
       const ifexistExpedient = await validateExpedient(expediente);
         if(!ifexistExpedient){
           throw{
@@ -70,7 +73,8 @@ export const createExpedientModel = async ({input}) => {
 
               serieId = createSerie.insertId
       }else{
-        const [getIdSerie] = await  connectionDB.query('SELECT id_series FROM series WHERE nombre_serie = ?;',[serie])
+  
+        const [getIdSerie] = await  connectioDB.query('SELECT id_series FROM series WHERE nombre_serie = ?;',[serie])
         serieId = Object.values(getIdSerie[0])[0]
       }
 
@@ -132,7 +136,7 @@ export const createExpedientModel = async ({input}) => {
 
              console.log( 'Validar para crear expediente')
 
-        const [newExpedient] = await connectionDB.query("INSERT INTO expedientes(expediente,referencia,dependencia,serie,subserie,pasillo,cuerpo,estante,entrepanio,caja,carpeta) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+        const [newExpedient] = await connectioDB.query("INSERT INTO expedientes(expediente,referencia,dependencia,serie,subserie,pasillo,cuerpo,estante,entrepanio,caja,carpeta) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
         [expediente,referencia,dependencia,serieId,subserie,pasillo,cuerpo,estante,entrepanio,caja,carpeta]); 
         
         if(newExpedient.error){
@@ -159,8 +163,8 @@ export const  editExpedientModel = async (data,id) => {
   const {expediente,referencia,dependencia,serie,subserie,pasillo,cuerpo,estante,entrepanio,caja, carpeta,} = data;
  
   try {
-
-    const [IfExistId] = await connectionDB.query ("SELECT COUNT(*) FROM expedientes WHERE expediente_id = ?", [expediente_id]);
+    const connectioDB = await connectionDatabase()
+    const [IfExistId] = await connectioDB.query ("SELECT COUNT(*) FROM expedientes WHERE expediente_id = ?", [expediente_id]);
 
     const resultRequestId = Object.values(IfExistId[0]);
 
@@ -182,7 +186,7 @@ export const  editExpedientModel = async (data,id) => {
               } }
               serieId = createSerie.insertId
       }else{
-        const [getIdSerie] = await  connectionDB.query('SELECT id_series FROM series WHERE nombre_serie = ?;',[serie])
+        const [getIdSerie] = await  connectioDB.query('SELECT id_series FROM series WHERE nombre_serie = ?;',[serie])
         serieId = Object.values(getIdSerie[0])[0]
       }
 
@@ -244,7 +248,7 @@ export const  editExpedientModel = async (data,id) => {
 
              console.log( 'Validar para crear expediente')
 
-        const [editExpedient] = await connectionDB.query("UPDATE expedientes  SET expediente = ?, referencia=? ,dependencia=? ,serie=?,subserie=?,pasillo=?,cuerpo=?,estante=?,entrepanio=?,caja=?,carpeta=? WHERE expediente_id = ?; ",
+        const [editExpedient] = await connectioDB.query("UPDATE expedientes  SET expediente = ?, referencia=? ,dependencia=? ,serie=?,subserie=?,pasillo=?,cuerpo=?,estante=?,entrepanio=?,caja=?,carpeta=? WHERE expediente_id = ?; ",
         [expediente,referencia,dependencia,serieId,subserie,pasillo,cuerpo,estante,entrepanio,caja,carpeta,expediente_id]); 
         
         if(editExpedient.error){
@@ -274,8 +278,8 @@ export const deleteExpedientModel = async (id) =>{
         message:'Este expediente no existe'
       }
     }
-
-    const deleteExpedient = await connectionDB.query('DELETE expedientes FROM expedientes WHERE expediente_id= ? ' ,[id]);
+    const connectioDB = await connectionDatabase()
+    const deleteExpedient = await connectioDB.query('DELETE expedientes FROM expedientes WHERE expediente_id= ? ' ,[id]);
     console.log(deleteExpedient);
     if(!deleteExpedient){
       throw{

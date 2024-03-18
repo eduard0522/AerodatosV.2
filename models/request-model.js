@@ -1,7 +1,8 @@
-import { connectionDB } from "../db/index.js";
+import { connectionDatabase } from "../db/index.js";
 
 export async function getRequestModel(){
   try {
+    const connectionDB = await connectionDatabase()
     const [request] = await connectionDB.query('SELECT * FROM solicitudes  ORDER BY fecha_solicitud desc; ')
     if(!request){
       throw{
@@ -18,6 +19,7 @@ export async function getRequestModel(){
 
 export async function updateRequestModel(data,id){
   try {
+    const connectionDB = await connectionDatabase()
     const{fecha_cierre,estado} = data
     const [update] = await connectionDB.query(
 
@@ -38,6 +40,7 @@ export async function updateRequestModel(data,id){
 
 export async function getNotificacionestModel(){
   try {
+    const connectionDB = await connectionDatabase()
     const [request] = await connectionDB.query('SELECT * FROM notificaciones ORDER BY fecha_solicitud desc')
     if(!request){
       throw{
@@ -59,6 +62,7 @@ export async function getNotificacionestModel(){
           message:'Ingrese los datos solicitados'
         }
       }
+      const connectionDB = await connectionDatabase()
       const{expediente,referencia,solicitante,correo,fecha_solicitud} = data;
       const [createNotification] = await connectionDB.query(
         `INSERT INTO notificaciones (expediente,referencia,solicitante,correo,fecha_solicitud)
@@ -83,7 +87,8 @@ export async function getNotificacionestModel(){
           status:400,
           message:'Ingrese los datos solicitados'
         }}
-
+      
+      const connectionDB = await connectionDatabase()
       const{expediente,referencia,solicitante,correo,fecha_solicitud,estado} = data;
       const [createSolicitud] = await connectionDB.query(
         `INSERT INTO solicitudes (expediente,referencia,solicitante,correo,fecha_solicitud,estado)
@@ -112,6 +117,7 @@ export async function getNotificacionestModel(){
           message:'Esta notificación no existe'
         }
       }
+      const connectionDB = await connectionDatabase()
       const deleteExpedient = await connectionDB.query('DELETE notificaciones FROM notificaciones WHERE id_notificacion= ? ' ,[id]);
 
       if(!deleteExpedient){
@@ -137,6 +143,7 @@ export async function getNotificacionestModel(){
           message:'Esta Solicitud no existe'
         }
       }
+      const connectionDB = await connectionDatabase()
       const deleteExpedient = await connectionDB.query('DELETE solicitudes FROM solicitudes WHERE id_solicitud= ? ' ,[id]);
       if(!deleteExpedient){
         throw{

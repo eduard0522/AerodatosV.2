@@ -2,6 +2,9 @@ link(rel="stylesheet", href="../css/modal.css")
 
 section(id="pop-up" class="pop-up hidden")
    div.pop-upContiner
-     h3 Upps! No estas autorizado para esta acción.
-     p ¡¡Primero debes registrarte e ingresar con las respectivas credenciales!!
-     button(type="button" class="login") OK
+     h3 ¿ Seguro deseas decargar la plantilla ?
+     p ¡¡Recuerda, no debes realizar ningun cambio en su estructura.!!
+     div.container-buttons
+       button(type="button" class="cancel-download") Cancelar
+       a(href="/download" class="download-ok") Descargar
+       

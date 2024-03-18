@@ -5,24 +5,35 @@ block header
 block content 
 
   article.banner 
-    img(src="../assets/banner/banner.webp", alt="Banner Aerocivil" id="banner")
+   a.link-banner(href="https://www.aerocivil.gov.co/" target="_blank")  
+     img(src="../assets/banner/banner.webp", alt="Banner Aerocivil" id="banner")
 
   h2 Opciones 
   
   section.options-container 
     article(class="option option-search")
       span  
-        i(class="fa-solid fa-magnifying-glass")
+        i(class="fa-solid fa-gears")
       div.glas-div 
-        h3 Buscar un archivo: 
-        p Aquí podrás buscar la ubicación topográfica de cualquier archivo que este en la base de datos con tan solo ingresar la referencia.
+        h3 Opciones
+        
+
     article(class="option option-base")
-      span  
-        i(class="fa-solid fa-database")
-      div.base-div 
-        h3 Actualizar Banner
-        p Aquí podrás actualizar el banner de la app
-    include ../components/pop-upSearch
+        div.update-banner.box
+          i(class="fa-regular fa-image update-banner")
+          h3 Actualizar Banner
+          i(class="fa-solid fa-arrow-up-from-bracket arrow update-banner")
+
+        div.update-link.box
+          h3 Actualizar link
+          input(type="text" placeholder="Ingresa el link")
+          i(class="fa-solid fa-arrow-up-from-bracket arrow update-link-icon")
+        div.box.download
+          i(class="fa-regular fa-file-excel  download")
+          h3 Descargar plantilla
+          i(class="fa-solid fa-download download")
+
+  include ../components/pop-upSearch
   include ../components/formUpdateBanner
 block link-js 
   script(src="../js/script.js", type="module")
