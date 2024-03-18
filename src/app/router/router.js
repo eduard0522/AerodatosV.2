@@ -86,7 +86,7 @@ router.post('/updateBanner', async (req,res) =>{
     const ext_permitidas = ['.webp','.png','.jpg','.jepg']
   
     if(!ext_permitidas.includes(ext)){
-      return res.status(400).json({message:`Solo se permiten archivos Excel  tu formato es : ${extname(banner.name)}`})
+      return res.status(400).json({message:`Solo se permiten imagenes tu formato es : ${extname(banner.name)}`})
     }
   
     const ruta = join(resolve(),'./src/public/assets/banner','banner.webp');
