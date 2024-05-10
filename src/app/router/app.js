@@ -9,7 +9,7 @@ import fileUpload from 'express-fileupload';
 export const app = express();
 const statics = resolve('./src/public');
 
-app.set("port",port|| 3100);
+app.set("port",port || 3100);
 app.set("views", "./src/public/view");
 app.set("view engine" , "pug");
 

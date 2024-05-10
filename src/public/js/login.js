@@ -7,8 +7,8 @@ const $form = document.querySelector(".form-user");
 
 d.addEventListener('DOMContentLoaded' , (e) => {
   sessionStorage.setItem("tok",'');
+  console.log('cargando')
 })
-
 async function Validatelogin(e) {
   try {
     let options = {
@@ -20,16 +20,12 @@ async function Validatelogin(e) {
         password: e.target.password.value,
       }),
     };
-
     let res = await axios(
-      `/login`,
+      '/login',
       options
     );
-
-    console.log(res , 'Respuesta desde login')
-
-    sessionStorage.setItem("tok", res.data.data.token);
-
+    console.log(res , 'Respuesta desde login');
+    sessionStorage.setItem("tok", res.data.token);
     openModal("pop-up", "hidden");
 
     agregarToast({
@@ -38,16 +34,16 @@ async function Validatelogin(e) {
       descripcion: "Bienvenido de vuelta",
       autocierre: true,
     });
-
-
-    d.addEventListener("click", (e) => {
+    
+    console.log(res.data.Usuario[0].rol)
+     d.addEventListener("click", (e) => {
       if (e.target.matches(".login")) {
-        if (res.data.data.rol == "Administrador" || res.data.data.rol == "administrador") {
-          location.href = "admin/index";
-        } else if (res.data.data.rol == "Usuario" || res.data.data.rol == "usuario") {
+        if ( res.data.Usuario[0].rol== "Administrador" || res.data.Usuario[0].rol == "Administrador") {
+          location.href = "/index";
+        } else if ( res.data.Usuario[0].rol == "Usuario" || res.data.Usuario[0].rol == "usuario") {
           location.href = "user/index";}
       }
-    })
+    }) 
 
   } catch (err) {
     console.log(err);

@@ -7,41 +7,34 @@ let $token;
 let banner ;
 
 
-
 d.addEventListener("DOMContentLoaded", (e) => {
   validateToken();
 });
 
-
-/**************************** FUNCION PARA VALIDAR ELTOKEN Y ASI MISMO EL PERMISO, SE EJECUTA A LA CARGA DEL DOM  ***********************/
-async function validateToken(req, res) {
+/********* FUNCION PARA VALIDAR ELTOKEN Y ASI MISMO EL PERMISO, SE EJECUTA A LA CARGA DEL DOM  ******/
+async function validateToken() {
   $token = sessionStorage.getItem("tok");
-
+  console.log($token)
   try {
     let options = {
       method: "GET",
       headers: {
-        Autorizathion: $token,
+        "Authorization":$token ,
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios(`/admin/index/verify`, options);
-
-    $rol.textContent = res.data.rol;
-    if (res.data.status === 403) {
+    let res = await axios(`/verifyToken`, options);
+    if (res.status === 403) {
       location.href = '/403'
      }
-    
   } catch (error) {
-    
-     res.status(error?.status || 500)
-     res.send({ status: "FAILED", data: { error: error?.message || error } }); 
+   if(error.response.status === 403){
+    location.href = '/403'
+   }
   }
 }
 
-
-
-/*************************************    FUNCION PARA ENVIAR LA IMAGEN DEL BANNER AL SERVIDOR  ***************************/
+/**********************    FUNCION PARA ENVIAR LA IMAGEN DEL BANNER AL SERVIDOR  ************/
 
 async function  sendFile() {
   try {
@@ -120,10 +113,6 @@ $btn.addEventListener('click' , (e) => {
      sendFile() 
   }
 })
-
-
-
-
 
 
 /*********************************************  ESCUCHADOR DE EVENTOS CLICK  **********************************/
