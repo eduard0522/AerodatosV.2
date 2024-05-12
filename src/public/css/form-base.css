@@ -58,7 +58,21 @@ form h2{
   font-size: 2rem;
   margin-bottom: .5rem;
 }
+form  label{
+  width: 49%;
+ } 
+ form label.referencia{
+  width: 100%;
+ }
 
+form input, .select-estado{
+  display: block;
+  width: 100%;
+  padding: .5rem;
+  border-radius: .5rem;
+  border: 2px solid #8c8888;
+  margin:0;
+}
 form input, .select-referencia{
   display: block;
   width: 100%;
@@ -67,28 +81,12 @@ form input, .select-referencia{
   border: 2px solid #8c8888;
   margin:0;
 }
-form  label{
-  width: 49%;
- } 
-
-.i100{
-  display: block;
-  width: 100%;
-  border-radius: .5rem;
-  color: var(--primary-color);
-  background-color: var(--second-color);
-  padding: .3rem;
-  margin-bottom: .5rem;
-}
-
 .input-container{
   display: flex;
   justify-content: space-between;
   margin-bottom: .2rem;
 }
-
 /****************************** BUTTONS ************************/
-
 form button{
   width: 48%;
   background-color:var(--second-color);
@@ -98,6 +96,7 @@ form button{
   font-weight: bold;
   font-size: 1.3rem;
   padding: .2rem 4rem;
+  margin-top: .5rem;
 }
 form button:hover{
   background-color:var(--shade);

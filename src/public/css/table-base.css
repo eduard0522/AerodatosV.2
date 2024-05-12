@@ -156,6 +156,18 @@ table thead th:first-child{
   width: 25px;
   height: 25px;
 }
+.organizado{
+  background-color: #2e8644;
+  border-radius: .3rem;
+  padding: .2rem .5rem;
+  color: #fff;
+}
+ .sinorganizar{
+  background-color: #e46486;
+  border-radius: .3rem;
+  padding: .2rem .5rem;
+  color: #fff;
+} 
 
 .filter{
    visibility: hidden;

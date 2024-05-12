@@ -8,10 +8,10 @@ section.graficas
             img(src="../assets/img/chart-simple-solid.svg" alt="icon-grafic")
         div.muestras
           div.icono
-          p(class="abiertas p-abiertas")
+          p(class="abiertas p-sinOrganizar")
         div.muestras 
           div.icono2
-          p(class="abiertas p-cerradas")
+          p(class="abiertas p-organizados")
       div#container2
 
     div(class="total-solicitudes box")
@@ -38,7 +38,7 @@ section.graficas
       div.leyenda
         div.spans
           span Total
-          span.total 
+          span.total
         div.spans
-          span Efectividad
-          span.efecty 41.77%
+          span Organización
+          span(class="efecty" id="efecty-span") 

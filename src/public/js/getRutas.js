@@ -1,26 +1,15 @@
-import { contadorGraficas } from "../js/contadores.js";
 
-export const getRutas = (total, abiertas, cerradas) => {
-   /* if(total>0){
-    contadorGraficas(".total", total);
-  }
-  if(abiertas > 0){
-    contadorGraficas(".abiertas", abiertas);
-  }
-  if(cerradas>0){
-    contadorGraficas(".cerradas", cerradas); 
-  }  */
 
+export const getRutas = (total, sinOrganizar, organizados) => {
   grafica1(total);
-  grafica2(abiertas, cerradas);
+  grafica2(organizados, sinOrganizar);
 
-  getReferencia();
-};
-
+/*   getReferencia();*/
+}; 
 
 /************************ Envia la solicitud a la funcion que obtiene la cantidad de cada referencia y llama a la grafica 3 para entregar los resultados de la validación ********************/
 
-const getReferencia = async () => {
+/* const getReferencia = async () => {
   try {
     const result = await validacionReferencias(".referencia");
     if (!result) throw Error("ha ocurrido un error inesperado");
@@ -45,12 +34,12 @@ const getReferencia = async () => {
   } catch (error) {
     alert(error.message);
   }
-};
+}; */
 
 
 /********************  Valida la cantidad de cada referencia que existe  ********************/
 
-async function validacionReferencias(elemento) {
+/* async function validacionReferencias(elemento) {
   let contratos = 0,
     historiasClinicas = 0,
     historiasLaborales = 0,
@@ -58,7 +47,7 @@ async function validacionReferencias(elemento) {
     resoluciones = 0;
 
   const $referencia = document.querySelectorAll(elemento);
-  $referencia.forEach((element) => {
+    $referencia.forEach((element) => {
     const refLowerCase = element.textContent.toLocaleLowerCase();
     if (refLowerCase === "contratos") {
       contratos += 1;
@@ -84,7 +73,7 @@ async function validacionReferencias(elemento) {
     historiasLaborales,
     aerodromos,
   };
-}
+} */
 
 function grafica1(total) {
   let dom = document.getElementById("container");
@@ -93,9 +82,7 @@ function grafica1(total) {
     useDirtyRect: false,
   });
   let app = {};
-
   let option;
-
   option = {
     tooltip: {
       trigger: "item",
@@ -106,7 +93,7 @@ function grafica1(total) {
     },
     series: [
       {
-        name: "Total Solicitudes",
+        name: "Total Expedientes",
         type: "pie",
         radius: ["40%", "70%"],
         avoidLabelOverlap: false,
@@ -136,7 +123,8 @@ function grafica1(total) {
   window.addEventListener("resize", myChart.resize);
 }
 
-function grafica2(abiertas,cerradas) {
+
+function grafica2(organizados,sinOrganizar) {
   let dom = document.getElementById("container2");
   let myChart = echarts.init(dom, null, {
     renderer: "canvas",
@@ -175,8 +163,8 @@ function grafica2(abiertas,cerradas) {
           show: false,
         },
         data: [
-          { value: cerradas, name: "cerradas" },
-          { value: abiertas, name: "Abiertas" },
+          { value: sinOrganizar, name: "Pendiente" },
+          { value: organizados, name: "Organizado" },
         ],
       },
     ],
@@ -188,7 +176,6 @@ function grafica2(abiertas,cerradas) {
 
   window.addEventListener("resize", myChart.resize);
 }
-
 
 function grafica3(contratos,resoluciones,historiasClinicas,historiasLaborales,aerodromos) {
   var dom = document.getElementById('container3');

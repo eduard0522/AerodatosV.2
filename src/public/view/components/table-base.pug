@@ -18,15 +18,14 @@ section.table-container
           th.icon-table 
             img(src="../assets/img/bookmark-solid.svg" alt="")
           th Expediente
-          th Referencia 
-          th Dependencia
+          th Nombre
+          th Tipo
           th Serie
           th Pasillo
-          th Cuerpo
           th Estante
-          th Entrepaño
           th Caja 
-          th Carpeta
+          th Estado
+
           th Opciones
 
         -var expedientes=expedientes;
@@ -36,33 +35,32 @@ section.table-container
         each expediente in expedientes
           tr.tr-filter 
             td=contador ++
-            td=expediente.expediente
-            td=expediente.nombre_referencia
-            td=expediente.nombre_dependencia 
+            td=expediente.numero_expediente
+            td=expediente.nombre_expediente
+            td=expediente.nombre_tipo
             td=expediente.nombre_serie
-            td=expediente.pasillo
-            td=expediente.cuerpo
+            td=expediente.numero_pasillo
             td=expediente.estante
-            td=expediente.entrepanio
             td=expediente.caja
-            td=expediente.carpeta
+            td  
+              if expediente.estado_organizativo
+                span(class="organizado") Organizado 
+              else if !expediente.estado_organizativo
+                span(class="sinorganizar") Pendiente
             td.button-container
               button
                 img(src="../../assets/img/edit.svg", alt="icon edit", class="edit icon-edit"
-                  data-id=expediente.expediente_id, 
-                  data-expediente=expediente.expediente
-                  data-referencia=expediente.referencia
-                  data-dependencia=expediente.dependencia 
+                  data-id=expediente.id_expediente, 
+                  data-expediente=expediente.numero_expediente
+                  data-tipo=expediente.tipo
+                  data-nombre=expediente.nombre_expediente
                   data-serie=expediente.nombre_serie
-                  data-subserie=expediente.subserie
-                  data-pasillo=expediente.pasillo
-                  data-cuerpo=expediente.cuerpo
+                  data-Numserie=expediente.numero_serie
+                  data-pasillo=expediente.numero_pasillo
                   data-estante=expediente.estante
-                  data-entrepanio=expediente.entrepanio
                   data-caja=expediente.caja
-                  data-carpeta=expediente.carpeta)
+                  data-estado=expediente.estado_organizativo)
 
               button(data-id=expediente.expediente_id , td=expediente.expediente)
-                img(src="../../assets/img/delete.svg", alt="icon delete", class="delete icon-delete" , data-id=expediente.expediente_id)
+                img(src="../../assets/img/delete.svg", alt="icon delete", class="delete icon-delete" , data-id=expediente.id_expediente)
               
-                  

@@ -2,42 +2,56 @@
 import { createExpedient, editExpedient, insertDateForm,clearDateForm, deleteFile } from "./expedientsRequest.js";
 import { ClosedModal, openModal } from "./modals.js";
 import searchFilter from "./filters.js";
-
-
+import { getRutas } from "./getRutas.js";
 
 const d = document;
 const $rol = d.querySelector(".rol-header");
 const $form = d.querySelector('.form-file');
 let $token;
 
+d.addEventListener("DOMContentLoaded", (e) => {
+  validateToken();
+  getTotalExpedients()
+});
 
+
+/********* FUNCION PARA VALIDAR ELTOKEN Y ASI MISMO EL PERMISO, SE EJECUTA A LA CARGA DEL DOM  ******/
 async function validateToken() {
   $token = sessionStorage.getItem("tok");
+  console.log($token)
   try {
-    console.log("ingreso");
     let options = {
       method: "GET",
       headers: {
-        Autorizathion: $token,
+        "Authorization":$token ,
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios(`/base/veryfy`, options);
-    $rol.textContent =res.data.rol
-    if (res.data.status === 403) {
+    let res = await axios(`/verifyToken`, options);
+    if (res.status === 403) {
       location.href = '/403'
      }
-     
   } catch (error) {
-    res.status(error?.status || 500);
-    res.send({ status: "FAILED", data: { error: error?.message || error } });
+   if(error.response.status === 403){
+    location.href = '/403'
+   }
   }
 }
 
+async function getTotalExpedients() {
+  try {
+    const res = await axios('/expedientes/total');
+    let total = res.data.total[0].total
+    let organizados = res.data.organizados[0].total
+    let sinOrganizar = res.data.sinOrganizar[0].total
+    getRutas(total, sinOrganizar,organizados);
+    insertDataGrafics(total,organizados,sinOrganizar)
 
-d.addEventListener("DOMContentLoaded", (e) => {
-  validateToken();
-});
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 d.addEventListener('click',(e) => {
   if(e.target.matches('.register') ||  e.target.matches('.button-active-form')){
@@ -55,12 +69,7 @@ d.addEventListener('click',(e) => {
   if(e.target.matches('.delete')){
     deleteFile(e)
   }
-  if (e.target.matches(".closed-notifications")) {
-    document.querySelector('.notification').classList.add('hidden-notification');
-  }
-  if (e.target.matches(".show-notifications") || e.target.matches(".container-notification")) {
-    document.querySelector('.notification').classList.toggle('hidden-notification');
-  }
+ 
   if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
     document.querySelector('header').classList.toggle('menu-resposive');
   }
@@ -77,7 +86,19 @@ d.addEventListener('submit', (e) => {
     }else{
       editExpedient(e);
     } 
-    
   }
 });
+
+function  insertDataGrafics(total,organizados,sinOrganizar) {
+  const $spanOrganizados = d.querySelector('.p-organizados');
+  const $spanSinOrganizar = d.querySelector('.p-sinOrganizar');
+  const $spanTotal = d.querySelector('.total');
+  const $spanPromedio = d.querySelector('#efecty-span');
+  const promedioOrganizacion =  organizados *100 / total;
+
+  $spanOrganizados.textContent = `${organizados}`;
+  $spanSinOrganizar.textContent = `${sinOrganizar}`;
+  $spanTotal.textContent = `${total}`;  
+  $spanPromedio.textContent = `${promedioOrganizacion.toFixed(0)}%`
+}
 
