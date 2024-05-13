@@ -17,10 +17,10 @@ export async function createExpedient(e) {
         tipo:parseInt(e.target.tipo.value),
         estado:parseInt(e.target.estado.value),
         nombre_serie: e.target.serieName.value,
-        numero_serie: e.target.serieNum.value,
-        caja:e.target.caja.value,
-        estante:e.target.estante.value,
-        pasillo: e.target.pasillo.value
+        numero_serie: parseInt(e.target.serieNum.value),
+        caja:parseInt(e.target.caja.value),
+        estante:parseInt(e.target.estante.value),
+        pasillo: e.target.pasillo.value.toString()
       }),
     };
     console.log(options.data)
@@ -51,10 +51,10 @@ export async function editExpedient(e) {
         tipo:parseInt(e.target.tipo.value),
         estado:parseInt(e.target.estado.value),
         nombre_serie: e.target.serieName.value,
-        numero_serie: e.target.serieNum.value,
-        caja:e.target.caja.value,
-        estante:e.target.estante.value,
-        pasillo: e.target.pasillo.value
+        numero_serie: parseInt(e.target.serieNum.value),
+        caja:parseInt(e.target.caja.value),
+        estante:parseInt(e.target.estante.value),
+        pasillo: e.target.pasillo.value.toString()
       }),
     };
     console.log(options.data)

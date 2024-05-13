@@ -2,6 +2,7 @@ import {
   deleteBoxService, getExpedientsService,newBoxService, newHallService,deleteHallService,newShelfService,deleteShelfService, newSerieService, deleteSerieService, deleteTypeService,newTypeService , newExpedientService, deleteExpedientService,updateExpedientService,countExpedientsService
   } 
   from '../models/expedientsModel.js';
+import { validateExpedientForm , validatePartialExpedientForm} from '../schemas/expedients.js';
 
 
   /************************** EXPEDIENTES  *********************/
@@ -55,8 +56,13 @@ export async function getExpedientsController(req,res) {
     }
     try {
         const dataExpedient = { nombre ,numero,nombre_serie, tipo, estado , numero_serie , caja , estante , pasillo}
-        const result = await newExpedientService(dataExpedient);
 
+        const validateTypes = validateExpedientForm(dataExpedient);
+        if(!validateTypes || validateTypes.error){
+          console.log(validateTypes)
+          return res.status(404).json({message: validateTypes.error.message?validateTypes.error.message : 'Verifica los datos e intenta de nuevo.'});
+        }
+        const result = await newExpedientService(validateTypes.data);
         if(!result){
           return res.status(404).json({
             message:'Parece que este expediente ya existe'
@@ -68,8 +74,6 @@ export async function getExpedientsController(req,res) {
       return  res.status(500).json({message: error.message?error.message : 'Ocurrio un error inesperado, intentalo de nuevo mas tarde.'})
     }
 }  
-
-
 //  ENVIA LA INFORMACIÓN PARA EDITAR UN EXPEDIENTE
 
 export async function upadateExpedientController(req,res) {
@@ -82,8 +86,15 @@ export async function upadateExpedientController(req,res) {
   }
 
   try {
-      const dataExpedient = {id, nombre ,numero,nombre_serie, tipo, estado , numero_serie , caja , estante , pasillo}
-      const result = await updateExpedientService(dataExpedient);
+      const dataExpedient = { nombre ,numero,nombre_serie, tipo, estado , numero_serie , caja , estante , pasillo}
+
+      const validateTypes = validatePartialExpedientForm(dataExpedient);
+
+      if(!validateTypes || validateTypes.error){
+        console.log(validateTypes)
+        return res.status(404).json({message: validateTypes.error.message?validateTypes.error.message : 'Verifica los datos e intenta de nuevo.'});
+      }
+      const result = await updateExpedientService(id,validateTypes.data);
 
       if(!result){
         return res.status(404).json({

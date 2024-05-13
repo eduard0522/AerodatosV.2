@@ -76,20 +76,18 @@ async function  sendFile() {
 /**************************  SELECCIONAR IMAGEN DE BANNER Y COLOCARLA EN EL BANNER COMO PREVIEW,
                                    SI DECIDE DEJARLA ENVIA LA IMAGEN AL SERVIDOR Y LA ACTUALIZA     ******************/
 
-
 const $btn = d.getElementById('boton');
 const $btnInput = d.getElementById('activeInput');
 const $bannerInput = d.getElementById('inputBanner');
 const $imageBanner = document.getElementById('banner');
 const $form = d.getElementById('form')
 
-
 $btnInput.addEventListener('click',(e) =>{
   if($bannerInput){
     $bannerInput.click();
   }
 })
-  
+
 $bannerInput.addEventListener('change', (e) =>{
   if(e.target.files[0]){
     banner = e.target.files[0];
@@ -114,6 +112,56 @@ $btn.addEventListener('click' , (e) => {
   }
 })
 
+
+
+/************************** SELECCIONAR ARCHIVO EXCEL  *******************/
+const $btnExcel = d.getElementById('activeInputFile');
+const $excelInput = d.getElementById('excelFile');
+const $textFile = d.querySelector('.textFile')
+const $sendFile = d.getElementById('sendFile');
+let fileExcel  ; 
+ 
+$btnExcel.addEventListener('click' , () => {
+  $excelInput.click();
+  $excelInput.addEventListener('change', (e) =>{
+    if(e.target.files[0]){
+      const reader = new FileReader();
+      reader.onload = (e)  => {
+        $textFile.innerText = 'Archivo seleccionado.'
+        fileExcel = e.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0])
+   
+    }else{
+     console.log('no hay archivo');
+    }
+  }) 
+})
+
+$sendFile.addEventListener('click',(e) => loadFile())
+function  loadFile() {
+  console.log('clock')
+    let formData = new FormData();
+    let file =  d.getElementById('excelFile').files[0];
+    formData.append('excelFile', file);
+
+    sendExcel(formData)
+;
+}
+
+async function sendExcel(data) {
+  console.log('click')
+  let res = await axios('/uploadFile',{
+    method: 'POST',
+    data: data,
+  });
+  if(res.status === 200){
+    console.log( await res)
+    console.log('archivo enviado con éxito.')
+  }else{
+    console.log('error al enviar el archivo')
+  }
+}
 
 /*********************************************  ESCUCHADOR DE EVENTOS CLICK  **********************************/
 
@@ -162,12 +210,7 @@ d.addEventListener("click", (e) => {
 
   if (e.target.matches(".update-link-icon")) {
     ClosedModal('pop-up', 'hidden');
-    agregarToast({
-      tipo: "warning",
-      titulo: "Opps!!",
-      descripcion: "Función en desarrollo",
-      autocierre: true,
-    });
+    openModal('loadFile', 'hidden')
    }
   if (e.target.matches(".download-ok")) {
     ClosedModal('pop-up', 'hidden');

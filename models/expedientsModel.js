@@ -116,9 +116,9 @@ export async function newExpedientService(dataExpedient) {
 
 // EDITAR UN EXPEDIENTE
 
-export async function updateExpedientService(dataExpedient) {
+export async function updateExpedientService(id,dataExpedient) {
   
-  const  {id,nombre,numero,tipo,estado,numero_serie,nombre_serie,caja,estante,pasillo} = dataExpedient;
+  const  {nombre,numero,tipo,estado,numero_serie,nombre_serie,caja,estante,pasillo} = dataExpedient;
   try {
     const conn = await getConnection();
     const ifExistExpedient = await conn.query(' SELECT * FROM expedientes WHERE id_expediente = ?',[id]);

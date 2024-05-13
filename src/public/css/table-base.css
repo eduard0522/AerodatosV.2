@@ -157,16 +157,20 @@ table thead th:first-child{
   height: 25px;
 }
 .organizado{
-  background-color: #2e8644;
+  background-color: #4abc5d;
   border-radius: .3rem;
   padding: .2rem .5rem;
   color: #fff;
+  width: 100px;
+  display: block;
 }
  .sinorganizar{
-  background-color: #e46486;
+  background-color: #2e52bcd6;
   border-radius: .3rem;
   padding: .2rem .5rem;
   color: #fff;
+  width: 100px;
+  display: block;
 } 
 
 .filter{

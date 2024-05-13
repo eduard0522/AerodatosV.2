@@ -1,57 +1,99 @@
 import z from 'zod'
 
+//VALIDA LOS DATOS CARGADOS DESDE EL FORMULARIO
+
 const expedientSchema = z.object({
-  expediente:z.string({
-    invalid_type_error:'El expediente debe ser un String',
+  nombre:z.string({
+    invalid_type_error:'El nombre expediente debe ser un String',
     required_error:'El expediente es requerido'
   }),
-  referencia:z.number({
-    invalid_type_error:'La referencia debe ser de tipo numerica',
-    required_error:'El campo referencia es requerido'
+  numero:z.string({
+    invalid_type_error:'El número de expediente debe ser de tipo String',
+    required_error:'El campo número de expediente es requerido'
   }),
-  dependencia:z.number({
-    invalid_type_error:'La dependencia debe ser de tipo numerica',
-    required_error:'El campo dependencia es requerido'
+  tipo:z.number({
+    invalid_type_error:'El tipo de documento debe ser de tipo numérico.',
+    required_error:'El campo tipo de documento es requerido'
   }),
-  serie:z.number({
-    invalid_type_error:'La serie debe ser de tipo numerica',
-    required_error:'El campo serie es requerido'
+  estado:z.number({
+    invalid_type_error:'El estado debe ser de tipo numérico.',
   }),
-  subserie:z.number({
-    invalid_type_error:'La subserie debe ser de tipo numerica',
-    required_error:'El campo subserie es requerido'
+  numero_serie:z.number({
+    invalid_type_error:'La número serie debe ser de tipo numerica',
+    required_error:'El campo Serie es requerido'
   }),
-  pasillo:z.number({
-    invalid_type_error:'El campo pasillo debe ser de tipo numerico',
-    required_error:'El campo pasillo es requerido'
-  }),
-  cuerpo:z.string({
-    invalid_type_error:'El campo cuerpo debe ser un String',
-    required_error:'El campo cuerpo es requerido'
-  }),
-  estante:z.number({
-    invalid_type_error:'El campo estante debe ser un numerico',
-    required_error:'El campo estante es requerido'
-  }),
-  entrepanio:z.number({
-    invalid_type_error:'El campo entrepanio debe ser un numerico',
-    required_error:'El campo entrepanio es requerido'
+  nombre_serie:z.string({
+    invalid_type_error:'El campo nombre de serie debe ser de tipo string',
+    required_error:'El campo nombre de serie es requerido'
   }),
   caja:z.number({
-    invalid_type_error:'El campo caja debe ser un string',
+    invalid_type_error:'El campo caja debe sere de tipo numérica',
+    required_error:'El campo caja es requerido'
+  }),
+  estante:z.number({
+    invalid_type_error:'El campo estante debe ser un numérico',
     required_error:'El campo estante es requerido'
   }),
-  carpeta:z.string({
-    invalid_type_error:'El campo carpeta debe ser un String',
-    required_error:'El campo carpeta es requerido'
+  pasillo:z.string({
+    invalid_type_error:'El campo pasillo debe ser de tipo String ',
+    required_error:'El campo pasillo es requerido'
   }),
 })
 
 
-export function validateExpedient (input) {
+// VALIDA LOS DATOS CARGADOS DESDE EL EXCEL
+const expedientSchemaXlsx = z.object({
+  nombre:z.string({
+    invalid_type_error:'El nombre expediente debe ser un String',
+    required_error:'El expediente es requerido'
+  }), 
+  numero:z.string({
+    invalid_type_error:'El número de expediente debe ser de tipo String',
+    required_error:'El campo número de expediente es requerido'
+  }),
+  tipo:z.string({
+    invalid_type_error:'El tipo de documento debe ser de tipo String',
+    required_error:'El campo tipo de ducumento es requerido'
+  }),
+  estado:z.boolean({
+    invalid_type_error:'El estado debe ser de tipo booleano',
+  }),
+  numero_serie:z.number({
+    invalid_type_error:'La número serie debe ser de tipo numerica',
+    required_error:'El campo Serie es requerido'
+  }),
+  nombre_serie:z.string({
+    invalid_type_error:'El campo nombre de serie debe ser de tipo string',
+    required_error:'El campo nombre de serie es requerido'
+  }),
+  caja:z.number({
+    invalid_type_error:'El campo caja debe sere de tipo numérica',
+    required_error:'El campo caja es requerido'
+  }),
+  estante:z.number({
+    invalid_type_error:'El campo estante debe ser un numérico',
+    required_error:'El campo estante es requerido'
+  }),
+  pasillo:z.string({
+    invalid_type_error:'El campo pasillo debe ser un String',
+    required_error:'El campo pasillo es requerido'
+  }),
+})
+
+
+
+export function validateExpedientForm (input) {
   console.log('validando expediente')
   return expedientSchema.safeParse(input);
 }
- export function validatePartialExpedient(input){
+ export function validatePartialExpedientForm(input){
   return expedientSchema.partial().safeParse(input);
 }
+
+
+
+export function validateExpedient (input) {
+  console.log('validando expediente')
+  return expedientSchemaXlsx.safeParse(input);
+}
+ 

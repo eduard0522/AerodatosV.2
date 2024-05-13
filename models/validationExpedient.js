@@ -54,11 +54,11 @@ export async function ifExistBox(caja) {
 }
 
 
-/* export async function ifExisType(tipo) {
+export async function ifExisType(tipo) {
   let typeId;
   try {
     const conn = await getConnection()
-    const [result] = await conn.query('SELECT * FROM tipo_documento WHERE id_tipo = ?',[tipo]);
+    const [result] = await conn.query('SELECT * FROM tipo_documento WHERE nombre_tipo =  ?',[tipo]);
     if(!result || result.error){
       releaseConnection(conn)
     return null;
@@ -78,7 +78,7 @@ export async function ifExistBox(caja) {
     console.log(error)
     return null
   }
-} */
+} 
 
 export async function ifExistShelf(estante) {
   let shelfId;
@@ -136,32 +136,3 @@ export async function ifExistHall(pasillo) {
 
 
 
-/* const[ ifExistSerie, ifExistBox, ifExistType ,ifExistShelf,ifExistHall] = await Promise.all([
-  
-  conn.query('SELECT * FROM cajas WHERE numero_caja = ?',[caja]),
-  conn.query('SELECT * FROM tipo_documento WHERE nombre_tipo = ?',[tipo]),
-  conn.query('SELECT * FROM estantes WHERE numero_estante= ?',[estante]),
-  conn.query('SELECT * FROM pasillos WHERE numero_pasillo = ?',[pasillo]),
-]);
-
-
-
-
-
-
-
-
-
-if(!ifExistBox || ifExistBox.error){
-return null;
-}
-
-if(!ifExistType || ifExistType.error){
-return null;
-}
-if(!ifExistShelf || ifExistShelf.error){
-return null;
-}
-if(!ifExistHall || ifExistHall.error){
-return null;
-} */
