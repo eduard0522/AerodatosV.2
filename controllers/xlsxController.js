@@ -1,127 +1,132 @@
-import  xlsx  from "xlsx-populate";
-import {join,resolve} from 'path'
+import xlsx from "xlsx-populate";
+import { join, resolve } from 'path';
 import { validateExpedient } from "../schemas/expedients.js";
 import { newExpedientXlsx } from "../models/expedientsXlsx.js";
-import fs from 'fs'
+import fs from 'fs';
 
-const fileRuta =  join(resolve(), './src/public/assets/plantilla','datos.xlsx')
-console.log(fileRuta)
-
-export async function readFileController(req,res) {
-
-  console.log(fileRuta , '********************************************************************')
-    if(!req.files || Object.keys(req.files).length === 0){
-      return res.status(404).json({message:"No se envio ningun archivo."})
-  }
+// Controlador para manejar la carga y lectura del archivo
+export async function saveFile(file) {
   try {
-      let file = req.files.excelFile
-      let pathFile = join(resolve(), './src/public/assets/plantilla','datos.xlsx');
+    const pathFile = join(resolve(), './src/public/assets/plantilla', 'datos.xlsx');
     
+    await new Promise((resolve, reject) => {
       file.mv(pathFile, function(err) {
-        if (err) return res.status(500).send('Error en la carga del archivo, intenta de nuevo.')
-      })
-     const result =   await readFile()
-
-     if(!result){
-      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde'})
-     }
-
-     res.status(200).json({message:'OK' , data:result})
-
+        if (err) {
+          console.error('Error al mover el archivo:', err);
+          reject(err);
+        } else {
+          resolve(true);
+        }
+      });
+    });
+    return true;
   } catch (error) {
-    console.log(error)
-  return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde'})
+    console.log('Error en readFileController:', error);
+    return null;
+  }
 }
-}
 
+// Controlador para leer y procesar el archivo Excel
 
-export async function readFile() {
+export async function readFileController(req, res) {
+  //verifica que venga el archivo
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).json({ message: 'No se encontró ningún archivo' });
+  }
+  //verifica el tipo de archivo
+  const file = req.files.excelFile;
+  const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
 
-  // SE DECLARA UN ARREGLO PARA INSERTAR LOS DATOS DEL ARCHIVO
-  let data = []
-
+  if (!validTypes.includes(file.mimetype)) {
+    return res.status(400).json({ message: 'Tipo de archivo no permitido.' });
+  }
+ 
+  const data = [];
+  const fileRuta = join(resolve(), './src/public/assets/plantilla', 'datos.xlsx');
   try {
-    const workbook =  await xlsx.fromFileAsync(fileRuta);
-    const value = workbook.sheet('datos').usedRange('').value();
+    // Guarda el archivo recibido
+    const fileRead = await saveFile(file);
+    if (!fileRead) {
+      return res.status(500).json({ message: 'Error leyendo el archivo' });
+    }
+    //LEE EL ARCHIVO 
+    const workbook = await xlsx.fromFileAsync(fileRuta);
+    const values = workbook.sheet('datos').usedRange('').value();
+    //Genera un objeto con los valores del archivo y los agrega al arreglo data 
+    for (let valor of values) {
+      if (!valor[0] || !valor[1] || !valor[2]) continue;
 
-  for(let valor of value){
-    // VALIA SI LA FILA VIENE VACIA, SI ES ASI LA IGNORA Y CONTINUA
-    if((valor[0] && valor[1] && valor[2])  === undefined ) continue
-     //  SI LA FILA  NO VIENE VACIA, INSERTA LOS DATOS A UN ARRAY DE OBJETOS
-   data.push({
-      "nombre" : valor[1],
-      "numero":valor[0].toString(),
-      "tipo":valor[7].toLowerCase(),
-      "estado": valor[8] === 0 ? false : true,
-      "numero_serie":valor[2],
-      "nombre_serie":valor[3],
-      "caja": valor[6],
-      "estante":valor[5],
-      "pasillo":valor[4].toString()
-    })
-  }
-  // ELIMINAMOS EL PRIMER ELEMENTO DEL ARREGLO, QUE SERIA EL EMCABEZADO DE LA TABLA 
-  data.shift();
-  const result =  await newExpedientXlsxController(data)
-  console.log(result)
-  if(!result){
-    return null
-  }
+      data.push({
+        "nombre": valor[1],
+        "numero": valor[0].toString(),
+        "tipo": valor[7]?.toLowerCase(),
+        "estado": valor[8] === 0 ? false : true,
+        "numero_serie": valor[2],
+        "nombre_serie": valor[3],
+        "caja": valor[6],
+        "estante": valor[5],
+        "pasillo": valor[4]?.toString()
+      });
+    }
+    //Elimina el primer objeto del arreglo, ya que es la cabecera del archivo
+    data.shift();
 
-  return result
+    // Envia los datos a la funcion que envia la solicitud a la base de datos
+    const result = await newExpedientXlsxController(data);
+    if (!result) {
+      return res.status(500).json({ message: 'Error al procesar los datos' });
+    }
+    return res.status(200).json({ message: 'OK', result });
   } catch (error) {
-    console.log(error)
-    return null
+    console.log('Error en readFile:', error);
+    return res.status(500).json({ message: 'Error interno del servidor' });
   }
-  
 }
 
+// Controlador para insertar los datos en la base de datos
 
-// RECIBE LOS DATOS, VALIDA CON EL ESQUEMA Y ENVIA LA SOLICITUD AL MODELO PARA LA REALIZAR LA QUERY
-
-async function  newExpedientXlsxController(data) {
-    // SE DECLARA UN ARREGLO VACIO PARA INSERTAR LOS EXPEDIENTES QUE N0 SE INSERTARON
-    let faileds = [];
-    // SE DECLARA UNA VARIABLE  PARA CONTABILIZAR  LOS EXPEDIENTES QUE SE INSERTARON
-    let totalInsertados = 0;
+async function newExpedientXlsxController(data) {
+  // guarda los expedientes que no se guarden por cualquier error devuelto
+  const faileds = [];
+  // guarda los archivos que se insertan
+  let totalInsertados = 0;
   try {
-    // SE RECORRE EL ARREGLO DATA PARA ENVIAR LOS DATOS E INSERTAR EL EXPEDIENTE
-    for (let expedient of data){
-      // SE ENVIAN LOS DATOS AL ESQUMA DE VALIDACIÓN DE TIPOS DE DATOS.
-        const validate = validateExpedient(expedient)
-        if(validate.error){
-      // SI HAY ALGUN ERROR SE INSERTA EL NUMERO DEL EXPEDIENTE AL ARREGLOS DE FALLIDOS
-        console.log(validate.error)
-        faileds.push(expedient.numero)
-      }else{
-      // SE ENVIA LA SOLICITUD AL MODELO PARA QUE ENVIE LA QUERY.
-      let newExpedient = await newExpedientXlsx(expedient)
-      // SI SUCEDE ALGUN ERROR, SE EL NUMERO DE EXPIENTE AL ARREGLO DE FALLIDOS
-        if(!newExpedient || newExpedient.error){
-          faileds.push(expedient.numero)
-        }else{
-       // SI NO HAY ERRORES, SE INCREMENTA EL CONTADOR DE EXPEDIENTES INSERTADOS
-          totalInsertados += 1
+    // rrecorre el arreglo generado y por cada expediente envia una solicitud a la base  de datos.
+    for (let expedient of data) {
+      const validate = validateExpedient(expedient);
+      if (validate.error) {
+        console.log('Error de validación:', validate.error);
+        //si la consulta genera un error agrega ese expediente al arreglos de fallidos
+        faileds.push(expedient.numero);
+      } else {
+        const newExpedient = await newExpedientXlsx(expedient);
+        if (!newExpedient || newExpedient.error) {
+          faileds.push(expedient.numero);
+        } else {
+          //Si la consulta es correcta incrementa el contador de correctas.
+          totalInsertados += 1;
         }
       }
     }
-
-    deleteFile()
-    return {faileds,totalInsertados}
+    //Eliminar el archivo cuando la consuelta este ok
+    deleteFile();
+    return { faileds, totalInsertados };
   } catch (error) {
-    console.log(error)
-    return null
+    console.log('Error en newExpedientXlsxController:', error);
+    return null;
   }
 }
 
-
-// Utiliza fs.unlink para eliminar el archivo
+// Función para eliminar el archivo después de procesarlo
 function deleteFile() {
+  const fileRuta = join(resolve(), './src/public/assets/plantilla', 'datos.xlsx');
+
   fs.unlink(fileRuta, (err) => {
     if (err) {
-        console.error('Error al eliminar el archivo:', err);
-        return;
+      console.error('Error al eliminar el archivo:', err);
+      return null;
     }
     console.log('Archivo eliminado exitosamente.');
-})
+    return true;
+  });
 }

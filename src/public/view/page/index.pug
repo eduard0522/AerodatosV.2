@@ -40,8 +40,8 @@ block content
       span.graphic 
         i(class="fa-solid fa-chart-line graphic")
       div.glas-div.graphic
-        h3.graphic Solicitudes
-        p.graphic Aca podras ver las solicitudes de los usuarios y el reporte de los mismos.
+        h3.graphic Carga Masiva
+        p.graphic Aca podras realizar una carga masiva de datos desde una plantilla de Excel.
 
 
     article(class="option option-base base")
@@ -52,9 +52,10 @@ block content
         p.base Aca podras ver la base de datos y gestionarla (agregar, editar o eliminar los expedientes)
 
 
-
-  include ../components/pop-upSearch
   include ../components/formUpdateBanner
   include ../components/loadExcel
+  include ../components/modallInfo
+  include ../components/createUser
+
 block link-js 
   script(src="../js/script.js", type="module")

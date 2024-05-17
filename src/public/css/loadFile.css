@@ -9,39 +9,21 @@
   align-items: center;
   background-color: rgba(2, 10, 29, 0.178)
 }
-.selectFile{
-  width: 400px;
-  height: 300px;
-  position: relative;
-  background:#000442;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 3px solid var(--primary-color);
-  border-radius: .8rem;
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-form{
-  width: 90%;
-  height: 100%;
-  display: flex;
-  margin-inline: auto;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-}
+
 .selectFile h2{
   color: #3ba3f8;
   text-align: center;
   font-weight: bold;
 }
+
 .selectFile p{
   color: #fff;
 }
+
 .selectFile{
   font-weight: 600;
 }
+
 .selectFile button{
   padding:  .5rem 1rem;
   background-color: #248ee5;
@@ -50,9 +32,11 @@ form{
   border-radius: .3rem;
   cursor: pointer;
 }
+
 .selectFile button:hover{
   background-color: #0b275f;
 }
+
 .buttons-form-banner{
   width: 100%;
   display: flex;
@@ -60,7 +44,8 @@ form{
   align-items: center;
   justify-content: space-between;
 }
-.selectFile .closedFormBanner{
+
+.selectFile .closeForm{
   position: absolute;
   padding: .1rem .5rem ;
   top: .5rem;

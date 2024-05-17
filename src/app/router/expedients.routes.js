@@ -1,12 +1,17 @@
 import { Router } from "express";
-import { deleteBoxController , getExpedientsController, newBoxController,newShelfController,deleteShelfController,newHallController,deleteHallController, newSerieController, deleteSerieController, newTypeController, deleteTypeController, newExpedientController, deleteExpedientController, upadateExpedientController,countExpedientsController } 
+import { deleteBoxController , getExpedientsController, newBoxController,newShelfController,deleteShelfController,newHallController,deleteHallController, newSerieController, deleteSerieController, newTypeController, deleteTypeController, newExpedientController, deleteExpedientController, upadateExpedientController,countExpedientsController,getExpedientByExpedientController } 
 from "../../../controllers/expedients-controllers.js";
 
 export const routerExp = Router();
 
 /********************* EXPEDIENTES  **************/
-routerExp.get("/", getExpedientsController );
-routerExp.get("/total", countExpedientsController );
+routerExp.get("/", getExpedientsController ); 
+
+ routerExp.get("/total", countExpedientsController ); 
+
+routerExp.get("/filter/", getExpedientByExpedientController);
+
+routerExp.get("/:page", getExpedientsController ); 
 
 routerExp.post("/", newExpedientController);
 // EDITAR EXPEDIENTE
@@ -47,4 +52,3 @@ routerExp.delete('/pasillo/:id', deleteHallController);
 routerExp.post('/estante', newShelfController);
 // ELIMINAR ESTANTE
 routerExp.delete('/estante/:id', deleteShelfController);
-

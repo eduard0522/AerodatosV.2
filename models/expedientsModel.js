@@ -5,16 +5,55 @@ import {  ifExistBox, ifExistHall, ifExistSerie, ifExistShelf } from "./validati
 
 // TRAE TODOS LOS EXPEDIENTES DE LA BASE DE DATOS 
 
-export async function getExpedientsService(){
+export async function getExpedientsService(limit,offset){
   try {
     const conn =  await getConnection()
-    const expedients = await conn.query('SELECT  * FROM expedientes_vista');
+    const [expedients] = await conn.query('SELECT  * FROM expedientes_vista limit ? offset ?',[+limit, +offset]);
+    const [totalExpedients] = await conn.query('SELECT COUNT(*) AS total FROM expedientes_vista ');
 
     if(expedients && !expedients.error ){
       releaseConnection(conn)
-      return expedients[0]   
+      return {expedients,  totalExpedients}
      }
+     return null
+  } catch (error) {
+      console.log(error)
+      return null
+  }
+}
 
+// TRAE LOS EXPEDIENTES POR NUMERO O NOMBRE  DE EXPEDIENTE DESDE LA BASE DE DATOS 
+
+export async function getExpedientByExpedientService(expedient,name){
+  try {
+    if(!name && expedient){
+        const conn =  await getConnection()
+        const [getExpedient] = await conn.query('SELECT  * FROM expedientes_vista where numero_expediente LIKE ?',[`%${expedient}%`]);
+        if(getExpedient && !getExpedient.error ){
+          releaseConnection(conn)
+          return getExpedient
+        }
+    }
+
+
+    if(name && !expedient){
+      const conn =  await getConnection()
+      const [getExpedient] = await conn.query('SELECT  * FROM expedientes_vista where nombre_expediente LIKE  ? ',[ `%${name}%`]);
+      if(getExpedient && !getExpedient.error ){
+        releaseConnection(conn)
+        return getExpedient
+      }
+    }
+
+    if(name && expedient){
+      const conn =  await getConnection()
+      const [getExpedient] = await conn.query('SELECT  * FROM expedientes_vista where nombre_expediente  LIKE ?  and  numero_expediente LIKE ?',[`%${name}%`,`%${expedient}%`]);
+
+      if(getExpedient && !getExpedient.error ){
+        releaseConnection(conn)
+        return getExpedient
+      }
+    }
      return null
   } catch (error) {
       console.log(error)
@@ -33,13 +72,11 @@ export async function countExpedientsService(){
       conn.query('SELECT  COUNT(*)  AS total FROM expedientes WHERE estado_organizativo = 0')
 
     ])
-   
     const expedientes = {
       total:expedients[0],
       organizados:organized[0],
       sinOrganizar : unorganized[0]
     }
-
     if(expedients && !expedients.error ){
       releaseConnection(conn)
       return  expedientes

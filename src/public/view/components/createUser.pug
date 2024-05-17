@@ -1,0 +1,12 @@
+link(rel="stylesheet", href="../css/createUser.css")
+div.containerCreateUser
+    div.heading Nuevo Usuario
+    form.form
+      input(required="" type="text" class="input" name="name" id="name" placeholder="Nombre")
+      input(required="" class="input" type="email" name="email" id="email" placeholder="Correo")
+      input(required="" class="input" type="password" name="password" id="password" placeholder="Contraseña")
+      select(name="rol") Tipo de usuario
+        option(value="usuario") Usuario 
+        option(value="administrador") Administrador
+
+      input(class="login-button" type="submit" value="Crear")

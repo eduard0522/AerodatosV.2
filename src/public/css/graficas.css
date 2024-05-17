@@ -3,8 +3,10 @@
   margin: auto;
   height: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px ,1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(270px ,350px));
+  gap: 5rem;
+  place-content: center;
+
 }
 
 .graficas .box{
@@ -25,11 +27,6 @@
   height: 100%;
 }
 
-.graficas .box #container3{
-  width: 60%;
-  height: 100%;
-}
-
 
 .graficas .box:nth-child(2), .leyenda .muestras p{
   padding: 0 .2rem;
@@ -44,11 +41,6 @@
   align-content: flex-start;
 }
 
-.graficas .box:nth-child(2) .leyenda{
-  justify-content: center;
-  align-items: flex-start;
-
-}
 .muestras{
   display: flex;
   justify-content: flex-start;
@@ -75,31 +67,6 @@
   border-radius: .2rem;
   background-color: #2e52bcd6;
 }
-.muestras .icono3{
-  width: 20px;
-  height: 10px;
-  border-radius: .2rem;
-  background-color: #e1655ef0;
-}
-.muestras .icono4{
-  width: 20px;
-  height: 10px;
-  border-radius: .2rem;
-  background-color: #ffd05a;
-}
-.muestras .icono5{
-  width: 20px;
-  height: 10px;
-  border-radius: .2rem;
-  background-color: #0cb1c7eb;
-}
-.muestras .icono6{
-  width: 20px;
-  height: 10px;
-  border-radius: .2rem;
-  background-color: #2a66a2;
-}
-
 
 .muestras  p{
   margin: 0;

@@ -1,0 +1,13 @@
+link(rel="stylesheet", href="../css/infoFile.css")
+
+section(class="infoFile hidden" id="infoFile")
+  div.selectFile
+    form(enctype="multipart/form-data" id="uploadForm")
+      h2 Expedientes insertados
+      p.textInsert Total insertados : 
+      p.textFailed Total Fallidos :
+      ul.listFaileds 
+      
+      div.buttonsInfo
+        button(type="button"  id='closeInfo ')  OK
+      button(type="button" class="closeInfo closeInfoButton") X

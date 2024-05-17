@@ -6,7 +6,6 @@ export async function validateUser(userName,password) {
   if(!userName && !password){
     throw new Error('Los datos requeridos vieven incompletos');
   }
-
   try {
     const conn = await getConnection();
     console.log(userName, password)
@@ -20,7 +19,6 @@ export async function validateUser(userName,password) {
         releaseConnection(conn)
        throw new Error('Error inesperado desde la base de datos');
     }
-
   } catch (error) {
     console.log(error)
     return null;

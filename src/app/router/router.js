@@ -3,24 +3,25 @@ import { routerAuth } from "./auth.routes.js";
 import { routerExp } from "./expedients.routes.js";
 import {join, resolve} from 'path'
 import { readFileController } from "../../../controllers/xlsxController.js";
-import fs from 'fs'
+import { routerUser } from "./user.routes.js";
 
 
 export const router = Router();
 
 router.use('/', routerAuth);
+router.use('/user', routerUser);
+
 router.use('/expedientes',routerExp)
 
+
 router.get('/download', (req,res) =>{
-  const ruta = join(resolve(),'./src/public/assets/plantilla','pruebasExcel.xlsx');
+  const ruta = join(resolve(),'./src/public/assets/plantilla','plantillaExpedientes.xlsx');
   res.download(ruta, function (error) {
     console.log("Error : ", error)
 });87
 })
 
-router.post('/uploadFile' , readFileController )
-
-
+router.post('/uploadFile', readFileController )
 
 /******************* RUTAS DE REDIRECCION  **************/
 

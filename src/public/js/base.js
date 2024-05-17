@@ -1,24 +1,25 @@
 
 import { createExpedient, editExpedient, insertDateForm,clearDateForm, deleteFile } from "./expedientsRequest.js";
 import { ClosedModal, openModal } from "./modals.js";
-import searchFilter from "./filters.js";
 import { getRutas } from "./getRutas.js";
 
 const d = document;
-const $rol = d.querySelector(".rol-header");
 const $form = d.querySelector('.form-file');
+const $formFilter = d.getElementById('formFilters');
 let $token;
 
 d.addEventListener("DOMContentLoaded", (e) => {
+  if( d.getElementById(`${sessionStorage.getItem('page')}`)){
+    d.getElementById(`${sessionStorage.getItem('page')}`).style.background = '#0b275f'
+  }
+ 
   validateToken();
   getTotalExpedients()
 });
 
-
 /********* FUNCION PARA VALIDAR ELTOKEN Y ASI MISMO EL PERMISO, SE EJECUTA A LA CARGA DEL DOM  ******/
 async function validateToken() {
   $token = sessionStorage.getItem("tok");
-  console.log($token)
   try {
     let options = {
       method: "GET",
@@ -38,6 +39,7 @@ async function validateToken() {
   }
 }
 
+
 async function getTotalExpedients() {
   try {
     const res = await axios('/expedientes/total');
@@ -52,8 +54,17 @@ async function getTotalExpedients() {
   }
 }
 
+async function getExpedientsPage(page) {
+  try {
+   location.href=`/expedientes?page=${page}`;
+  }catch(error){
+    console.log(error)
+  }
+}
+  
 
 d.addEventListener('click',(e) => {
+  
   if(e.target.matches('.register') ||  e.target.matches('.button-active-form')){
     openModal('form','hidden')}
 
@@ -74,8 +85,11 @@ d.addEventListener('click',(e) => {
     document.querySelector('header').classList.toggle('menu-resposive');
   }
 
-  searchFilter(".filter-data",".tr-filter");
-  });
+  if (e.target.matches(".pageIndex") ) {
+    sessionStorage.setItem('page', e.target.id)
+    getExpedientsPage(e.target.id)
+  }
+})
 
 
 d.addEventListener('submit', (e) => {
@@ -86,6 +100,19 @@ d.addEventListener('submit', (e) => {
     }else{
       editExpedient(e);
     } 
+  }
+  if(e.target === $formFilter){
+     e.preventDefault();
+
+     if(e.target.expedient.value && e.target.name.value ){
+       return location.href=`/expedientes/filter?expedient=${e.target.expedient.value}&name=${e.target.name.value}`
+     } 
+     if(e.target.name.value){
+        return location.href=`/expedientes/filter?name=${e.target.name.value}`
+     }
+     if(e.target.expedient.value){
+        return location.href=`/expedientes/filter?expedient=${e.target.expedient.value}` 
+     }
   }
 });
 

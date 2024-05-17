@@ -14,7 +14,6 @@ d.addEventListener("DOMContentLoaded", (e) => {
 /********* FUNCION PARA VALIDAR ELTOKEN Y ASI MISMO EL PERMISO, SE EJECUTA A LA CARGA DEL DOM  ******/
 async function validateToken() {
   $token = sessionStorage.getItem("tok");
-  console.log($token)
   try {
     let options = {
       method: "GET",
@@ -35,7 +34,6 @@ async function validateToken() {
 }
 
 /**********************    FUNCION PARA ENVIAR LA IMAGEN DEL BANNER AL SERVIDOR  ************/
-
 async function  sendFile() {
   try {
     let options = {
@@ -66,16 +64,10 @@ async function  sendFile() {
         descripcion: "Ocurrio un error, intenta de nuevo",
         autocierre: true,
       });
-     /*  setTimeout(() => {
-        location.reload()
-      },5000) */
   }
 } 
-
-
 /**************************  SELECCIONAR IMAGEN DE BANNER Y COLOCARLA EN EL BANNER COMO PREVIEW,
                                    SI DECIDE DEJARLA ENVIA LA IMAGEN AL SERVIDOR Y LA ACTUALIZA     ******************/
-
 const $btn = d.getElementById('boton');
 const $btnInput = d.getElementById('activeInput');
 const $bannerInput = d.getElementById('inputBanner');
@@ -87,7 +79,6 @@ $btnInput.addEventListener('click',(e) =>{
     $bannerInput.click();
   }
 })
-
 $bannerInput.addEventListener('change', (e) =>{
   if(e.target.files[0]){
     banner = e.target.files[0];
@@ -113,8 +104,8 @@ $btn.addEventListener('click' , (e) => {
 })
 
 
-
 /************************** SELECCIONAR ARCHIVO EXCEL  *******************/
+
 const $btnExcel = d.getElementById('activeInputFile');
 const $excelInput = d.getElementById('excelFile');
 const $textFile = d.querySelector('.textFile')
@@ -143,6 +134,12 @@ function  loadFile() {
   console.log('clock')
     let formData = new FormData();
     let file =  d.getElementById('excelFile').files[0];
+    if (file) {
+      const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
+      if (!validTypes.includes(file.type)) {
+        alert('Solo se permiten archivos de tipo .xlsx o .xls');
+      }
+    }
     formData.append('excelFile', file);
 
     sendExcel(formData)
@@ -150,16 +147,44 @@ function  loadFile() {
 }
 
 async function sendExcel(data) {
-  console.log('click')
-  let res = await axios('/uploadFile',{
-    method: 'POST',
-    data: data,
-  });
-  if(res.status === 200){
-    console.log( await res)
-    console.log('archivo enviado con éxito.')
-  }else{
-    console.log('error al enviar el archivo')
+
+  try {
+    let res = await axios('/uploadFile',{
+      method: 'POST',
+      data: data,
+    });
+    if(res.status === 200){
+      agregarToast({
+        tipo: "info",
+        titulo: "Archivo enviado.",
+        descripcion: "El archivo fue enviado correctamente.",
+        autocierre: true,
+      });
+      console.log(res.data)
+      ClosedModal('loadFile', 'hidden');
+      d.querySelector('.textInsert').textContent = `Total insertados : ${res.data.result.totalInsertados}`;
+      d.querySelector('.textFailed').textContent = `Fallidos : ${res.data.result.faileds.length}`;
+        for(let failed of res.data.result.faileds){
+          d.querySelector('.listFaileds').innerHTML += `<li>  ${failed} </li>`
+        }
+  
+      openModal('infoFile','hidden')
+    }else{
+      agregarToast({
+        tipo: "error",
+        titulo: "Error",
+        descripcion: "Ocurrio un error, intenta de nuevo",
+        autocierre: true,
+      });
+    }
+  } catch (error) {
+    console.log(error.message)
+    agregarToast({
+      tipo: "error",
+      titulo: "Error",
+      descripcion: "Ocurrio un error, intenta de nuevo mas tarde",
+      autocierre: true,
+    });
   }
 }
 
@@ -176,13 +201,15 @@ d.addEventListener("click", (e) => {
   if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
     d.querySelector('header').classList.toggle('menu-resposive');
   }
+
   if (e.target.matches(".update-banner")) {
     d.querySelector('.config-options').classList.add('hidden')
     openModal('updateBanner','hidden');
   }
+
   if (e.target.matches(".closedFormBanner")) {
     ClosedModal('updateBanner','hidden');
-  }
+  } 
   if (e.target.matches(".fa-gear")) {
     d.querySelector('.config-options').classList.toggle('hidden')
   }
@@ -190,15 +217,19 @@ d.addEventListener("click", (e) => {
   if (e.target.matches(".download")) {
    openModal('pop-up', 'hidden');
   }
+
   if (e.target.matches(".cancel-download")) {
    ClosedModal('pop-up', 'hidden');
   }
+
   if (e.target.matches(".base")) {
-   window.location.href = '/base'
+   window.location.href = '/expedientes'
    }
+
    if (e.target.matches(".graphic")) {
-    window.location.href = '/solicitudes'
+    openModal('loadFile', 'hidden')
    }
+
    if (e.target.matches(".updateUser")) {
     agregarToast({
       tipo: "warning",
@@ -209,9 +240,16 @@ d.addEventListener("click", (e) => {
    }
 
   if (e.target.matches(".update-link-icon")) {
-    ClosedModal('pop-up', 'hidden');
     openModal('loadFile', 'hidden')
    }
+   if (e.target.matches(".closeForm")) {
+      ClosedModal('pop-up', 'hidden');
+      ClosedModal('loadFile', 'hidden')
+   }
+   if (e.target.matches(".closeInfo")) {
+    ClosedModal('infoFile', 'hidden')
+ }
+
   if (e.target.matches(".download-ok")) {
     ClosedModal('pop-up', 'hidden');
     agregarToast({

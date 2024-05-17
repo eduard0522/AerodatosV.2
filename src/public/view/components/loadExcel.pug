@@ -5,9 +5,9 @@ section(class="loadFile hidden" id="loadFile")
     form(enctype="multipart/form-data" id="uploadForm")
       h2 Selecciona el Archivo a Cargar
       p.textFile Recuerda que si modificaste la estructura del documento, lo mas probable es que se produzca un error.
-      input(type="file" id='excelFile'  name="excelFile"  placeholder="Seleccionar Archivo" hidden)
+      input(type="file" id='excelFile'  name="excelFile"  placeholder="Seleccionar Archivo" hidden accept=".xlsx,.xls")
       div.buttons-form-banner
         button(type="button" id='activeInputFile') Selecionar Archivo
         button(type="button"  id='sendFile')  Subir Archivo
-      button.closedFormBanner x
+      button(type="button" class="closeForm") X
 

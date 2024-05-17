@@ -12,22 +12,64 @@
 .BD{
   width: inherit;
   height: auto;
+
 }
+
+.BD .formFilters .formFilters{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem;
+  align-items: center;
+}
+.formFilters .formFilters input{
+  width: 250px;
+  padding: .3rem .5rem;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  border-radius: .3rem;
+  
+}
+.formFilters .formFilters  label{
+  color: var(--primary-color);
+  font-weight: 600;
+ margin-right: .5rem;
+
+}
+.formFilters .formFilters  button{
+  width: 150px;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: var(--second-color);
+  border: 2px solid var(--second-color);
+  border-radius: .3rem;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+  &:hover{
+    background-color: #072d77;
+  }
+}
+
+.BD .register-container{
+  width: 100%;
+ display: flex;
+ padding-right: .5rem;
+ justify-content: end;
+ align-items: center;
+}
+
 .BD .register{
   display:flex;
   justify-content: space-between;
-  padding: .5rem;
-}
-.BD  input{
-  display: inline-block;
-  width: 70%;
-  padding: .5rem;
-  border: solid 1px #d8d5d5;
+  width: 150px;
   border-radius: .2rem;
-  font-size: .8rem;
-  font-weight: bold;
-  color: var(--primary-color);
 }
+
 .button {
   position: relative;
   width: 150px;
@@ -37,7 +79,7 @@
   align-items: center;
   border: 1px solid #34974d;
   background-color: #ffffff;
-  margin-right: 1rem;
+  align-self:flex-end;
 }
 
 .button, .button__icon, .button__text {
@@ -54,7 +96,7 @@
 .button .button__icon {
   position: absolute;
   transform: translateX(109px);
-  height: 100%;
+  height: 40px;
   width: 39px;
   background-color: #34974d;
   border: 1px solid #34974d;
@@ -90,6 +132,8 @@
 .button:active {
   border: 1px solid #2e8644;
 }
+
+
 
 /************************* Table ***********************/
 .table{
@@ -163,6 +207,7 @@ table thead th:first-child{
   color: #fff;
   width: 100px;
   display: block;
+  margin: auto;
 }
  .sinorganizar{
   background-color: #2e52bcd6;
@@ -171,6 +216,7 @@ table thead th:first-child{
   color: #fff;
   width: 100px;
   display: block;
+  margin: auto;
 } 
 
 .filter{
@@ -180,6 +226,30 @@ table thead th:first-child{
  }
  .filter2{
     display: none; 
+  }
+
+  .buttonsPages{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: .5rem;
+  }
+
+  .buttonsPages .pageIndex{
+    background-color: var(--primary-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.1rem;
+  }
+  .buttonsPages .pageIndex:hover{
+    background-color: rgb(5, 6, 69);
+    cursor: pointer;
   }
 
 

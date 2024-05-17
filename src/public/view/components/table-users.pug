@@ -1,32 +1,48 @@
-link(rel="stylesheet", href="../css/table-users.css")
-
+link(rel="stylesheet", href="../css/table-base.css")
 section.table-container
   section.BD
-    div.register
-      input(type="search", class="filter-data", placeholder="Palabra clave...")
-      
+    div.formFilters
+      form(id="formFilters" class="formFilters") 
+        label Nombre
+          input(type="text" placeholder="Filtrar por nombre" name="name")
+        label Numero expediente
+          input(type="text" placeholder="Filtrar por # Expediente" name="expedient")
+        button(type="submit" class="btnSearch") Buscar
     table.table
       thead
         tr
           th.icon-table 
             img(src="../assets/img/bookmark-solid.svg" alt="")
           th Expediente
-          th Referencia 
-          th Dependencia
-          th Caja
-          th Carpeta
-          th Opciones
-
-      -var expedientes=expedientes;
-      -var contador = 1
+          th Nombre
+          th Tipo
+          th Serie
+          th Pasillo
+          th Estante
+          th Caja 
+          th Estado
+          
+        -var expedientes=expedientes;
+        -var contador = 1;
+        
       tbody#tbody
         each expediente in expedientes
-          tr.tr-filter
-            td=contador++
-            td=expediente.expediente
-            td=expediente.nombre_referencia 
-            td=expediente.nombre_dependencia 
+          tr.tr-filter 
+            td=contador ++
+            td=expediente.numero_expediente
+            td=expediente.nombre_expediente
+            td=expediente.nombre_tipo
+            td=expediente.nombre_serie
+            td=expediente.numero_pasillo
+            td=expediente.estante
             td=expediente.caja
-            td=expediente.carpeta
-            td
-               button(type="button", class="send-appli" data-expediente=expediente.expediente,data-dependencia=expediente.nombre_dependencia,data-referencia=expediente.nombre_referencia) Solicitar 
+            td  
+              if expediente.estado_organizativo
+                span(class="organizado") Organizado 
+              else if !expediente.estado_organizativo
+                span(class="sinorganizar") Pendiente
+
+div.buttonsPages
+    -var pages = pages
+    -for(var i = 1; i <= pages; i++ )
+      div.pageIndex(id=i)= i

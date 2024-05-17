@@ -93,9 +93,6 @@ main .banner img{
 .config-options .box:hover{
   background-color: #08296d;
 }
-.config-options:hover > .box:not(:hover) {
-  filter: blur(5px);
-}
 
 .config-options .box i{
   font-size: 2rem;
