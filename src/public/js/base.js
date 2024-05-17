@@ -80,6 +80,10 @@ d.addEventListener('click',(e) => {
   if(e.target.matches('.delete')){
     deleteFile(e)
   }
+  if (e.target.matches(".logout")) {
+    sessionStorage.setItem('tok','')
+    location.href ='/'
+   }
  
   if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
     document.querySelector('header').classList.toggle('menu-resposive');

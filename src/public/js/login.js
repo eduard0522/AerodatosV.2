@@ -7,7 +7,6 @@ const $form = document.querySelector(".form-user");
 
 d.addEventListener('DOMContentLoaded' , (e) => {
   sessionStorage.setItem("tok",'');
-  console.log('cargando')
 })
 async function Validatelogin(e) {
   try {
@@ -16,7 +15,7 @@ async function Validatelogin(e) {
       headers: { "Content-type": "application/json; charset=utf-8" },
       // DATOS EN FORMATO JSON
       data: JSON.stringify({
-        userName: e.target.userName.value,
+        email: e.target.userName.value,
         password: e.target.password.value,
       }),
     };
@@ -24,7 +23,6 @@ async function Validatelogin(e) {
       '/login',
       options
     );
-    console.log(res , 'Respuesta desde login');
     sessionStorage.setItem("tok", res.data.token);
     openModal("pop-up", "hidden");
 
@@ -35,18 +33,17 @@ async function Validatelogin(e) {
       autocierre: true,
     });
     
-    console.log(res.data.Usuario[0].rol)
      d.addEventListener("click", (e) => {
       if (e.target.matches(".login")) {
-        if ( res.data.Usuario[0].rol== "Administrador" || res.data.Usuario[0].rol == "Administrador") {
+        if ( res.data.Usuario[0].rol== "Administrador" || res.data.Usuario[0].rol == "administrador") {
           location.href = "/index";
+          
         } else if ( res.data.Usuario[0].rol == "Usuario" || res.data.Usuario[0].rol == "usuario") {
           location.href = "user/index";}
       }
     }) 
 
   } catch (err) {
-    console.log(err);
     agregarToast({
       tipo: "error",
       titulo: "Error!",

@@ -9,6 +9,7 @@ let banner ;
 
 d.addEventListener("DOMContentLoaded", (e) => {
   validateToken();
+  getUsers()
 });
 
 /********* FUNCION PARA VALIDAR ELTOKEN Y ASI MISMO EL PERMISO, SE EJECUTA A LA CARGA DEL DOM  ******/
@@ -188,6 +189,42 @@ async function sendExcel(data) {
   }
 }
 
+
+
+/**************************** MOSTRAR USUARIOS  ***********************/
+
+async function getUsers() {
+  try {
+    let res = await axios('/admin')
+
+    showUsers(res.data)
+
+  }catch(error){
+    console.log(error.message)
+  }
+}
+ function showUsers(data) {
+  let index = 0;
+  const $dataUser = d.querySelector('.contentUsers');
+  for(let user of data){
+    
+    $dataUser.innerHTML += `
+    <tr> 
+        <td> ${index} </td> 
+        <td> ${user.nombre_usuario}</td> 
+        <td> ${user.correo} </td> 
+        <td> ${user.rol} </td> 
+        <td> 
+          <button data-id='${user.id_usario}'> <img src="../../assets/img/edit.svg" alt="icon edit" class="icon-edit" data-nombreusuario = '${user.nombre_usuario}' data-correo = '${user.correo}' data-rol='${user.rol}'> </button>
+          <button data-id='${user.id_usario}'>  <img src="../../assets/img/delete.svg" alt="icon delete" class="delete icon-delete" data-id='${user.id_usario}'> </button>
+        </td>   
+    </tr> `
+    index ++
+  }
+}
+
+
+
 /*********************************************  ESCUCHADOR DE EVENTOS CLICK  **********************************/
 
 d.addEventListener("click", (e) => {
@@ -231,25 +268,46 @@ d.addEventListener("click", (e) => {
    }
 
    if (e.target.matches(".updateUser")) {
-    agregarToast({
-      tipo: "warning",
-      titulo: "Opps!!",
-      descripcion: "Función en desarrollo",
-      autocierre: true,
-    });
+    openModal('usersAdmin','hidden-users')
+   }
+
+   if (e.target.matches(".closeUsers")) {
+    ClosedModal('usersAdmin','hidden-users')
+   }
+   if (e.target.matches(".icon-edit")) {
+    ClosedModal('usersAdmin','hidden-users')
+    openModal('updateUserForm','hidden-form')
+   }
+
+   if (e.target.matches(".CloseUpdate")) {
+    ClosedModal('updateUserForm','hidden-form')
+   }
+   
+   if (e.target.matches(".CloseCreate")) {
+    ClosedModal('createUserForm','hidden-form')
    }
 
   if (e.target.matches(".update-link-icon")) {
     openModal('loadFile', 'hidden')
    }
+   if (e.target.matches(".createUser")) {
+    openModal('createUserForm', 'hidden-form')
+   }
+
    if (e.target.matches(".closeForm")) {
       ClosedModal('pop-up', 'hidden');
       ClosedModal('loadFile', 'hidden')
    }
    if (e.target.matches(".closeInfo")) {
     ClosedModal('infoFile', 'hidden')
- }
+   }
+   if (e.target.matches(".logout")) {
+    sessionStorage.setItem('tok','')
+    location.href ='/'
+   }
 
+
+   
   if (e.target.matches(".download-ok")) {
     ClosedModal('pop-up', 'hidden');
     agregarToast({

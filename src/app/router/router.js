@@ -4,6 +4,7 @@ import { routerExp } from "./expedients.routes.js";
 import {join, resolve} from 'path'
 import { readFileController } from "../../../controllers/xlsxController.js";
 import { routerUser } from "./user.routes.js";
+import { routerAdmin } from "./adminUser.routes.js";
 
 
 export const router = Router();
@@ -12,7 +13,7 @@ router.use('/', routerAuth);
 router.use('/user', routerUser);
 
 router.use('/expedientes',routerExp)
-
+router.use('/admin',routerAdmin )
 
 router.get('/download', (req,res) =>{
   const ruta = join(resolve(),'./src/public/assets/plantilla','plantillaExpedientes.xlsx');

@@ -27,6 +27,10 @@ block content
         i(class="fa-solid fa-users  updateUser")
         h3 Editar usuarios
         i(class="fa-solid fa-pen-to-square updateUser")
+      div.box.createUser
+        i(class="fa-solid fa-users  updateUser")
+        h3 Crear Usuario
+        i(class="bi bi-person-plus-fill")
         
 
   article.banner 
@@ -56,6 +60,8 @@ block content
   include ../components/loadExcel
   include ../components/modallInfo
   include ../components/createUser
+  include ../components/usersAdmin
+  include ../components/updateUser
 
 block link-js 
   script(src="../js/script.js", type="module")

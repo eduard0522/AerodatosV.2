@@ -10,7 +10,6 @@ d.addEventListener("DOMContentLoaded", (e) => {
 
 async function validateToken(req, res) {
   $token = sessionStorage.getItem("tok");
-  console.log('validar token')
   try {
     console.log("ingreso");
     let options = {
@@ -21,19 +20,14 @@ async function validateToken(req, res) {
       },
     };
 
-    let res = await axios(`/user/index/verify`, options);
+    let res = await axios(`/verifytokenUser`, options);
     $rol.textContent = res.data.rol;
    if (res.data.status === 403) {
     location.href = '/403'
    }
 
   } catch (error) {
-    agregarToast({
-      tipo: "error",
-      titulo: "Error!!",
-      descripcion: "Ocurrio un error inesperado",
-      autocierre: true,
-    });
+    location.href = '/403'
   }
 }
 
@@ -51,6 +45,11 @@ d.addEventListener("click", (e) => {
   if (e.target.matches(".search")) {
    window.location.href = '/user/expedientes'
   }
+  if (e.target.matches(".logout")) {
+    sessionStorage.setItem('tok','')
+    location.href ='/'
+   }
+
   if (e.target.matches(".bug")) {
     agregarToast({
       tipo: "warning",

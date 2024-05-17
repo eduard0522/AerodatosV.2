@@ -14,7 +14,7 @@ async function validateToken() {
         "Content-type": "application/json;charset=utf-8",
       },
     };
-    let res = await axios(`/verifyToken`, options);
+    let res = await axios(`/verifytokenUser`, options);
     if (res.status === 403) {
       location.href = '/403'
      }
@@ -51,7 +51,7 @@ d.addEventListener('submit', (e) => {
     }
     if(e.target.expedient.value){
        return location.href=`/user/filter?expedient=${e.target.expedient.value}` 
-   
+  
     }
  }
 })
@@ -62,4 +62,8 @@ d.addEventListener('click', (e) => {
     sessionStorage.setItem('page', e.target.id)
     getExpedientsPage(e.target.id)
   }
+  if (e.target.matches(".logout")) {
+    sessionStorage.setItem('tok','')
+    location.href ='/'
+   }
 })

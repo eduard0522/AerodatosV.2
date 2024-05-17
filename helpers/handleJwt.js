@@ -19,7 +19,7 @@ export function validateAdminToken(req,res,next) {
   try {
     const decoded = jwt.verify(authorization,secretPass);
     console.log(decoded)
-    if(decoded.rol != 'Administrador'){
+    if(decoded.rol != ('Administrador' && 'administrador' ) ){
       return res.status(403).json({message:'No estas autorizado o el token ah expirado, debes iniciar sesión nuevamente.'})
     }
 
@@ -33,6 +33,7 @@ export function validateAdminToken(req,res,next) {
     return res.status(403).json({message:'No estas autorizado o el token ah expirado, debes iniciar sesión nuevamente.'})
   }
 }
+
 
 export function validateToken(req,res,next){
     const {authorization} = req.headers;

@@ -14,7 +14,6 @@ const CerrarToast = (id) =>{
   d.getElementById(id)?.classList.add('cerrando');
 }
 export const agregarToast = ({tipo,titulo,descripcion,autocierre}) =>{
-  console.log(tipo,titulo,descripcion,autocierre)
   const nuevoToast = d.createElement('div');
   nuevoToast.classList.add('toast')
   nuevoToast.classList.add(tipo)

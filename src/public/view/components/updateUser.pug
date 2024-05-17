@@ -1,7 +1,9 @@
 link(rel="stylesheet", href="../css/createUser.css")
-div(class="containerCreateUser  hidden-form" id="createUserForm")
-    button(type="button", class="CloseCreate btnCreate") X
-    div.heading Nuevo Usuario
+
+
+div(class="containerUpdateUser hidden-form" id="updateUserForm")
+    button(type="button", class ="CloseUpdate") X
+    div.heading Editar Usuario
     form.form
       input(required="" type="text" class="input" name="name" id="name" placeholder="Nombre")
       input(required="" class="input" type="email" name="email" id="email" placeholder="Correo")
@@ -10,4 +12,4 @@ div(class="containerCreateUser  hidden-form" id="createUserForm")
         option(value="usuario") Usuario 
         option(value="administrador") Administrador
 
-      input(class="login-button" type="submit" value="Crear")
+      input(class="login-button" type="submit" value="Actualizar")

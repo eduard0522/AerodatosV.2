@@ -125,14 +125,14 @@ export async function getExpedientsUserController(req,res) {
             if(!expedient || expedient.error) {
             return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
              }
-             return res.render('page/base',{expedientes:expedient})
+             return res.render('page/expedientUser',{expedientes:expedient})
       }
       if(!name && expedient){
           const getExpedient = await getExpedientByExpedientService(expedient, null);
           if(!getExpedient|| getExpedient.error) {
             return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
           }
-          return res.render('page/base',{expedientes:getExpedient})
+          return res.render('page/expedientUser',{expedientes:getExpedient})
       }
       if(expedient && name ){
         const getExpedient = await getExpedientByExpedientService(expedient,name);

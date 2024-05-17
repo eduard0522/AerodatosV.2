@@ -1,23 +1,22 @@
 import { getConnection,releaseConnection } from "../db/index.js";
 
 
-export async function validateUser(userName,password) {
+export async function validateUser(email) {
  
-  if(!userName && !password){
+  if(!email){
     throw new Error('Los datos requeridos vieven incompletos');
   }
   try {
     const conn = await getConnection();
-    console.log(userName, password)
 
-    const ifExistUser = await conn.query('SELECT nombre_usuario, rol, id_usuario FROM usuarios WHERE nombre_usuario =? and clave =? ',[userName,password]);
+    const [ifExistUser] = await conn.query('SELECT *  FROM usuarios WHERE correo =? ',[email]);
 
-    if(ifExistUser[0] != 0 && !ifExistUser.error){
+    if(ifExistUser.length != 0 && !ifExistUser.error){
       releaseConnection(conn)
-      return ifExistUser[0];
+      return ifExistUser;
     }else{
         releaseConnection(conn)
-       throw new Error('Error inesperado desde la base de datos');
+        return null
     }
   } catch (error) {
     console.log(error)

@@ -15,9 +15,11 @@ routerAuth.get('/index',(re,res) =>{
 routerAuth.get('/verifytoken', validateAdminToken , (req,res) => {
   return res.status(200).json({message:'OK'})
 });
+
 routerAuth.get('/verifytokenUser', validateToken , (req,res) => {
   return res.status(200).json({message:'OK'})
 });
+
 routerAuth.post('/login', validateUserController);
 
 

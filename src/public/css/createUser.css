@@ -13,19 +13,53 @@
   box-shadow: rgba(4, 3, 83, 0.878) 30px 30px 30px -20px;
   margin: 20px;
 }
+.containerUpdateUser {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 350px;
+  max-width: 400px;
+  background: #F8F9FD;
+  background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+  border-radius: 40px;
+  padding: 25px 35px;
+  border: 2px solid rgb(102, 151, 229);
+  box-shadow: rgba(4, 3, 83, 0.878) 30px 30px 30px -20px;
+  margin: 20px;
+}
 
-.containerCreateUser .heading {
+.hidden-form{
+  display: none;
+  visibility: hidden;
+}
+.containerCreateUser .CloseCreate ,.containerUpdateUser .CloseUpdate{
+  width: 30px;
+  height: 30px;
+  background-color: var(--primary-color);
+  color: var(--second-color);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: .5rem;
+  right: 1rem;  
+  &:hover{
+    background-color: #12B1D1;
+  }
+}
+
+.containerCreateUser .heading , .containerUpdateUser .heading{
   text-align: center;
   font-weight: 900;
   font-size: 30px;
   color: rgb(9, 71, 158);
 }
-
-.containerCreateUser .form {
+.containerCreateUser .form, .containerUpdateUser .form {
   margin-top: 20px;
 }
 
-.containerCreateUser .form .input {
+.containerCreateUser .form .input, .containerUpdateUser .form .input {
   width: 100%;
   background: white;
   border: none;
@@ -35,7 +69,7 @@
   box-shadow: #cff0ff 0px 10px 10px -5px;
   border-inline: 2px solid transparent;
 }
-.containerCreateUser .form select{
+.containerCreateUser .form select, .containerUpdateUser .form select{
   width: 100%;
   background: white;
   border: none;
@@ -46,20 +80,20 @@
   border-inline: 2px solid transparent;
 }
 
-.containerCreateUser .form .input::-moz-placeholder {
+.containerCreateUser .form .input::-moz-placeholder .containerUpdateUser .form .input::-moz-placeholder {
   color: rgb(170, 170, 170);
 }
 
-.containerCreateUser .form .input::placeholder {
+.containerCreateUser .form .input::placeholder , .containerUpdateUser .form .input::placeholder{
   color: rgb(170, 170, 170);
 }
 
-.containerCreateUser .form .input:focus {
+.containerCreateUser .form .input:focus , .containerUpdateUser .form .input:focus{
   outline: none;
   border-inline: 2px solid #12B1D1;
 }
 
-.containerCreateUser .form .login-button {
+.containerCreateUser .form .login-button , .containerUpdateUser .form .login-button{
   display: block;
   width: 100%;
   font-weight: bold;
@@ -73,16 +107,16 @@
   transition: all 0.2s ease-in-out;
 }
 
-.containerCreateUser .form .login-button:hover {
+.containerCreateUser .form .login-button:hover , .containerUpdateUser .form .login-button:hover{
   transform: scale(1.03);
   box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
 }
 
-.containerCreateUser .form .login-button:active {
+.containerCreateUser .form .login-button:active,.containerUpdateUser .login-button:active {
   transform: scale(0.95);
   box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
 }
 
-.containerCreateUser .social-account-container {
+ .social-account-container {
   margin-top: 25px;
 }

@@ -4,7 +4,6 @@ import { router } from './router.js';
 import {resolve} from 'path';
 import { port } from '../../config.js';
 import fileUpload from 'express-fileupload';
-
 export const app = express();
 const statics = resolve('./src/public');
 
@@ -17,6 +16,5 @@ app.use(express.json())
 /* app.use(morgan("dev")); */
 app.use(express.static(statics));
 app.use(router)
-
 
 
