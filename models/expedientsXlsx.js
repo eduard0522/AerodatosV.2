@@ -48,7 +48,7 @@ export async function newExpedientXlsx(dataExpedient) {
         if(conn) releaseConnection(conn)
       return true
  } catch (error) {
-    console.log(error)
+    console.log(error);
     return null
   }
 }

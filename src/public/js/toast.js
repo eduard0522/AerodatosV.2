@@ -67,7 +67,7 @@ export const agregarToast = ({tipo,titulo,descripcion,autocierre}) =>{
   if(autocierre){
     setTimeout(() => {
       CerrarToast(toastId)
-    }, 6000);
+    }, 4000);
   }
   nuevoToast.addEventListener('animationend', handleAnimacionToast)
     

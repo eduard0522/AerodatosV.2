@@ -12,13 +12,12 @@ export function generateToken(data) {
 
 export function validateAdminToken(req,res,next) {
   const {authorization} = req.headers;
-     console.log(authorization)
+
   if(!authorization){
    return res.status(403).json({message:'No estas autorizado o el token ah expirado, debes iniciar sesión nuevamente.'})
   }
   try {
     const decoded = jwt.verify(authorization,secretPass);
-    console.log(decoded)
     if(decoded.rol != ('Administrador' && 'administrador' ) ){
       return res.status(403).json({message:'No estas autorizado o el token ah expirado, debes iniciar sesión nuevamente.'})
     }

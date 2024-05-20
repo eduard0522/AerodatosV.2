@@ -29,7 +29,6 @@ export async function getExpedientsController(req,res) {
   }
 }
 
-
 export async function getExpedientsUserController(req,res) {
   try {
         const { page = 1, limit = 10 } = req.query;
@@ -38,7 +37,7 @@ export async function getExpedientsUserController(req,res) {
         if(!expedients || expedients.error) {
           return res.status(500).json({
             message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'
-          })
+          });
         }
         let pages =Math.ceil((expedients.totalExpedients[0].total)/limit ) 
         return res.render('page/expedientUser',{expedientes: expedients.expedients , pages });
@@ -46,10 +45,9 @@ export async function getExpedientsUserController(req,res) {
     console.log(error)
     return res.status(500).json({
       message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'
-    })
+    });
   }
-}
-
+} 
 
   // Cuenta el total de expedientes, los que estan organizados y los que estan sin organizar 
 
@@ -66,10 +64,9 @@ export async function getExpedientsUserController(req,res) {
       console.log(error)
       return res.status(500).json({
         message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'
-      })
+      });
     }
   }
-
 
   //OBTIENE UN EXPEDIENTE POR NUMERO DE EXPEDIENTE
 
@@ -78,34 +75,34 @@ export async function getExpedientsUserController(req,res) {
     const {expedient , name} = req.query
 
     if(!name && !expedient){
-      return res.status(400).json({message:'No se encontro ningun registro.'})
+      return res.status(400).json({message:'No se encontro ningun registro.'});
     }
     try {
       if(name && !expedient){
             const expedient = await getExpedientByExpedientService( null , name);
             if(!expedient || expedient.error) {
-            return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+            return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
              }
-             return res.render('page/base',{expedientes:expedient})
+             return res.render('page/base',{expedientes:expedient});
       }
       if(!name && expedient){
           const getExpedient = await getExpedientByExpedientService(expedient, null);
           if(!getExpedient|| getExpedient.error) {
-            return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+            return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
           }
-          return res.render('page/base',{expedientes:getExpedient})
+          return res.render('page/base',{expedientes:getExpedient});
       }
       if(expedient && name ){
         const getExpedient = await getExpedientByExpedientService(expedient,name);
         if(!getExpedient|| getExpedient.error) {
-          return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+          return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
         }
-        return res.render('page/base',{expedientes:getExpedient})
+        return res.render('page/base',{expedientes:getExpedient});
       }
-      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
     } catch (error) {
-      console.log(error)
-      return res.status(400).json({ message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+      console.log(error);
+      return res.status(400).json({ message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
     }
   }
 
@@ -117,34 +114,34 @@ export async function getExpedientsUserController(req,res) {
     const {expedient , name} = req.query
 
     if(!name && !expedient){
-      return res.status(400).json({message:'No se encontro ningun registro.'})
+      return res.status(400).json({message:'No se encontro ningun registro.'});
     }
     try {
       if(name && !expedient){
             const expedient = await getExpedientByExpedientService( null , name);
             if(!expedient || expedient.error) {
-            return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+            return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
              }
-             return res.render('page/expedientUser',{expedientes:expedient})
+             return res.render('page/expedientUser',{expedientes:expedient});
       }
       if(!name && expedient){
           const getExpedient = await getExpedientByExpedientService(expedient, null);
           if(!getExpedient|| getExpedient.error) {
-            return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+            return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
           }
-          return res.render('page/expedientUser',{expedientes:getExpedient})
+          return res.render('page/expedientUser',{expedientes:getExpedient});
       }
       if(expedient && name ){
         const getExpedient = await getExpedientByExpedientService(expedient,name);
         if(!getExpedient|| getExpedient.error) {
-          return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+          return res.status(500).json({message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
         }
-        return res.render('page/expedientUser',{expedientes:getExpedient})
+        return res.render('page/expedientUser',{expedientes:getExpedient});
       }
-      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
     } catch (error) {
       console.log(error)
-      return res.status(400).json({ message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'})
+      return res.status(400).json({ message: 'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
     }
   }
 

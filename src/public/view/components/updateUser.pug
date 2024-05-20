@@ -4,12 +4,12 @@ link(rel="stylesheet", href="../css/createUser.css")
 div(class="containerUpdateUser hidden-form" id="updateUserForm")
     button(type="button", class ="CloseUpdate") X
     div.heading Editar Usuario
-    form.form
+    form(class="form" id="updateUser")
       input(required="" type="text" class="input" name="name" id="name" placeholder="Nombre")
       input(required="" class="input" type="email" name="email" id="email" placeholder="Correo")
       input(required="" class="input" type="password" name="password" id="password" placeholder="Contraseña")
       select(name="rol") Tipo de usuario
         option(value="usuario") Usuario 
         option(value="administrador") Administrador
-
+      input( type="hidden" name="idUser")
       input(class="login-button" type="submit" value="Actualizar")

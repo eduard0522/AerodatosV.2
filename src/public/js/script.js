@@ -1,5 +1,7 @@
+
 import { ClosedModal, openModal } from "./modals.js";
 import { agregarToast } from "./toast.js";
+import { insertDataFormUser,handleSubmitNewUser,handleSubmitUpdateUser,deleteUser } from "./handleRequestUsers.js";
 const d = document;
 const $rol = d.querySelector(".rol-header");
 const $linkBanner = d.querySelector('.link-banner');
@@ -104,7 +106,6 @@ $btn.addEventListener('click' , (e) => {
   }
 })
 
-
 /************************** SELECCIONAR ARCHIVO EXCEL  *******************/
 
 const $btnExcel = d.getElementById('activeInputFile');
@@ -148,7 +149,6 @@ function  loadFile() {
 }
 
 async function sendExcel(data) {
-
   try {
     let res = await axios('/uploadFile',{
       method: 'POST',
@@ -189,8 +189,6 @@ async function sendExcel(data) {
   }
 }
 
-
-
 /**************************** MOSTRAR USUARIOS  ***********************/
 
 async function getUsers() {
@@ -215,15 +213,13 @@ async function getUsers() {
         <td> ${user.correo} </td> 
         <td> ${user.rol} </td> 
         <td> 
-          <button data-id='${user.id_usario}'> <img src="../../assets/img/edit.svg" alt="icon edit" class="icon-edit" data-nombreusuario = '${user.nombre_usuario}' data-correo = '${user.correo}' data-rol='${user.rol}'> </button>
-          <button data-id='${user.id_usario}'>  <img src="../../assets/img/delete.svg" alt="icon delete" class="delete icon-delete" data-id='${user.id_usario}'> </button>
+          <button data-id='${user.id_usuario}'> <img src="../../assets/img/edit.svg" alt="icon edit" class="icon-edit" data-nombreusuario = '${user.nombre_usuario}' data-correo = '${user.correo}'  data-id='${user.id_usuario}'  data-rol='${user.rol}'> </button>
+          <button data-id='${user.id_usuario}'>  <img src="../../assets/img/delete.svg" alt="icon delete" class="delete icon-delete" data-id='${user.id_usuario}'> </button>
         </td>   
     </tr> `
     index ++
   }
 }
-
-
 
 /*********************************************  ESCUCHADOR DE EVENTOS CLICK  **********************************/
 
@@ -277,6 +273,7 @@ d.addEventListener("click", (e) => {
    if (e.target.matches(".icon-edit")) {
     ClosedModal('usersAdmin','hidden-users')
     openModal('updateUserForm','hidden-form')
+    insertDataFormUser(e)
    }
 
    if (e.target.matches(".CloseUpdate")) {
@@ -301,13 +298,18 @@ d.addEventListener("click", (e) => {
    if (e.target.matches(".closeInfo")) {
     ClosedModal('infoFile', 'hidden')
    }
+   if (e.target.matches(".icon-delete")) {
+    let ifDeleteUser = confirm('¿ Seguro  que deseas eliminar este usuario ? ')
+    if(ifDeleteUser){
+      deleteUser(e)
+    }
+   }
    if (e.target.matches(".logout")) {
     sessionStorage.setItem('tok','')
     location.href ='/'
    }
 
 
-   
   if (e.target.matches(".download-ok")) {
     ClosedModal('pop-up', 'hidden');
     agregarToast({
@@ -319,4 +321,13 @@ d.addEventListener("click", (e) => {
   }
 });
 
+d.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if(e.target.matches('#createUser')){
+   handleSubmitNewUser(e);
+  }
+  if(e.target.matches('#updateUser')){
+    handleSubmitUpdateUser(e);
+   }
+})
 
