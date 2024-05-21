@@ -51,7 +51,6 @@ export async function createUserController(req,res) {
 export async function updateUserController(req,res) {
       const{name,email,password,rol} = req.body
       const {id} = req.params
-      console.log(id)
       if(!(name && email && password && rol)){
           return res.status(400).json({message:"Los datos son incompletos, verifica la información e intenta de nuevo."})
       }
@@ -79,8 +78,6 @@ export async function deleteUserController(req,res) {
        if(!id){
         return res.status(400).json({message:'No se encontro el usuario.'})
        }
-
-      console.log(id)
       const deleteUser = await deleteUsersService(id)
       if(!deleteUser){
         return res.status(500).json({message:'Ocurrio un error inesperado en el servidor, intenta de nuevo mas tarde.'});

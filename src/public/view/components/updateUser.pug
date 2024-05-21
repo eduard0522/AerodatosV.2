@@ -6,8 +6,8 @@ div(class="containerUpdateUser hidden-form" id="updateUserForm")
     div.heading Editar Usuario
     form(class="form" id="updateUser")
       input(required="" type="text" class="input" name="name" id="name" placeholder="Nombre")
-      input(required="" class="input" type="email" name="email" id="email" placeholder="Correo")
-      input(required="" class="input" type="password" name="password" id="password" placeholder="Contraseña")
+      input(required="" class="input" type="email" name="email" id="email" placeholder="Correo" autocomplete="username")
+      input(required="" class="input" type="password" name="password" id="password" placeholder="Contraseña" autocomplete="current-password" min-length="8")
       select(name="rol") Tipo de usuario
         option(value="usuario") Usuario 
         option(value="administrador") Administrador

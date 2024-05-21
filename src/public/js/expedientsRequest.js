@@ -37,7 +37,6 @@ export async function createExpedient(e) {
   }
 }
 
-
 export async function editExpedient(e) {
   try{
     let options = {

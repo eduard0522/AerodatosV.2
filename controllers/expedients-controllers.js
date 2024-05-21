@@ -1,7 +1,8 @@
 import {
-  deleteBoxService, getExpedientsService,newBoxService, newHallService,deleteHallService,newShelfService,deleteShelfService,  newExpedientService, deleteExpedientService,updateExpedientService,countExpedientsService,getExpedientByExpedientService
+   getExpedientsService, newHallService,deleteHallService, newExpedientService, deleteExpedientService,updateExpedientService,countExpedientsService,getExpedientByExpedientService
   } 
   from '../models/expedientsModel.js';
+  
 import { validateExpedientForm , validatePartialExpedientForm} from '../schemas/expedients.js';
 
 
@@ -152,7 +153,7 @@ export async function getExpedientsUserController(req,res) {
   
     const {nombre,numero,estado,nombre_serie,caja,estante,pasillo} = req.body;
     if(!nombre || !numero  || !nombre_serie || !caja || !estante || !pasillo){
-      console.log(req.body)
+
       return res.status(404).json({message:'Los datos estan incompletos '});
     }
     try {
@@ -160,15 +161,18 @@ export async function getExpedientsUserController(req,res) {
 
         const validateTypes = validateExpedientForm(dataExpedient);
         if(!validateTypes || validateTypes.error){
-          console.log(validateTypes)
+
           return res.status(404).json({message: validateTypes.error.message?validateTypes.error.message : 'Verifica los datos e intenta de nuevo.'});
         }
+
         const result = await newExpedientService(validateTypes.data);
         if(!result){
           return res.status(404).json({
             message:'Parece que este expediente ya existe'
           })
         }
+
+
         return  res.status(200).json({message:'Expediente creado con éxito.'})
     } catch (error) {
       console.log(error)
@@ -182,7 +186,6 @@ export async function upadateExpedientController(req,res) {
   const {nombre,numero,estado,nombre_serie,caja,estante,pasillo} = req.body;
   const {id} = req.params;
   if(!id, !nombre || !numero || !caja || !estante || !pasillo){
-    console.log(req.body)
     return res.status(404).json({message:'Los datos estan incompletos '});
   }
 
@@ -192,7 +195,7 @@ export async function upadateExpedientController(req,res) {
       const validateTypes = validatePartialExpedientForm(dataExpedient);
 
       if(!validateTypes || validateTypes.error){
-        console.log(validateTypes)
+   
         return res.status(404).json({message: validateTypes.error.message?validateTypes.error.message : 'Verifica los datos e intenta de nuevo.'});
       }
       const result = await updateExpedientService(id,validateTypes.data);
@@ -229,54 +232,7 @@ export async function deleteExpedientController(req,res) {
     }
 }
 
-/*******************************  CAJAS  **************************/
 
-// ENVIA LOS DATOS Y LA SOLICITUD AL MODELO PARA INSERTAR UNA NUEVA CAJA
-
-export async function newBoxController(req,res) {
-    const {numero_caja} = req.body;
-    if(!numero_caja) {
-      return res.status(404).json({message:'Los datos estan incompletos, verifica la información e intenta de nuevo mas tarde'})
-    }
-    try {
-        let boxString = numero_caja;
-       if(typeof numero_caja != 'string'){
-          boxString = numero_caja.toString();
-      } 
-      const newBox = await newBoxService(boxString);
-      if(!newBox) {
-          return res.status(500).json({
-            message:'Ocurrio un error inesperado, intente de nuevo mas tarde'
-            });
-      }
-      return res.status(200).json({
-        message: 'Caja creada con exito' 
-      });
-  }catch(error){
-      console.log(error);
-  }
-}
-
-
- // ELIMINAR CAJA  
-
- export async function deleteBoxController(req,res) {
-    const{id} = req.params;
-    if(!id){
-      return res.status(404).json({message:'Número de caja no proporcionado'})
-    }
-    try {
-    const deleteBox = await deleteBoxService(id);
-    
-    if(deleteBox){
-      return res.status(200).json({message: 'Caja eliminada con éxito.'});
-    }
-    return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
-  } catch (error) {
-      console.log(error);
-      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
-    }
-}
 
 /************************************** PASILLOS  ******************************/
 
@@ -306,7 +262,6 @@ export async function newHallController(req,res) {
 }
 }
 // ELIMINAR PASILLO
-
 export async function deleteHallController(req,res) {
 const{id} = req.params;
 if(!id){
@@ -325,49 +280,3 @@ try {
 }
 }
 
-
-
-/************************************** ESTANTES ******************************/
-
-// ENVIA LOS DATOS Y LA SOLICITUD AL MODELO PARA INSERTAR UN NUEVO ESTANTE
-
-export async function newShelfController(req,res) {
-    const {numero_estante} = req.body;
-    if(!numero_estante) {
-      return res.status(404).json({message:'Los datos estan incompletos, verifica la información e intenta de nuevo mas tarde'})
-    }
-    try {
-  
-      const newShelf = await newShelfService(numero_estante);
-      if(!newShelf) {
-          return res.status(500).json({
-            message:'Ocurrio un error inesperado, intente de nuevo mas tarde'
-            });
-      }
-      return res.status(200).json({
-        message: 'Estante creado con exito' 
-      });
-  }catch(error){
-      console.log(error);
-  }
-}
-
-// ELIMINAR ESTANTE
-
-export async function deleteShelfController(req,res) {
-    const{id} = req.params;
-    if(!id){
-      return res.status(404).json({message:'Número de estante no proporcionado'})
-    }
-    try {
-        const deleteShelf= await deleteShelfService(id);
-        
-        if(deleteShelf){
-          return res.status(200).json({message: 'Estante eliminado con éxito.'});
-        }
-        return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
-    }
-}

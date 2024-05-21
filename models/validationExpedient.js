@@ -1,63 +1,6 @@
 import { getConnection, releaseConnection } from "../db/index.js";
-import { newBoxService, newShelfService, newHallService  } from "./expedientsModel.js";
+import {  newHallService,newSerieService } from "./expedientsModel.js";
 
-
-
-export async function ifExistBox(caja) {
-  let cajaId;
-  try {
-    const conn = await getConnection()
-    const [result] = await conn.query('SELECT * FROM cajas WHERE numero_caja= ?',[caja]);
-    if(!result || result.error){
-      releaseConnection(conn)
-    return null;
-    }
-    if(result.length > 0){
-     cajaId = result[0].numero_caja;
-     console.log(cajaId)
-     releaseConnection(conn)
-     return cajaId
-    } else{
-     const newBox= await  newBoxService(caja);
-      cajaId = caja
-      releaseConnection(conn)
-      return cajaId 
-    }
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
-
-
-export async function ifExistShelf(estante) {
-  let shelfId;
-  try {
-    const conn = await getConnection()
-    const [result] = await conn.query('SELECT * FROM estantes WHERE numero_estante= ?',[estante]);
-  
-    if(!result || result.error){
-      releaseConnection(conn)
-    return null;
-    }
-
-    if(result.length > 0){
-     shelfId = estante
-     console.log(shelfId)
-     releaseConnection(conn)
-     return shelfId
-    } else{
-     const newShelf = await newShelfService(estante);
-     console.log(newShelf)
-      shelfId = estante
-      releaseConnection(conn)
-      return shelfId
-    }
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
 
 export async function ifExistHall(pasillo) {
   let pasilloId;
@@ -77,6 +20,31 @@ export async function ifExistHall(pasillo) {
         pasilloId = newHall.insertId
       releaseConnection(conn)
       return pasilloId
+    }
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+export async function ifExistSerie(serie) {
+  let serieId;
+  try {
+    const conn = await getConnection()
+    const [result] = await conn.query('SELECT * FROM  serie_documental WHERE nombre_serie = ?',[serie]);
+    if(!result || result.error){
+      releaseConnection(conn)
+    return null;
+    }
+    if(result.length > 0){
+      serieId = result[0]
+      releaseConnection(conn)
+      return serieId.id_serie
+    } else{
+     const newSerie = await newSerieService(serie);
+        serieId = newSerie.insertId
+      releaseConnection(conn)
+      return serieId
     }
   } catch (error) {
     console.log(error)

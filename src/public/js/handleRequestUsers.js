@@ -28,7 +28,8 @@ export async function handleSubmitNewUser(e) {
       }
       const newUser = await createUser(data);
 
-      if(newUser.response.status === 200){
+    
+      if(newUser.status === 200){
         agregarToast({
           tipo:'info',
           titulo:'Muy bien',
@@ -37,7 +38,7 @@ export async function handleSubmitNewUser(e) {
         });
         clearDataForm('createUser')
         ClosedModal('createUserForm', 'hidden-form')
-      }else if(newUser.response.status === 400){
+      }else if(newUser.status === 400){
         agregarToast({
           tipo:'warning',
           titulo:'Opps!',

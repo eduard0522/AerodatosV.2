@@ -277,16 +277,14 @@ color: #12bb0a;
 @media (min-width:600px) and  (max-width:900px)  {
   html{
     padding: 0rem;
-    height: 100vh;
   }
   
   body{
     padding: .5rem .5rem .5rem 0;
-    height: 100vh;
   }
 
   .general-container{
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

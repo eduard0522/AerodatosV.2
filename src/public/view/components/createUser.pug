@@ -3,9 +3,9 @@ div(class="containerCreateUser  hidden-form" id="createUserForm")
     button(type="button", class="CloseCreate btnCreate") X
     div.heading Nuevo Usuario
     form(class="form" id="createUser")
-      input(required="" type="text" class="input" name="name" id="name" placeholder="Nombre")
-      input(required="" class="input" type="email" name="email" id="email" placeholder="Correo")
-      input(required="" class="input" type="password" name="password" id="password" placeholder="Contraseña")
+      input(required="" type="text" class="input" name="name"  placeholder="Nombre" )
+      input(required="" class="input" type="email" name="email"  placeholder="Correo" autocomplete="username" ) 
+      input(required="" class="input" type="password" name="password" placeholder="Contraseña" autocomplete="current-password" min-length="8")
       select(name="rol") Tipo de usuario
         option(value="usuario") Usuario 
         option(value="administrador") Administrador

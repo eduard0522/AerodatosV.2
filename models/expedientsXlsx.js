@@ -1,5 +1,5 @@
 import { getConnection, releaseConnection } from "../db/index.js";
-import { ifExistBox,ifExistHall,ifExistShelf} from "./validationExpedient.js";
+import { ifExistHall , ifExistSerie} from "./validationExpedient.js";
 
 export async function newExpedientXlsx(dataExpedient) {
   const  {nombre,numero,estado,nombre_serie,caja,estante,pasillo} = dataExpedient;
@@ -15,23 +15,20 @@ export async function newExpedientXlsx(dataExpedient) {
           if(conn) releaseConnection(conn)
           return null;
         }
-            // Valida si existe la caja, si no existe la crea y regresa el id
-          const newBox = await ifExistBox(caja);
-          if(!newBox){
+          // Valida si existe la serie, si no existe la crea y regresa el id
+        const newSerie = await ifExistSerie(nombre_serie);
+        if(!newSerie){
             return null
           }
-            // Valida si existe el estante, si no existe la crea y regresa el id
-          const newShlef = await ifExistShelf(estante);
-          if(!newShlef){
-            return null
-          }
+    
             // Valida si existe el pasillo, si no existe la crea y regresa el id
-          const newHall = await ifExistHall(pasillo);
-          if(!newHall){
+        const newHall = await ifExistHall(pasillo);
+        if(!newHall){
             return null
           }
+
           const newExpedient = await  conn.query('INSERT INTO expedientes(nombre_expediente, numero_expediente,estado_organizativo,serie_documental,caja,estante,pasillo) VALUES (?,?,?,?,?,?,?)',
-          [nombre,numero,estado,nombre_serie,newBox,newShlef,newHall]);
+          [nombre,numero,estado,newSerie,caja,estante,newHall]);
 
           if(!newExpedient) return null
         

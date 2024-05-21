@@ -1,15 +1,14 @@
 doctype html
-html(lang="en")
-head
+link(rel="stylesheet", href="../css/403.css")
+html(lang="es")
+  head
     meta(charset="UTF-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    title Error 404 - Página no encontrada
-    link(rel="stylesheet", href="../../css/404.css")
-body
-   div.error-container
-        div.error
-            div(class="error-number") 404
-            div(class="error-text") Página no encontrada
-            button(class="back-btn" onclick="goBack()") Regresar
-      
-   img(src="../../assets/img/plane.gif", alt="Avion bailando")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="shortcut icon", href="../assets/img/Logo SGDEA Azul.png", type="image/x-icon")
+    title Error 404
+  body 
+    div.container
+       div.error-code 404
+       h1 Página no encontrada
+       p La página que buscas no existe.
+       a(href="/" class="back-link") Volver al inicio

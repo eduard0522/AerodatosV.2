@@ -1,6 +1,5 @@
 import { getConnection,releaseConnection } from "../db/index.js";
-import {  ifExistBox, ifExistHall, ifExistShelf } from "./validationExpedient.js";
-
+import {  ifExistHall, ifExistSerie } from "./validationExpedient.js";
 /*********************** EXPEDIENTES  ***********************/
 
 // TRAE TODOS LOS EXPEDIENTES DE LA BASE DE DATOS 
@@ -70,7 +69,6 @@ export async function countExpedientsService(){
       conn.query('SELECT  COUNT(*)  AS total FROM expedientes'),
       conn.query('SELECT  COUNT(*)  AS total FROM expedientes WHERE estado_organizativo = 1'),
       conn.query('SELECT  COUNT(*)  AS total FROM expedientes WHERE estado_organizativo = 0')
-
     ])
     const expedientes = {
       total:expedients[0],
@@ -81,7 +79,6 @@ export async function countExpedientsService(){
       releaseConnection(conn)
       return  expedientes
      }
-
      return null
   } catch (error) {
       console.log(error)
@@ -99,47 +96,39 @@ export async function newExpedientService(dataExpedient) {
     const ifExistExpedient = await conn.query(' SELECT * FROM expedientes WHERE numero_expediente = ?',[numero]);
         if( !ifExistExpedient || ifExistExpedient.error){
           if(conn) releaseConnection(conn)
-          console.log(ifExistExpedient)
           return null;
         }
         if(ifExistExpedient[0].length > 0){
           if(conn) releaseConnection(conn)
           return null;
         }
-            // Valida si existe la caja, si no existe la crea y regresa el id
-          const newBox = await ifExistBox(caja);
-          if(!newBox){
+
+          // Valida si existe la serie, si no existe la crea y regresa el id
+        const newSerie = await ifExistSerie(nombre_serie);
+        if(!newSerie){
             return null
           }
-            // Valida si existe el estante, si no existe la crea y regresa el id
-          const newShlef = await ifExistShelf(estante);
-          if(!newShlef){
-            return null
-          }
+    
             // Valida si existe el pasillo, si no existe la crea y regresa el id
-          const newHall = await ifExistHall(pasillo);
+        const newHall = await ifExistHall(pasillo);
           if(!newHall){
-            return null
-          }
+              return null
+            }
 
-          const newExpedient = await  conn.query('INSERT INTO expedientes(nombre_expediente, numero_expediente,estado_organizativo,serie_documental,caja,estante,pasillo) VALUES (?,?,?,?,?,?,?)',
-          [nombre,numero,estado,nombre_serie,newBox,newShlef,newHall]);
-
+        const newExpedient = await  conn.query('INSERT INTO expedientes(nombre_expediente, numero_expediente,estado_organizativo,serie_documental,caja,estante,pasillo) VALUES (?,?,?,?,?,?,?)',
+          [nombre,numero,estado,newSerie,caja,estante,newHall]);
           if(!newExpedient) return null
-        
+    
         if(conn) releaseConnection(conn)
         return true
       
+        
  } catch (error) {
-    if(conn) releaseConnection(conn)
     console.log(error)
     return null
   }
 
 }
-
-
-
 
 // EDITAR UN EXPEDIENTE
 
@@ -157,24 +146,22 @@ export async function updateExpedientService(id,dataExpedient) {
           if(conn) releaseConnection(conn)
           return null;
         }
-            // Valida si existe la caja, si no existe la crea y regresa el id
-          const newBox = await ifExistBox(caja);
-          if(!newBox){
-            return null
-          }
-            // Valida si existe el estante, si no existe la crea y regresa el id
-          const newShlef = await ifExistShelf(estante);
-          if(!newShlef){
-            return null
-          }
+
+          // Valida si existe la serie, si no existe la crea y regresa el id
+          const newSerie = await ifExistSerie(nombre_serie);
+          if(!newSerie){
+             return null
+            }
+
             // Valida si existe el pasillo, si no existe la crea y regresa el id
           const newHall = await ifExistHall(pasillo);
           if(!newHall){
             return null
           }
+
           // AL VALIDAR Y OBTENER TODOS LOS DATOS, ENVIA LA QUERY PARA ACTUALIZAR
           const newExpedient = await  conn.query('UPDATE expedientes SET nombre_expediente = ?, numero_expediente = ?,estado_organizativo = ?,serie_documental = ?,caja = ? ,estante = ?,pasillo = ? WHERE id_expediente = ?',
-          [nombre,numero,estado,nombre_serie,newBox,newShlef,newHall,id]);
+          [nombre,numero,estado,newSerie,caja,estante,newHall,id]);
 
           if(!newExpedient) return null
         
@@ -187,7 +174,6 @@ export async function updateExpedientService(id,dataExpedient) {
   }
 
 }
-
 
 /********************* ELIMINAR EXPEDIENTE  **********************/
 
@@ -204,58 +190,6 @@ export async function deleteExpedientService(id) {
   }  
 }
 
-
-/*************************** CAJAS  **************************/
-
-// CREAR CAJAS 
-
-export async function newBoxService(caja) {
-   if(!caja){
-    console.log("No se ha recibido caja")
-    return null
-   }
-   try {
-    const conn =  await getConnection()
-    // VALIDAR SI LA CAJA YA EXISTE
-    const [ifExist] = await conn.query('SELECT * FROM cajas WHERE numero_caja = ?' ,[caja]);
-    if(ifExist.length > 0){
-      //SI YA EXISTE, RETORNA TRUE
-      return true
-    }
-    // SI NO EXISTE LA CAJA ENVIA LA INFORMACION PARA INSEERTARLA
-    const result = await conn.query('INSERT INTO cajas (numero_caja) VALUES (?)', [caja]);
-    if(result && !result.error ){
-      releaseConnection(conn)
-      return result[0]   
-     }
-
-     return null
-  } catch (error) {
-      console.log(error)
-      return null
-  }
-}
-
-// ELIMINAR CAJAS
-
-export async function deleteBoxService(caja) {
-  if(!caja){
-   console.log("No se ha recibido caja")
-   return null
-  }
-  try {
-   const conn =  await getConnection()
-   const deleteBox = await conn.query('DELETE from cajas WHERE numero_caja = ?' ,[caja]);
-   if(deleteBox){
-    releaseConnection(conn)
-     return true
-   }
-    return null
- } catch (error) {
-     console.log(error)
-     return null
- }
-}
 /***************************** PASILLOS  ****************************/
 
 // CREAR PASILLOS 
@@ -267,26 +201,17 @@ export async function newHallService(pasillo) {
   }
   try {
    const conn =  await getConnection()
-   // VALIDAR SI EL PASILLO EXISTE
-   const [ifExist] = await conn.query('SELECT * FROM pasillos WHERE numero_pasillo = ?' ,[pasillo]);
-   if(ifExist.length > 0){
-     //SI YA EXISTE, RETORNA TRUE
-     return true
-   }
-   // SI NO EXISTE EL PASILLO  ENVIA LA INFORMACION PARA INSEERTARLA
    const result = await conn.query('INSERT INTO pasillos (numero_pasillo) VALUES (?)', [pasillo]);
    if(result && !result.error ){
      releaseConnection(conn)  
      return result[0]   
     }
-
     return null
  } catch (error) {
      console.log(error)
      return null
  }
 }
-
 // ELIMINAR PASILLO
 
 export async function deleteHallService(pasillo) {
@@ -308,29 +233,21 @@ export async function deleteHallService(pasillo) {
   }
 }
 
-/***************************** ESTANTES  ****************************/
+/***************************** SERIES  ****************************/
 
-// CREAR ESTANTES
+// CREAR SERIE
 
-export async function newShelfService(estante) {
-  if(!estante){
-   console.log("No se ha recibido el numero Estante")
+export async function newSerieService(serie) {
+  if(!serie){
+   console.log("No se ha recibido el nombre de serie")
    return null
   }
   try {
    const conn =  await getConnection()
-   // VALIDAR SI EL PASILLO EXISTE
-   const [ifExist] = await conn.query('SELECT * FROM estantes WHERE numero_estante = ?' ,[estante]);
-   if(ifExist.length > 0){
-     //SI YA EXISTE, RETORNA TRUE
-     return true
-   }
-
-   // SI NO EXISTE EL PASILLO  ENVIA LA INFORMACION PARA INSEERTARLA
-   const result = await conn.query('INSERT INTO estantes (numero_estante) VALUES (?)', [estante]);
+   const [result] = await conn.query('INSERT INTO serie_documental (nombre_serie) VALUES (?)', [serie]);
    if(result ){
      releaseConnection(conn)  
-     return true   
+     return result 
     }
 
     return null
@@ -340,17 +257,17 @@ export async function newShelfService(estante) {
  }
 }
 
-// ELIMINAR ESTANTE
+// ELIMINAR SERIE
 
-export async function deleteShelfService(estante) {
-  if(!estante){
-    console.log("No se ha recibido el numero de estante")
+export async function deleteSerieService(serie) {
+  if(!serie){
+    console.log("No se ha recibido la serie")
     return null
   }
   try {
     const conn =  await getConnection()
-    const deleteShelf = await conn.query('DELETE from estantes WHERE numero_estante = ?' ,[estante]);
-    if(deleteShelf){
+    const deleteSerie = await conn.query('DELETE from serie_docuemntal WHERE nombre_serie = ?' ,[serie]);
+    if(deleteSerie){
     releaseConnection(conn)
       return true
     }

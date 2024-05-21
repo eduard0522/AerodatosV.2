@@ -8,42 +8,28 @@ CREATE TABLE usuarios(
   clave VARCHAR (255)
 );
 
-------------- CAJAS ---------
-
-CREATE TABLE cajas( numero_caja INT NOT NULL PRIMARY KEY );
-
-
---------- PASILLOS ------------
-
+--------- PASILLOS  ------------
 CREATE TABLE pasillos(
     id_pasillo INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     numero_pasillo VARCHAR(20)
 );
 
------- ESTANTES --------
-CREATE TABLE estantes(
-numero_estante INT  NOT NULL PRIMARY KEY
-);
+------- EXPEDIENTES ----------
 
-------- EXPEDIENTES -----------
-
-CREATE TABLE expedientes(
-	id_expediente INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre_expediente VARCHAR(255),
-    numero_expediente VARCHAR(150),
-    estado_organizativo BOOLEAN,
-    serie_documental VARCHAR(255),
-    caja INT,
+CREATE TABLE expedientes( 
+  id_expediente INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   nombre_expediente VARCHAR(255),
+    numero_expediente VARCHAR(150), 
+    estado_organizativo BOOLEAN, 
+    serie_documental INT,
+    caja INT, 
     estante INT,
     pasillo INT,
-    FOREIGN KEY (caja) REFERENCES 		cajas(numero_caja),
-    FOREIGN KEY (estante) REFERENCES 	 estantes(numero_estante),
-    FOREIGN KEY (pasillo) REFERENCES 	 pasillos(id_pasillo)
-);
+    FOREIGN KEY (serie_documental) REFERENCES serie_documental (id_serie), 
+    FOREIGN KEY (pasillo) REFERENCES pasillos(id_pasillo) );
 
 ----------------- VISTA EXPEDIENTES ----------------
 
-CREATE VIEW expedientes_vista AS SELECT ex.id_expediente, ex.nombre_expediente, ex.numero_expediente, ex.estado_organizativo,ex.serie_documental AS nombre_serie, ex.caja,ex.estante, pas.numero_pasillo FROM expedientes AS ex INNER JOIN pasillos AS pas ON id_pasillo = ex.pasillo;
-
+CREATE VIEW expedientes_vista AS SELECT ex.id_expediente, ex.nombre_expediente, ex.numero_expediente, ex.estado_organizativo,se.nombre_serie AS nombre_serie, ex.caja,ex.estante, pas.numero_pasillo FROM expedientes AS ex INNER JOIN pasillos AS pas ON id_pasillo = ex.pasillo INNER JOIN serie_documental AS se ON se.id_serie = ex.serie_documental;
 
 */

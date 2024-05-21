@@ -34,7 +34,7 @@ export async function createUserService(data) {
 
         const [newUser] = await conn.query('INSERT INTO usuarios (id_usuario,nombre_usuario,correo,clave,rol) VALUES (?,?,?,?,?)',
         [uuid,name,email,passHash,rol]);
-
+    
         if(!newUser){
           releaseConnection(conn)
           return null
@@ -57,7 +57,7 @@ export async function updateUserService(id,data) {
   try {
       const conn = await getConnection();
       const [validateUser] = await conn.query(' SELECT * FROM usuarios WHERE id_usuario = ?',[id]);
-      console.log(validateUser)
+    
 
       if(validateUser.length === 0 ){
         releaseConnection(conn)

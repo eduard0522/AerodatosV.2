@@ -66,7 +66,6 @@ const expedientSchemaXlsx = z.object({
 
 
 export function validateExpedientForm (input) {
-  console.log('validando expediente')
   return expedientSchema.safeParse(input);
 }
  export function validatePartialExpedientForm(input){
