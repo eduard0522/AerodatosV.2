@@ -1,5 +1,5 @@
 import {
-  deleteBoxService, getExpedientsService,newBoxService, newHallService,deleteHallService,newShelfService,deleteShelfService, newSerieService, deleteSerieService, deleteTypeService,newTypeService , newExpedientService, deleteExpedientService,updateExpedientService,countExpedientsService,getExpedientByExpedientService
+  deleteBoxService, getExpedientsService,newBoxService, newHallService,deleteHallService,newShelfService,deleteShelfService,  newExpedientService, deleteExpedientService,updateExpedientService,countExpedientsService,getExpedientByExpedientService
   } 
   from '../models/expedientsModel.js';
 import { validateExpedientForm , validatePartialExpedientForm} from '../schemas/expedients.js';
@@ -150,13 +150,13 @@ export async function getExpedientsUserController(req,res) {
 
  export async function newExpedientController(req,res) {
   
-    const {nombre,numero,tipo,estado,numero_serie,nombre_serie,caja,estante,pasillo} = req.body;
-    if(!nombre || !numero ||  !tipo  || !nombre_serie || !numero_serie || !caja || !estante || !pasillo){
+    const {nombre,numero,estado,nombre_serie,caja,estante,pasillo} = req.body;
+    if(!nombre || !numero  || !nombre_serie || !caja || !estante || !pasillo){
       console.log(req.body)
       return res.status(404).json({message:'Los datos estan incompletos '});
     }
     try {
-        const dataExpedient = { nombre ,numero,nombre_serie, tipo, estado , numero_serie , caja , estante , pasillo}
+        const dataExpedient = { nombre ,numero,nombre_serie,estado , caja , estante , pasillo}
 
         const validateTypes = validateExpedientForm(dataExpedient);
         if(!validateTypes || validateTypes.error){
@@ -179,15 +179,15 @@ export async function getExpedientsUserController(req,res) {
 
 export async function upadateExpedientController(req,res) {
   
-  const {nombre,numero,tipo,estado,numero_serie,nombre_serie,caja,estante,pasillo} = req.body;
+  const {nombre,numero,estado,nombre_serie,caja,estante,pasillo} = req.body;
   const {id} = req.params;
-  if(!id, !nombre || !numero ||  !tipo  || !nombre_serie || !numero_serie || !caja || !estante || !pasillo){
+  if(!id, !nombre || !numero || !caja || !estante || !pasillo){
     console.log(req.body)
     return res.status(404).json({message:'Los datos estan incompletos '});
   }
 
   try {
-      const dataExpedient = { nombre ,numero,nombre_serie, tipo, estado , numero_serie , caja , estante , pasillo}
+      const dataExpedient = { nombre ,numero,nombre_serie, estado, caja , estante , pasillo}
 
       const validateTypes = validatePartialExpedientForm(dataExpedient);
 
@@ -227,96 +227,6 @@ export async function deleteExpedientController(req,res) {
       console.log(error)
       return res.status(500).json({message:'Ourrio un error inesperado, intenta de nuevo mas tarde.'});
     }
-}
-
-/************************************** SERIES ******************************/
-
-// ENVIA LOS DATOS Y LA SOLICITUD AL MODELO PARA INSERTAR UNA NUEVA SERIE
-
-export async function newSerieController(req,res) {
-  const {numero_serie, nombre_serie} = req.body;
-  if(!(numero_serie && nombre_serie)) {
-    return res.status(404).json({message:'Los datos estan incompletos, verifica la información e intenta de nuevo mas tarde'})
-  }
-  try {
-
-    const newSerie = await newSerieService(numero_serie,nombre_serie);
-    if(!newSerie) {
-        return res.status(500).json({
-          message:'Ocurrio un error inesperado, intente de nuevo mas tarde'
-          });
-    }
-    return res.status(200).json({
-      message: 'Serie creada con éxito' 
-    });
-}catch(error){
-    console.log(error);
-}
-}
-
-// ELIMINAR SERIE
-
-export async function deleteSerieController(req,res) {
-  const{id} = req.params;
-  if(!id){
-    return res.status(404).json({message:'Número de serie a eliminar no proporcionado'})
-  }
-  try {
-      const deleteSerie = await deleteSerieService(id);
-      
-      if(deleteSerie){
-        return res.status(200).json({message: 'Serie eliminada con éxito.'});
-      }
-      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
-  } catch (error) {
-      console.log(error);
-      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
-  }
-}
-
-/************************************** TIPOS DE DOCUMENTO  ******************************/
-
-// ENVIA LOS DATOS Y LA SOLICITUD AL MODELO PARA INSERTAR UN NUEVO TIPO
-
-export async function newTypeController(req,res) {
-  const {nombre_tipo} = req.body;
-  if(!(nombre_tipo)) {
-    return res.status(404).json({message:'Los datos estan incompletos, verifica la información e intenta de nuevo mas tarde'})
-  }
-  try {
-
-    const newType = await newTypeService(nombre_tipo);
-    if(!newType) {
-        return res.status(500).json({
-          message:'Ocurrio un error inesperado, intente de nuevo mas tarde'
-          });
-    }
-    return res.status(200).json({
-      message: 'Tipo documental creado con éxito' 
-    });
-}catch(error){
-    console.log(error);
-}
-}
-
-// ELIMINAR TIPO
-
-export async function deleteTypeController(req,res) {
-  const{id} = req.params;
-  if(!id){
-    return res.status(404).json({message:'id de tipo a eliminar no proporcionado'})
-  }
-  try {
-      const deleteType = await deleteTypeService(id);
-      
-      if(deleteType){
-        return res.status(200).json({message: 'Tipo de documento eliminado con éxito.'});
-      }
-      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
-  } catch (error) {
-      console.log(error);
-      return res.status(500).json({message:'Ocurrio un error inesperado, intente de nuevo mas tarde.'});
-  }
 }
 
 /*******************************  CAJAS  **************************/

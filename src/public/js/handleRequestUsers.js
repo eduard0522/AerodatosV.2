@@ -12,9 +12,9 @@ async function createUser(data) {
       method:'POST',
       data: data
     });
-    return true
+    return res
   } catch (error) {
-    return null
+    return error
   }
 }
 
@@ -26,23 +26,25 @@ export async function handleSubmitNewUser(e) {
         password:e.target.password.value,
         rol: e.target.rol.value,
       }
-      const newUser =  createUser(data);
-      if(newUser){
+      const newUser = await createUser(data);
+
+      if(newUser.response.status === 200){
         agregarToast({
           tipo:'info',
           titulo:'Muy bien',
           descripcion:'Usuario creado correctamente',
           autocierre:true,
         });
-        clearDataForm('createUserForm')
+        clearDataForm('createUser')
         ClosedModal('createUserForm', 'hidden-form')
-      }else{
+      }else if(newUser.response.status === 400){
         agregarToast({
           tipo:'warning',
           titulo:'Opps!',
-          descripcion:'Algo ah salido mal, intente de nuevamente.',
+          descripcion: newUser.response.data.message,
           autocierre:true,
         });
+        clearDataForm('createUser')
      }
   } catch (error) {
     agregarToast({
@@ -51,10 +53,9 @@ export async function handleSubmitNewUser(e) {
       descripcion:'Algo ah salido mal, intente de nuevamente.',
       autocierre:true,
     });
-    return null
+    clearDataForm('createUser')
   }
 }
-
 
 /************************ EDITAR USUARIO ********************/
 
@@ -121,7 +122,6 @@ export async function deleteUser(e){
     let deleteUser = await axios(`/admin/${id}`,{
       method:'DELETE',
     });
-    console.log(deleteUser)
     if(deleteUser){
       agregarToast({
         tipo:'info',
@@ -132,7 +132,7 @@ export async function deleteUser(e){
 
       setTimeout(()=>{
         location.reload();
-      },4000) 
+      },4000)  
     }
   } catch (error) {
     agregarToast({

@@ -274,18 +274,34 @@ color: #12bb0a;
 /*************************** MEDIA SCREEN ****************/
 
 
-@media (max-width:900px) {
+@media (min-width:600px) and  (max-width:900px)  {
   html{
     padding: 0rem;
+    height: 100vh;
   }
   
   body{
     padding: .5rem .5rem .5rem 0;
+    height: 100vh;
+  }
+
+  .general-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ 
+  }
+  .options-container{
+    width: 100%;
+    gap: 2.5rem;
+    flex-direction: column;
   }
 
   /**************** OPTIONS **********************/
 
   .options-container .option{
+    width: 100%;
     padding: .5rem;
   }
   .options-container .option span {
@@ -294,7 +310,9 @@ color: #12bb0a;
   .options-container .option span i{
     font-size: 3rem;;
   }
- 
+
+
+
 }
 @media (max-width:600px) {
   html{
@@ -339,5 +357,19 @@ color: #12bb0a;
   }
   .options-container .option span i{
     font-size: 2rem;;
+  }
+
+  .config-options{
+    width: 98%;
+    background-color: var(--primary-color);
+    color: var(--second-color);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top:calc(0 + 2rem);
+    border-radius: 1rem;
+    box-shadow: 4px 4px 6px #000;
+    margin-inline: auto;
+
   }
 }

@@ -11,16 +11,8 @@ const expedientSchema = z.object({
     invalid_type_error:'El número de expediente debe ser de tipo String',
     required_error:'El campo número de expediente es requerido'
   }),
-  tipo:z.number({
-    invalid_type_error:'El tipo de documento debe ser de tipo numérico.',
-    required_error:'El campo tipo de documento es requerido'
-  }),
   estado:z.number({
     invalid_type_error:'El estado debe ser de tipo numérico.',
-  }),
-  numero_serie:z.number({
-    invalid_type_error:'La número serie debe ser de tipo numerica',
-    required_error:'El campo Serie es requerido'
   }),
   nombre_serie:z.string({
     invalid_type_error:'El campo nombre de serie debe ser de tipo string',
@@ -51,16 +43,8 @@ const expedientSchemaXlsx = z.object({
     invalid_type_error:'El número de expediente debe ser de tipo String',
     required_error:'El campo número de expediente es requerido'
   }),
-  tipo:z.string({
-    invalid_type_error:'El tipo de documento debe ser de tipo String',
-    required_error:'El campo tipo de ducumento es requerido'
-  }),
   estado:z.boolean({
     invalid_type_error:'El estado debe ser de tipo booleano',
-  }),
-  numero_serie:z.number({
-    invalid_type_error:'La número serie debe ser de tipo numerica',
-    required_error:'El campo Serie es requerido'
   }),
   nombre_serie:z.string({
     invalid_type_error:'El campo nombre de serie debe ser de tipo string',
@@ -79,7 +63,6 @@ const expedientSchemaXlsx = z.object({
     required_error:'El campo pasillo es requerido'
   }),
 })
-
 
 
 export function validateExpedientForm (input) {

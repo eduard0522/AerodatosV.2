@@ -10,35 +10,34 @@ d.addEventListener("DOMContentLoaded", (e) => {
 
 async function validateToken(req, res) {
   $token = sessionStorage.getItem("tok");
+  console.log($token)
   try {
     console.log("ingreso");
     let options = {
       method: "GET",
       headers: {
-        Autorizathion: $token,
+        authorization: $token,
         "Content-type": "application/json;charset=utf-8",
       },
     };
 
     let res = await axios(`/verifytokenUser`, options);
+ 
     $rol.textContent = res.data.rol;
    if (res.data.status === 403) {
-    location.href = '/403'
+
+    location.href = '/403' 
    }
 
   } catch (error) {
-    location.href = '/403'
+    console.log(error)
+    location.href = '/403' 
   }
 }
 
 
 d.addEventListener("click", (e) => {
-  if (e.target.matches(".closed-notifications")) {
-    document.querySelector('.notification').classList.add('hidden-notification');
-  }
-  if (e.target.matches(".show-notifications")) {
-    document.querySelector('.notification').classList.remove('hidden-notification');
-  }
+
   if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
     document.querySelector('header').classList.toggle('menu-resposive');
   }

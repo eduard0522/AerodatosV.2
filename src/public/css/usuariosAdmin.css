@@ -23,7 +23,6 @@
   border-radius: .5rem;
   overflow: hidden;
   box-shadow: 5px 10px 5px #00000055;
- 
 }
 .users .closeUsers{
   position: absolute;
@@ -74,4 +73,12 @@
   height: 100%;
   background-color: var(--second-color);
   cursor: pointer;
+}
+
+
+@media  (max-width = 620px) {
+  .users .container-table{
+    max-width: 95%;
+    overflow: auto;
+  }
 }

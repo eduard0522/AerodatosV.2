@@ -1,8 +1,8 @@
 import { getConnection, releaseConnection } from "../db/index.js";
-import { ifExistBox,ifExistHall,ifExistSerie,ifExistShelf,ifExisType} from "./validationExpedient.js";
+import { ifExistBox,ifExistHall,ifExistShelf} from "./validationExpedient.js";
 
 export async function newExpedientXlsx(dataExpedient) {
-  const  {nombre,numero,tipo,estado,numero_serie,nombre_serie,caja,estante,pasillo} = dataExpedient;
+  const  {nombre,numero,estado,nombre_serie,caja,estante,pasillo} = dataExpedient;
   try {
     const conn = await getConnection();
     const ifExistExpedient = await conn.query(' SELECT * FROM expedientes WHERE numero_expediente = ?',[numero]);
@@ -15,21 +15,11 @@ export async function newExpedientXlsx(dataExpedient) {
           if(conn) releaseConnection(conn)
           return null;
         }
-        // Valida si existe la serie, si no existe la crea y regresa el id
-         const newSerie = await  ifExistSerie(nombre_serie,numero_serie);
-          if(!newSerie){
-            return null
-          }
             // Valida si existe la caja, si no existe la crea y regresa el id
           const newBox = await ifExistBox(caja);
           if(!newBox){
             return null
           }
-         // Valida si existe el tipo, si no existe la crea y regresa el id
-          const newType = await ifExisType(tipo);
-          if(!newType){
-            return null
-          } 
             // Valida si existe el estante, si no existe la crea y regresa el id
           const newShlef = await ifExistShelf(estante);
           if(!newShlef){
@@ -40,8 +30,8 @@ export async function newExpedientXlsx(dataExpedient) {
           if(!newHall){
             return null
           }
-          const newExpedient = await  conn.query('INSERT INTO expedientes(nombre_expediente, numero_expediente, tipo_expediente,estado_organizativo,serie_documental,caja,estante,pasillo) VALUES (?,?,?,?,?,?,?,?)',
-          [nombre,numero,newType,estado,newSerie,newBox,newShlef,newHall]);
+          const newExpedient = await  conn.query('INSERT INTO expedientes(nombre_expediente, numero_expediente,estado_organizativo,serie_documental,caja,estante,pasillo) VALUES (?,?,?,?,?,?,?)',
+          [nombre,numero,estado,nombre_serie,newBox,newShlef,newHall]);
 
           if(!newExpedient) return null
         

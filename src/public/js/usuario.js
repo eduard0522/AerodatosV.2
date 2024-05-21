@@ -62,6 +62,9 @@ d.addEventListener('click', (e) => {
     sessionStorage.setItem('page', e.target.id)
     getExpedientsPage(e.target.id)
   }
+  if (e.target.matches(".btn-menu") || e.target.matches(".icon-menu")) {
+    document.querySelector('header').classList.toggle('menu-resposive');
+  }
   if (e.target.matches(".logout")) {
     sessionStorage.setItem('tok','')
     location.href ='/'

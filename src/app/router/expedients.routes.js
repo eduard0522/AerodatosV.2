@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteBoxController , getExpedientsController, newBoxController,newShelfController,deleteShelfController,newHallController,deleteHallController, newSerieController, deleteSerieController, newTypeController, deleteTypeController, newExpedientController, deleteExpedientController, upadateExpedientController,countExpedientsController,getExpedientByExpedientController } 
+import { deleteBoxController , getExpedientsController, newBoxController,newShelfController,deleteShelfController,newHallController,deleteHallController, newExpedientController, deleteExpedientController, upadateExpedientController,countExpedientsController,getExpedientByExpedientController } 
 from "../../../controllers/expedients-controllers.js";
 
 export const routerExp = Router();
@@ -19,17 +19,6 @@ routerExp.patch("/:id", upadateExpedientController);
 //ELIMINAR EXPEDIENTE
 routerExp.delete("/:id" , deleteExpedientController)
 
-/************************** SERIES ******************/
-// CREAR SERIE
-routerExp.post('/serie', newSerieController);
-// ELIMINAR SERIES
-routerExp.delete('/serie/:id', deleteSerieController);
-
-/************************** TIPO DOCUMENTO ******************/
-// CREAR STIPO DOCUMENTO
-routerExp.post('/tipo', newTypeController);
-// ELIMINAR SERIES
-routerExp.delete('/tipo/:id', deleteTypeController);
 
 /************************** CAJAS ******************/
 

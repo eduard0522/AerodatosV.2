@@ -34,7 +34,7 @@ export async function createUserController(req,res) {
           const data = { uuid,name,email,passHash,rol}
           const newUser = await createUserService(data);
           if(!newUser){
-            return res.status(500).json({message:'Ocurrio un error inesperado en el servidor, intenta de nuevo mas tarde.'});
+            return res.status(400).json({message:'El usuario ya existe o ha ocurrido un error'});
           }
           return res.status(200).json({message:'Usuario creado exitosamente.'});
       }
@@ -79,6 +79,8 @@ export async function deleteUserController(req,res) {
        if(!id){
         return res.status(400).json({message:'No se encontro el usuario.'})
        }
+
+      console.log(id)
       const deleteUser = await deleteUsersService(id)
       if(!deleteUser){
         return res.status(500).json({message:'Ocurrio un error inesperado en el servidor, intenta de nuevo mas tarde.'});

@@ -19,37 +19,24 @@ section(id="form" class="general-container-form hidden")
               input(type="text", name="nomExpediente", placeholder="Nombre expediente: " required) 
 
         div.input-container
-          label N° Serie
-            input(type="number" ,name="serieNum" ,placeholder=" 📑" required)
           Label Nombre Serie
             input(type="text" ,name="serieName" ,placeholder=" 📑" required)
-
-        div.input-container
           label N° Pasillo
             input(type="text", name="pasillo" placeholder=" 🔠 " required)
+
+        div.input-container
+        
           label Estante
             input(type="number" ,name="estante" placeholder=" 🗃️" required)
-         
-      
-        div.input-container
           label Caja
             input(type="number" ,name="caja", placeholder=" 📦 Caja" required)
-          label Estado
+         
+        div.input-container
+      
+           label.referencia Estado
             select(name="estado" , title="Estado", class="select-estado" required)
               option(value="1") Organizado
               option(value="0") Pendiente 
-              
-        div.input-container
-           label.referencia Tipo
-            select(name="tipo" , title="Referencia", class="select-referencia" required)
-              option(value="1") Contratos
-              option(value="2") Historias Clinicas 
-              option(value="3") Aerodromos
-              option(value="4") Resoluciones
-              option(value="5") Historias Laborales 
-              option(value="6") Licencias 
-              option(value="7") Accidentes Aereos 
-              option(value="8") Otro 
 
         div.input-container
            button(type="button" ,class="button-cancel-form") Cancelar 

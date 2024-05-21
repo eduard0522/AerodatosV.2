@@ -1,31 +1,7 @@
 import { getConnection, releaseConnection } from "../db/index.js";
-import { newSerieService,newBoxService, newTypeService, newShelfService, newHallService  } from "./expedientsModel.js";
+import { newBoxService, newShelfService, newHallService  } from "./expedientsModel.js";
 
 
-export async function ifExistSerie(nombre_serie,numero_serie) {
-  let serieId;
-  try {
-    const conn = await getConnection()
-    const [result] = await conn.query('SELECT * FROM serie_documental WHERE numero_serie = ?',[numero_serie]);
-    if(!result || result.error){
-      releaseConnection(conn)
-    return null;
-    }
-    if(result.length > 0){
-      serieId = result[0]
-      releaseConnection(conn)
-      return serieId.id_serie
-    } else{
-     const newSerie = await  newSerieService(numero_serie,nombre_serie);
-      serieId = newSerie.insertId
-      releaseConnection(conn)
-      return serieId
-    }
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
 
 export async function ifExistBox(caja) {
   let cajaId;
@@ -53,32 +29,6 @@ export async function ifExistBox(caja) {
   }
 }
 
-
-export async function ifExisType(tipo) {
-  let typeId;
-  try {
-    const conn = await getConnection()
-    const [result] = await conn.query('SELECT * FROM tipo_documento WHERE nombre_tipo =  ?',[tipo]);
-    if(!result || result.error){
-      releaseConnection(conn)
-    return null;
-    }
-    if(result.length > 0){
-     typeId = result[0].id_tipo;
-     console.log(typeId)
-     releaseConnection(conn)
-     return typeId
-    } else{
-     const newType = await  newTypeService(tipo);
-      typeId = newType.insertId
-      releaseConnection(conn)
-      return typeId
-    }
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-} 
 
 export async function ifExistShelf(estante) {
   let shelfId;

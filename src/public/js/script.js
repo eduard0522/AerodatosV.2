@@ -256,7 +256,7 @@ d.addEventListener("click", (e) => {
   }
 
   if (e.target.matches(".base")) {
-   window.location.href = '/expedientes'
+    window.location.href = '/expedientes'
    }
 
    if (e.target.matches(".graphic")) {
@@ -297,6 +297,8 @@ d.addEventListener("click", (e) => {
    }
    if (e.target.matches(".closeInfo")) {
     ClosedModal('infoFile', 'hidden')
+    d.querySelector('.listFaileds').innerHTML = ``
+
    }
    if (e.target.matches(".icon-delete")) {
     let ifDeleteUser = confirm('¿ Seguro  que deseas eliminar este usuario ? ')

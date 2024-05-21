@@ -57,15 +57,13 @@ export async function readFileController(req, res) {
       if (!valor[0] || !valor[1] || !valor[2]) continue;
 
       data.push({
-        "nombre": valor[1],
+        "nombre": valor[1].toString(),
         "numero": valor[0].toString(),
-        "tipo": valor[7]?.toLowerCase(),
-        "estado": valor[8] === 0 ? false : true,
-        "numero_serie": valor[2],
-        "nombre_serie": valor[3],
-        "caja": valor[6],
-        "estante": valor[5],
-        "pasillo": valor[4]?.toString()
+        "estado": valor[6] === 0 ? false : true,
+        "nombre_serie": valor[2].toString(),
+        "caja": valor[5],
+        "estante": parseInt(valor[4]),
+        "pasillo": valor[3].toString()
       });
     }
     //Elimina el primer objeto del arreglo, ya que es la cabecera del archivo

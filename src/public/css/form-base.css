@@ -131,17 +131,20 @@ form button:last-child:hover{
 @media(max-width:700px){
   /********************* Form-container ***********************/
 .form-container{
-  top: 5vh;
-  left:2.5%;
-  width: 90%;
-}
-
-.form{
-  border-radius: 1rem;
-  padding: 1rem;
+  top: 10vh;
+  left:0%;
   width: 100%;
-
+  margin: 0 auto;
 }
+
+  .form{
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  
 
   .img-form-container{
     display: none;
@@ -149,9 +152,13 @@ form button:last-child:hover{
   }
 
   /************************** FORM *********************************/
- 
   form h2{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
-  
+  form button{
+    font-size: 1rem;
+    padding: .2rem 1rem;
+    margin-top: .5rem;
+  }
+
 }

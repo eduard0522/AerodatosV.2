@@ -8,6 +8,7 @@
   height:50vh;
   overflow: auto;
   margin-bottom: 1rem;
+  overflow-x: auto;
 }
 .BD{
   width: inherit;
@@ -29,12 +30,11 @@
   color: var(--primary-color);
   font-weight: 600;
   border-radius: .3rem;
-  
 }
 .formFilters .formFilters  label{
   color: var(--primary-color);
   font-weight: 600;
- margin-right: .5rem;
+  margin-right: .5rem;
 
 }
 .formFilters .formFilters  button{
@@ -144,6 +144,7 @@
   padding: .5rem 1rem;
   border-spacing: 0;
   border-radius: .5rem;
+  overflow-x: auto;
 }
 table{
   border-radius: .5rem;
@@ -257,5 +258,16 @@ table thead th:first-child{
     .table{
       height: 40vh;
       margin-bottom: 1rem;
+      overflow-x: auto;
+  }
+  .BD .formFilters .formFilters{
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+    margin-left: 0;
+    padding-left: 0;
+    margin: 0 auto;
   }
 }

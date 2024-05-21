@@ -1,5 +1,5 @@
 import { getConnection,releaseConnection } from "../db/index.js";
-import {  ifExistBox, ifExistHall, ifExistSerie, ifExistShelf } from "./validationExpedient.js";
+import {  ifExistBox, ifExistHall, ifExistShelf } from "./validationExpedient.js";
 
 /*********************** EXPEDIENTES  ***********************/
 
@@ -93,7 +93,7 @@ export async function countExpedientsService(){
 
 export async function newExpedientService(dataExpedient) {
   
-  const  {nombre,numero,tipo,estado,numero_serie,nombre_serie,caja,estante,pasillo} = dataExpedient;
+  const  {nombre,numero,estado,nombre_serie,caja,estante,pasillo} = dataExpedient;
   try {
     const conn = await getConnection();
     const ifExistExpedient = await conn.query(' SELECT * FROM expedientes WHERE numero_expediente = ?',[numero]);
@@ -106,21 +106,11 @@ export async function newExpedientService(dataExpedient) {
           if(conn) releaseConnection(conn)
           return null;
         }
-        // Valida si existe la serie, si no existe la crea y regresa el id
-         const newSerie = await  ifExistSerie(nombre_serie,numero_serie);
-          if(!newSerie){
-            return null
-          }
             // Valida si existe la caja, si no existe la crea y regresa el id
           const newBox = await ifExistBox(caja);
           if(!newBox){
             return null
           }
-         /*    // Valida si existe el tipo, si no existe la crea y regresa el id
-          const newType = await ifExisType(tipo);
-          if(!newType){
-            return null
-          } */
             // Valida si existe el estante, si no existe la crea y regresa el id
           const newShlef = await ifExistShelf(estante);
           if(!newShlef){
@@ -132,8 +122,8 @@ export async function newExpedientService(dataExpedient) {
             return null
           }
 
-          const newExpedient = await  conn.query('INSERT INTO expedientes(nombre_expediente, numero_expediente, tipo_expediente,estado_organizativo,serie_documental,caja,estante,pasillo) VALUES (?,?,?,?,?,?,?,?)',
-          [nombre,numero,tipo,estado,newSerie,newBox,newShlef,newHall]);
+          const newExpedient = await  conn.query('INSERT INTO expedientes(nombre_expediente, numero_expediente,estado_organizativo,serie_documental,caja,estante,pasillo) VALUES (?,?,?,?,?,?,?)',
+          [nombre,numero,estado,nombre_serie,newBox,newShlef,newHall]);
 
           if(!newExpedient) return null
         
@@ -155,7 +145,7 @@ export async function newExpedientService(dataExpedient) {
 
 export async function updateExpedientService(id,dataExpedient) {
   
-  const  {nombre,numero,tipo,estado,numero_serie,nombre_serie,caja,estante,pasillo} = dataExpedient;
+  const  {nombre,numero,estado,nombre_serie,caja,estante,pasillo} = dataExpedient;
   try {
     const conn = await getConnection();
     const ifExistExpedient = await conn.query(' SELECT * FROM expedientes WHERE id_expediente = ?',[id]);
@@ -167,21 +157,11 @@ export async function updateExpedientService(id,dataExpedient) {
           if(conn) releaseConnection(conn)
           return null;
         }
-        // Valida si existe la serie, si no existe la crea y regresa el id
-         const newSerie = await  ifExistSerie(nombre_serie,numero_serie);
-          if(!newSerie){
-            return null
-          }
             // Valida si existe la caja, si no existe la crea y regresa el id
           const newBox = await ifExistBox(caja);
           if(!newBox){
             return null
           }
-         /*    // Valida si existe el tipo, si no existe la crea y regresa el id
-          const newType = await ifExisType(tipo);
-          if(!newType){
-            return null
-          } */
             // Valida si existe el estante, si no existe la crea y regresa el id
           const newShlef = await ifExistShelf(estante);
           if(!newShlef){
@@ -193,8 +173,8 @@ export async function updateExpedientService(id,dataExpedient) {
             return null
           }
           // AL VALIDAR Y OBTENER TODOS LOS DATOS, ENVIA LA QUERY PARA ACTUALIZAR
-          const newExpedient = await  conn.query('UPDATE expedientes SET nombre_expediente = ?, numero_expediente = ?, tipo_expediente = ?,estado_organizativo = ?,serie_documental = ?,caja = ? ,estante = ?,pasillo = ? WHERE id_expediente = ?',
-          [nombre,numero,tipo,estado,newSerie,newBox,newShlef,newHall,id]);
+          const newExpedient = await  conn.query('UPDATE expedientes SET nombre_expediente = ?, numero_expediente = ?,estado_organizativo = ?,serie_documental = ?,caja = ? ,estante = ?,pasillo = ? WHERE id_expediente = ?',
+          [nombre,numero,estado,nombre_serie,newBox,newShlef,newHall,id]);
 
           if(!newExpedient) return null
         
@@ -224,109 +204,6 @@ export async function deleteExpedientService(id) {
   }  
 }
 
-/***************************** SERIES ****************************/
-
-// CREAR SERIES
-
-export async function newSerieService(numero_serie,nombre_serie) {
-  if(!(numero_serie && nombre_serie)){
-   console.log("No se ha recibido los datos de la serie")
-   return null
-  }
-  try {
-   const conn =  await getConnection()
-   // VALIDAR SI LA SERIE YA EXISTE
-   const [ifExist] = await conn.query('SELECT * FROM serie_documental WHERE numero_serie = ?' ,[numero_serie]);
-   if(ifExist.length > 0){
-     //SI YA EXISTE, RETORNA TRUE
-     return ifExist
-   }
-   // SI NO EXISTE LA SERIE ENVIA LA INFORMACION PARA INSEERTARLA
-   const result = await conn.query('INSERT INTO serie_documental (numero_serie, nombre_serie) VALUES (?,?)', [numero_serie, nombre_serie]);
-   if(result && !result.error ){
-     releaseConnection(conn)  
-     return result[0]   
-    }
-
-    return null
- } catch (error) {
-     console.log(error)
-     return null
- }
-}
-
-// ELIMINAR SERIE
-
-export async function deleteSerieService(serie) {
-    if(!serie){
-      console.log("No se ha recibido el numero de serie a eliminar")
-      return null
-    }
-    try {
-        const conn =  await getConnection()
-        const deleteSerie = await conn.query('DELETE from serie_documental WHERE id_serie = ?' ,[serie]);
-        if(deleteSerie){
-        releaseConnection(conn)
-          return true
-        }
-        return null
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
-
-/***************************** TIPOS DE DOCUMENTO ****************************/
-
-// CREAR TIPOS
-
-export async function newTypeService(nombre_tipo) {
-  if(!( nombre_tipo)){
-   console.log("No se ha recibido los datos del tipo a eliminar")
-   return null
-  }
-  try {
-   const conn =  await getConnection()
-   // VALIDAR SI EL TIPO YA EXISTE
-   const [ifExist] = await conn.query('SELECT * FROM tipo_documento WHERE id_tipo = ?' ,[nombre_tipo]);
-   if(ifExist.length > 0){
-     //SI YA EXISTE, RETORNA TRUE
-     return true
-   }
-   // SI NO EXISTE EL TIPO  ENVIA LA INFORMACION PARA INSERTARLO
-   const result = await conn.query('INSERT INTO tipo_documento ( nombre_tipo) VALUES (?)', [nombre_tipo]);
-   if(result && !result.error ){
-     releaseConnection(conn)  
-     return result[0]   
-    }
-
-    return null
- } catch (error) {
-     console.log(error)
-     return null
- }
-}
-
-// ELIMINAR TIPO
-
-export async function deleteTypeService(tipo) {
-    if(!tipo){
-      console.log("No se ha recibido el id del tipo a eliminar")
-      return null
-    }
-    try {
-        const conn =  await getConnection()
-        const deleteType = await conn.query('DELETE from tipo_documento WHERE id_tipo = ?' ,[tipo]);
-        if(deleteType){
-        releaseConnection(conn)
-          return true
-        }
-        return null
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
 
 /*************************** CAJAS  **************************/
 
