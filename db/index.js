@@ -1,14 +1,14 @@
-import {configDB} from './config.js'
 import pkg from 'pg';
 const { Pool } = pkg;
-
+import { urlDB } from '../src/config.js';
 let pool = null;
-
 
 // Inicializa el pool de conexiones
 async function initializePool() {
   if (!pool) {
-    pool = new Pool(configDB);
+    pool = new Pool({
+      connectionString:urlDB
+    });
     console.log('Conjunto de conexiones inicializado');
   }
 }
