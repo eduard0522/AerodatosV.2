@@ -10,8 +10,16 @@ CREATE TABLE usuarios(
 
 --------- PASILLOS  ------------
 CREATE TABLE pasillos(
-    id_pasillo INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    id_pasillo SERIAL NOT NULL PRIMARY KEY,
     numero_pasillo VARCHAR(20)
+);
+
+
+---------- SERIES -------------
+
+CREATE TABLE serie_documental(
+    id_serie SERIAL  NOT NULL PRIMARY KEY,
+    nombre_serie VARCHAR(255)
 );
 
 ------- EXPEDIENTES ----------
