@@ -4,22 +4,22 @@ import { getConnection,releaseConnection } from "../db/index.js";
 export async function validateUser(email) {
  
   if(!email){
-    throw new Error('Los datos requeridos vieven incompletos');
+   return {error:'Los datos requeridos vieven incompletos'}
   }
+  let conn ;
   try {
-    const conn = await getConnection();
+    conn = await getConnection();
+    const ifExistUser = await conn.query('SELECT *  FROM usuarios WHERE correo = $1 ',[email]);
 
-    const [ifExistUser] = await conn.query('SELECT *  FROM usuarios WHERE correo =? ',[email]);
-
-    if(ifExistUser.length != 0 && !ifExistUser.error){
-      releaseConnection(conn)
-      return ifExistUser;
+    if(ifExistUser.rows.length > 0 && !ifExistUser.error){
+      return ifExistUser.rows;
     }else{
-        releaseConnection(conn)
-        return null
+        return  {error:'Este usuario no existe.'}
     }
   } catch (error) {
     console.log(error)
-    return null;
+    return {error:'Ocurrio un error inesperado, intente de nuevo mas tarde.'};
+  }finally{
+    if(conn)  releaseConnection(conn)
   }
 }

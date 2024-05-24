@@ -1,23 +1,23 @@
-
-import mysql2 from 'mysql2/promise';
-import { configDB } from "./config.js";
+import {configDB} from './config.js'
+import pkg from 'pg';
+const { Pool } = pkg;
 
 let pool = null;
 
-//  Crea el pool de conexion a la base de datos;
 
+// Inicializa el pool de conexiones
 async function initializePool() {
   if (!pool) {
-    pool = mysql2.createPool(configDB);
+    pool = new Pool(configDB);
     console.log('Conjunto de conexiones inicializado');
   }
 }
-// Llama la funcion de crear la conexion  y la devuelve si todo esta correcto.
 
+// Obtiene una conexión del pool
 export async function getConnection() {
   await initializePool();
   try {
-    const conn = await pool.getConnection();
+    const conn = await pool.connect();
     console.log('Se obtuvo una conexión del conjunto');
     return conn;
   } catch (error) {
@@ -26,15 +26,26 @@ export async function getConnection() {
   }
 }
 
-// Libera la Conexion a la base de datos
-
+// Libera la conexión y la devuelve al pool
 export async function releaseConnection(conn) {
   if (conn) {
     try {
-      await conn.release();
+      conn.release();
       console.log('Se liberó la conexión y se devolvió al conjunto');
     } catch (error) {
       console.error('Error al liberar la conexión:', error);
+    }
+  }
+}
+
+// Cierra el pool de conexiones
+export async function closePool() {
+  if (pool) {
+    try {
+      await pool.end();
+      console.log('Conjunto de conexiones cerrado');
+    } catch (error) {
+      console.error('Error al cerrar el conjunto de conexiones:', error);
     }
   }
 }

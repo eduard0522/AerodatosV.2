@@ -23,6 +23,8 @@ async function Validatelogin(e) {
       '/login',
       options
     );
+    console.log(res.data.token)
+    console.log(res.data.Usuario.rol)
     sessionStorage.setItem("tok", res.data.token);
     openModal("pop-up", "hidden");
 
@@ -33,15 +35,16 @@ async function Validatelogin(e) {
       autocierre: true,
     });
     
+
      d.addEventListener("click", (e) => {
       if (e.target.matches(".login")) {
-        if ( res.data.Usuario[0].rol== "Administrador" || res.data.Usuario[0].rol == "administrador") {
+        if ( res.data.Usuario.rol== "Administrador" || res.data.Usuario.rol == "administrador") {
           location.href = "/index";
           
-        } else if ( res.data.Usuario[0].rol == "Usuario" || res.data.Usuario[0].rol == "usuario") {
+        } else if ( res.data.Usuario.rol == "Usuario" || res.data.Usuario.rol == "usuario") {
           location.href = "user/index";}
       }
-    }) 
+    }) ;
 
   } catch (err) {
     agregarToast({

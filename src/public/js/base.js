@@ -43,9 +43,9 @@ async function validateToken() {
 async function getTotalExpedients() {
   try {
     const res = await axios('/expedientes/total');
-    let total = res.data.total[0].total
-    let organizados = res.data.organizados[0].total
-    let sinOrganizar = res.data.sinOrganizar[0].total
+    let total = res.data.total.total
+    let organizados = res.data.organizados.total
+    let sinOrganizar = res.data.sinOrganizar.total
     getRutas(total, sinOrganizar,organizados);
     insertDataGrafics(total,organizados,sinOrganizar)
 

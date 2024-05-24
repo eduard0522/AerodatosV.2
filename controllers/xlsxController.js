@@ -8,7 +8,6 @@ import fs from 'fs';
 export async function saveFile(file) {
   try {
     const pathFile = join(resolve(), './src/public/assets/plantilla', 'datos.xlsx');
-    
     await new Promise((resolve, reject) => {
       file.mv(pathFile, function(err) {
         if (err) {
@@ -26,29 +25,27 @@ export async function saveFile(file) {
   }
 }
 
+
+
 // Controlador para leer y procesar el archivo Excel
 
 export async function readFileController(req, res) {
   //verifica que venga el archivo
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).json({ message: 'No se encontró ningún archivo' });
-  }
+  if (!req.files || Object.keys(req.files).length === 0) return res.status(400).json({ message: 'No se encontró ningún archivo' });
+
   //verifica el tipo de archivo
   const file = req.files.excelFile;
   const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
 
-  if (!validTypes.includes(file.mimetype)) {
-    return res.status(400).json({ message: 'Tipo de archivo no permitido.' });
-  }
- 
+  if (!validTypes.includes(file.mimetype)) return res.status(400).json({ message: 'Tipo de archivo no permitido.' });
+  
   const data = [];
   const fileRuta = join(resolve(), './src/public/assets/plantilla', 'datos.xlsx');
   try {
     // Guarda el archivo recibido
     const fileRead = await saveFile(file);
-    if (!fileRead) {
-      return res.status(500).json({ message: 'Error leyendo el archivo' });
-    }
+    if (!fileRead)  return res.status(500).json({ message: 'Error leyendo el archivo' });
+
     //LEE EL ARCHIVO 
     const workbook = await xlsx.fromFileAsync(fileRuta);
     const values = workbook.sheet('datos').usedRange('').value();
@@ -71,8 +68,8 @@ export async function readFileController(req, res) {
 
     // Envia los datos a la funcion que envia la solicitud a la base de datos
     const result = await newExpedientXlsxController(data);
-    if (!result) {
-      return res.status(500).json({ message: 'Error al procesar los datos' });
+    if (!result || result.error) {
+      return res.status(500).json({ message: result.error ? result.error :  'Error al procesar los datos' });
     }
     return res.status(200).json({ message: 'OK', result });
   } catch (error) {
@@ -80,6 +77,8 @@ export async function readFileController(req, res) {
     return res.status(500).json({ message: 'Error interno del servidor' });
   }
 }
+
+
 
 // Controlador para insertar los datos en la base de datos
 
@@ -89,7 +88,7 @@ async function newExpedientXlsxController(data) {
   // guarda los archivos que se insertan
   let totalInsertados = 0;
   try {
-    // rrecorre el arreglo generado y por cada expediente envia una solicitud a la base  de datos.
+    // rrecorre el arreglo generado y  Valida los datos con el esquema.
     for (let expedient of data) {
       const validate = validateExpedient(expedient);
       if (validate.error) {
@@ -97,6 +96,7 @@ async function newExpedientXlsxController(data) {
         //si la consulta genera un error agrega ese expediente al arreglos de fallidos
         faileds.push(expedient.numero);
       } else {
+        // si no genera error se inserta en la base de datos
         const newExpedient = await newExpedientXlsx(expedient);
         if (!newExpedient || newExpedient.error) {
           faileds.push(expedient.numero);
@@ -109,6 +109,7 @@ async function newExpedientXlsxController(data) {
     //Eliminar el archivo cuando la consuelta este ok
     deleteFile();
     return { faileds, totalInsertados };
+    
   } catch (error) {
     console.log('Error en newExpedientXlsxController:', error);
     return null;
