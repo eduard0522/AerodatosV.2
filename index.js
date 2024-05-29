@@ -1,15 +1,15 @@
 import express from 'express'
 /* import morgan from 'morgan'; */
-import { router } from './src/app/router/router.js';
+import { router } from './api/src/app/router/router.js';
 import {resolve} from 'path';
-import { port } from './src/config.js';
+import { port } from './api/src/config.js';
 import fileUpload from 'express-fileupload';
-const app = express();
-const statics = resolve('./src/public');
+export const app = express();
+const statics = resolve('./public');
 
 const PORT = port  || 3100
 
-app.set("views", "./src/public/view");
+app.set("views", "./public/view");
 app.set("view engine" , "pug");
 
 app.use(fileUpload());

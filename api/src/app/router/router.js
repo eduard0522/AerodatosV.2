@@ -4,6 +4,7 @@ import {join, resolve,extname} from 'path'
 import { readFileController } from "../../../controllers/xlsxController.js";
 import { routerUser } from "./user.routes.js";
 import { routerAdmin } from "./adminUser.routes.js";
+import {routerAuth} from '../router/auth.routes.js'
 
 
 export const router = Router();
@@ -16,7 +17,7 @@ router.use('/expedientes',routerExp);
 router.use('/admin',routerAdmin );
 
 router.get('/download', (req,res) =>{
-  const ruta = join(resolve(),'./src/public/assets/plantilla','plantillaExpedientes.xlsx');
+  const ruta = join(resolve(),'../public/assets/plantilla','plantillaExpedientes.xlsx');
   res.download(ruta, function (error) {
     console.log("Error : ", error);
 });
@@ -38,7 +39,7 @@ router.post('/updateBanner', async (req,res) =>{
       if(!ext_permitidas.includes(ext)){
         return res.status(400).json({message:`Solo se permiten imagenes tu formato es : ${extname(banner.name)}`})
       }
-      const ruta = join(resolve(),'./src/public/assets/banner','banner.webp');
+      const ruta = join(resolve(),'../public/assets/banner','banner.webp');
       banner.mv(ruta , (error) => {
         if(error){
           console.log(error)
