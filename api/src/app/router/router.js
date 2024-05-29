@@ -38,7 +38,7 @@ router.post('/updateBanner', async (req,res) =>{
       if(!ext_permitidas.includes(ext)){
         return res.status(400).json({message:`Solo se permiten imagenes tu formato es : ${extname(banner.name)}`})
       }
-      const ruta = join(resolve(),'public/assets/banner','banner.webp');
+      /* const ruta = join(resolve(),'public/assets/banner','banner.webp');
       banner.mv(ruta , (error) => {
         if(error){
           console.log(error)
@@ -47,7 +47,10 @@ router.post('/updateBanner', async (req,res) =>{
           console.log(ruta)
           return res.send('ok') 
         }
-      })
+      }) */
+
+      console.log(banner)
+      return res.status(200)
   } catch (error) {
     console.log(error);
     return res.status(500).json({message:"Ocurrio un error inesperado, intente de nuevo mas tarde."})

@@ -2,8 +2,6 @@ import xlsx from "xlsx-populate";
 import { join, resolve } from 'path';
 import { validateExpedient } from "../schemas/expedients.js";
 import { newExpedientXlsx } from "../models/expedientsXlsx.js";
-import fs from 'fs';
-
 
 // Controlador para manejar la carga y lectura del archivo
 export async function saveFile(file) {
