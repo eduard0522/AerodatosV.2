@@ -268,11 +268,7 @@ color: #12bb0a;
   }
 }
 
-
-
-
 /*************************** MEDIA SCREEN ****************/
-
 
 @media (min-width:600px) and  (max-width:900px)  {
   html{

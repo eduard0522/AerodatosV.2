@@ -61,12 +61,15 @@ footer .info ul li{
   margin-bottom: .3rem;
 
 }
+
 footer a{
   text-decoration: underline;
   font-size: none;
   color: var(--second-color);
 }
-
+footer a:visited{
+  color: var(--second-color);
+}
 
 @media(max-width:900px){
   
@@ -102,6 +105,7 @@ footer .logos-container{
   width: 100%;
   flex-direction: column;
 }
+
 footer .logos-container div{
   width: 100%;
   text-align: center;
