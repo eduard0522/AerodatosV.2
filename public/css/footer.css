@@ -61,11 +61,12 @@ footer .info ul li{
   margin-bottom: .3rem;
 
 }
-footer .info ul li a{
+footer a{
   text-decoration: underline;
   font-size: none;
   color: var(--second-color);
 }
+
 
 @media(max-width:900px){
   

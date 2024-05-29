@@ -14,8 +14,6 @@
 *::before{
     box-sizing: border-box;
 }
-
-
 html{
     background-color: var(--primary-color);
     padding: 3rem;
@@ -139,11 +137,12 @@ form h3{
     border:none;
     cursor: pointer;
 }
-.copyright p{
+.copyright p, .copyright a{
     color:var(--primary-color);
     font-weight: 600;
     padding: .1rem;
     margin: 0;
+    text-decoration:wavy;
 }
 
 .pop-up{
