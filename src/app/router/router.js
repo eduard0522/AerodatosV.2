@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { routerAuth } from "./auth.routes.js";
 import { routerExp } from "./expedients.routes.js";
 import {join, resolve,extname} from 'path'
 import { readFileController } from "../../../controllers/xlsxController.js";
@@ -10,6 +9,7 @@ import { routerAdmin } from "./adminUser.routes.js";
 export const router = Router();
 
 router.use('/', routerAuth);
+
 router.use('/user', routerUser);
 
 router.use('/expedientes',routerExp);
