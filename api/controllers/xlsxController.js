@@ -4,6 +4,7 @@ import { validateExpedient } from "../schemas/expedients.js";
 import { newExpedientXlsx } from "../models/expedientsXlsx.js";
 import fs from 'fs';
 
+
 // Controlador para manejar la carga y lectura del archivo
 export async function saveFile(file) {
   try {
@@ -25,10 +26,7 @@ export async function saveFile(file) {
   }
 }
 
-
-
 // Controlador para leer y procesar el archivo Excel
-
 export async function readFileController(req, res) {
   //verifica que venga el archivo
   if (!req.files || Object.keys(req.files).length === 0) return res.status(400).json({ message: 'No se encontró ningún archivo' });
@@ -38,17 +36,14 @@ export async function readFileController(req, res) {
   const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
 
   if (!validTypes.includes(file.mimetype)) return res.status(400).json({ message: 'Tipo de archivo no permitido.' });
-  
   const data = [];
-  const fileRuta = join(resolve(), 'public/assets/plantilla', 'datos.xlsx');
+  
   try {
-    // Guarda el archivo recibido
-    const fileRead = await saveFile(file);
-    if (!fileRead)  return res.status(500).json({ message: 'Error leyendo el archivo' });
-
     //LEE EL ARCHIVO 
-    const workbook = await xlsx.fromFileAsync(fileRuta);
+    const workbook = await xlsx.fromDataAsync(file.data);
+
     const values = workbook.sheet('datos').usedRange('').value();
+
     //Genera un objeto con los valores del archivo y los agrega al arreglo data 
     for (let valor of values) {
       if (!valor[0] || !valor[1] || !valor[2]) continue;
@@ -77,9 +72,6 @@ export async function readFileController(req, res) {
     return res.status(500).json({ message: 'Error interno del servidor' });
   }
 }
-
-
-
 // Controlador para insertar los datos en la base de datos
 
 async function newExpedientXlsxController(data) {
@@ -106,26 +98,12 @@ async function newExpedientXlsxController(data) {
         }
       }
     }
-    //Eliminar el archivo cuando la consuelta este ok
-    deleteFile();
-    return { faileds, totalInsertados };
     
+    return { faileds, totalInsertados };
   } catch (error) {
     console.log('Error en newExpedientXlsxController:', error);
     return null;
   }
 }
 
-// Función para eliminar el archivo después de procesarlo
-function deleteFile() {
-  const fileRuta = join(resolve(), 'public/assets/plantilla', 'datos.xlsx');
 
-  fs.unlink(fileRuta, (err) => {
-    if (err) {
-      console.error('Error al eliminar el archivo:', err);
-      return null;
-    }
-    console.log('Archivo eliminado exitosamente.');
-    return true;
-  });
-}

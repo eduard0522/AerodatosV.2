@@ -22,7 +22,7 @@ router.get('/download', (req,res) =>{
 });
 });
 
-router.post('/uploadFile', readFileController );
+ router.post('/uploadFile', readFileController ); 
 
 
 /***************** ACTUALIZACIÓN DE BANNER  *********************/
