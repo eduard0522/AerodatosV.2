@@ -1,5 +1,5 @@
 import { getUsersService, createUserService,updateUserService, deleteUsersService } from "../models/adminModel.js";
-import { getuuid } from "../helpers/handeUUID.js";
+import { getuuid } from "../helpers/handeUuid.js";
 import { encryptPass } from "../helpers/handleBcrypt.js";
 //  OBTENER USUARIOS
 
