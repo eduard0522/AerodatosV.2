@@ -20,8 +20,8 @@ app.use(express.static(statics));
 
 app.use('/',router)
 
-/* app.listen(PORT, ()=>{
+ app.listen(PORT, ()=>{
   console.log(`>>>>>>>>>>>>>>>>>>>>>>>    Servidor corriendo por el puerto ${ PORT }  <<<<<<<<<<<<<<<<<<<<<<<<`);
-}); */
+});
 
 export default app
