@@ -7,7 +7,7 @@ import fs from 'fs';
 // Controlador para manejar la carga y lectura del archivo
 export async function saveFile(file) {
   try {
-    const pathFile = join(resolve(), './src/public/assets/plantilla', 'datos.xlsx');
+    const pathFile = join(resolve(), './public/assets/plantilla', 'datos.xlsx');
     await new Promise((resolve, reject) => {
       file.mv(pathFile, function(err) {
         if (err) {
@@ -40,7 +40,7 @@ export async function readFileController(req, res) {
   if (!validTypes.includes(file.mimetype)) return res.status(400).json({ message: 'Tipo de archivo no permitido.' });
   
   const data = [];
-  const fileRuta = join(resolve(), './src/public/assets/plantilla', 'datos.xlsx');
+  const fileRuta = join(resolve(), './public/assets/plantilla', 'datos.xlsx');
   try {
     // Guarda el archivo recibido
     const fileRead = await saveFile(file);
@@ -118,7 +118,7 @@ async function newExpedientXlsxController(data) {
 
 // Función para eliminar el archivo después de procesarlo
 function deleteFile() {
-  const fileRuta = join(resolve(), './src/public/assets/plantilla', 'datos.xlsx');
+  const fileRuta = join(resolve(), './public/assets/plantilla', 'datos.xlsx');
 
   fs.unlink(fileRuta, (err) => {
     if (err) {
